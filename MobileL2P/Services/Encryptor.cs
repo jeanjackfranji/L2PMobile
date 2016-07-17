@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Grp.L2PSite.MobileApp.Services
+namespace MobileL2P.Services
 {
 
     internal class Encryptor

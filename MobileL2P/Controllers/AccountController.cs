@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Grp.L2PSite.MobileApp.Models;
-using Grp.L2PSite.MobileApp.Services;
+using MobileL2P.Models;
+using MobileL2P.Services;
 using Microsoft.AspNet.Identity;
 using System.Threading;
 using System;
-using static Grp.L2PSite.MobileApp.Services.Tools;
+using static MobileL2P.Services.Tools;
 using L2PAPIClient.DataModel;
 using System.Web.Mvc;
 using System.Web;

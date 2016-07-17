@@ -2,8 +2,8 @@
 using L2PAPIClient;
 using System;
 using System.Threading.Tasks;
-using Grp.L2PSite.MobileApp.Services;
-using static Grp.L2PSite.MobileApp.Services.Tools;
+using MobileL2P.Services;
+using static MobileL2P.Services.Tools;
 using System.Collections.Generic;
 using System.Threading;
 using System.Web.Mvc;

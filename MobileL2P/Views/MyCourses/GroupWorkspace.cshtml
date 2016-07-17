@@ -1,6 +1,5 @@
-﻿@using L2PAPIClient.DataModel;
-@using Grp.L2PSite.MobileApp.Services;
-@model GroupWorkSpaceViewModel
+﻿@using L2PAPIClient.DataModel
+@model MobileL2P.Models.GroupWorkSpaceViewModel
 @{
     ViewData["Title"] = "Group Workspace";
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
@@ -17,7 +16,7 @@
 </div>
 
 <div class="row">
-    @if (groupInfo != null && groupInfo.Count > 0 )
+    @if (groupInfo != null && groupInfo.Count > 0)
     {
         <div class="col s12 m6">
             <div class="card indigo lighten-5">
@@ -25,31 +24,32 @@
                     <span class="card-title">My Groups</span>
                     <ul class="collection">
 
-                        @foreach(L2PgwsElement group in groupInfo) { 
+                        @foreach (L2PgwsElement group in groupInfo)
+                        {
 
-                        <li>
-                            <strong>Group Name:</strong> @group.name
-                        </li>
-                        <li>
-                            <button href="#confirmModal" onclick="addGroupId('@group.groupId', '@course.uniqueid')" class="btn waves-effect waves-light modal-trigger" name="action">
-                                Leave
-                                <i class="material-icons right">input</i>
-                            </button>
-                            <button href="#addUserModal" onclick="addGroupIdForm('@group.groupId', '@course.uniqueid')" asp-controller="MyCourses" asp-action="InviteMembers" class="btn waves-effect waves-light modal-trigger" name="action">
-                                Invite
-                                <i class="material-icons right">perm_contact_calendar</i>
-                            </button>
-                        </li>
-                        <li>
-                            <span class="title"><strong> Group Members: </strong></span>
-                            <ul>
-                                @foreach (string member in group.members)
-                                {
-                                    <li><i class="small material-icons">perm_identity</i>@member</li>
-                                }
+                            <li>
+                                <strong>Group Name:</strong> @group.name
+                            </li>
+                            <li>
+                                <button href="#confirmModal" onclick="addGroupId('@group.groupId', '@course.uniqueid')" class="btn waves-effect waves-light modal-trigger">
+                                    Leave
+                                    <i class="material-icons right">input</i>
+                                </button>
+                                <button href="#addUserModal" onclick="addGroupIdForm('@group.groupId', '@course.uniqueid')" class="btn waves-effect waves-light modal-trigger">
+                                    Invite
+                                    <i class="material-icons right">perm_contact_calendar</i>
+                                </button>
+                            </li>
+                            <li>
+                                <span class="title"><strong> Group Members: </strong></span>
+                                <ul>
+                                    @foreach (string member in group.members)
+                                    {
+                                        <li><i class="small material-icons">perm_identity</i>@member</li>
+                                    }
 
-                            </ul>
-                        </li>}
+                                </ul>
+                            </li>}
                     </ul>
                 </div>
             </div>
@@ -76,39 +76,39 @@
                     <span class="card-title">Group Invites</span>
                     @if (groupInvites.Count > 0)
                     {
-                    <table>
-                        <tr>
-                            <th>Group Name</th>
-                        </tr>
-                      @foreach (L2PgwsRequest invite in groupInvites)
-                        {
-                          <tr>
-                               <td>@invite.groupName</td>
-                               <td>
-                                    <a asp-controller="MyCourses" asp-action="AcceptOrRejectInvite" asp-route-cId="@course.uniqueid" asp-route-itemId="@invite.itemId" asp-route-response="2" class="modal-action left waves-effect waves-light btn-flat red white-text" style="margin-left: 10px" >
-                                        Cancel
-                                        <i class="material-icons right">cancel</i>
-                                    </a>
-                                    <a asp-controller="MyCourses" asp-action="AcceptOrRejectInvite" asp-route-cId="@course.uniqueid" asp-route-itemId="@invite.itemId" asp-route-response="1" class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px">
-                                        Accept
-                                        <i class="material-icons right">send</i>
-                                    </a>
-                                </td>
+                        <table>
+                            <tr>
+                                <th>Group Name</th>
                             </tr>
-                      }
-                    </table>
+                            @foreach (L2PgwsRequest invite in groupInvites)
+                            {
+                                <tr>
+                                    <td>@invite.groupName</td>
+                                    <td>
+                                        <a href="@Url.Action("AcceptOrRejectInvite", "MyCourses",new { cId = course.uniqueid , itemId = @invite.itemId, response = "2" })" class="modal-action left waves-effect waves-light btn-flat red white-text" style="margin-left: 10px">
+                                            Cancel
+                                            <i class="material-icons right">cancel</i>
+                                        </a>
+                                        <a href="@Url.Action("AcceptOrRejectInvite", "MyCourses",new { cId = course.uniqueid , itemId = @invite.itemId, response = "1" })" class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px">
+                                            Accept
+                                            <i class="material-icons right">send</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
                     }
                     else
                     {
                         <p>There are no new invitations at the moment</p>
-                     }
-                 </div>
+                    }
+                </div>
             </div>
         </div>
 
-        }
-        else
-        {
+    }
+    else
+    {
         <div class="col s12 m6">
             <div class="card indigo lighten-5">
                 <div class="card-content black-text hoverable">
@@ -136,12 +136,10 @@
                         {
                             <li><strong>Group Name:</strong> @g.name</li>
                             <li><strong>Group Members:</strong></li>
-
-                                            @foreach (string member in g.members)
-                                            {
-                                                <li><i class="small material-icons">perm_identity</i>@member</li>
-                                            }
-
+                            foreach (string member in g.members)
+                            {
+                                <li><i class="small material-icons">perm_identity</i>@member</li>
+                            }
                         }
                     </ul>
                 </div>
@@ -161,20 +159,21 @@
         </div>
         <div class="modal-footer centered-content">
             <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-            <a id="a_leave_group" asp-controller="MyCourses" asp-action="LeaveGroup" asp-route-cId="@course.uniqueid"  class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+            <a id="a_leave_group" href="@Url.Action("LeaveGroup", "MyCourses",new {cId = @course.uniqueid})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
         </div>
     </div>
 
     <div id="addUserModal" class="modal bottom-sheet">
-        <form id="modalForm" asp-controller="MyCourses" asp-action="AddUsers" asp-route-cId="@course.uniqueid" method="post" enctype="multipart/form-data">
+        @using (Html.BeginForm("AddUsers", "MyCourses", new { cId = @course.uniqueid }, FormMethod.Post, new { id = "target_login", enctype = "multipart/form-data" }))
+        {
             <div class="modal-content">
                 <h4>Add Users</h4>
                 <div class="row">
-                   
+
                     <div class="file-field input-field">
-                        <input asp-for="ListOfUsers" class="validate" type="text" />
-                        <label asp-for="ListOfUsers">Enter TIM ID's seperated with comma</label>
-                        <span asp-validation-for="ListOfUsers" class="red-text"></span>
+                        <label for="ListOfUsers">Enter TIM ID's seperated with comma</label>
+                        @Html.TextBoxFor(m => m.ListOfUsers, new { @class = "validate", type = "text" })
+                        <span>@Html.ValidationMessageFor(m => m.ListOfUsers)</span>
                     </div>
                 </div>
             </div>
@@ -185,7 +184,7 @@
                     <i class="material-icons right">send</i>
                 </button>
             </div>
-        </form>
+        }
     </div>
 
 }
@@ -198,19 +197,17 @@
         if ('@ViewData["Message"]' != '') {
             Materialize.toast('@ViewData["Message"]', 2000) // 2000 is the duration of the toast
         }
-     });
+    });
 
-    function addGroupId(id, cId){
-        $('a[id="a_leave_group"]').attr("href","/MyCourses/LeaveGroup?cId="+cId + "&groupId=" + id);
+    function addGroupId(id, cId) {
+        $('a[id="a_leave_group"]').attr("href", "/MyCourses/LeaveGroup?cId=" + cId + "&groupId=" + id);
     }
-    function addGroupIdForm(id, cId){
-         $('form[id="modalForm"]').attr("action","/MyCourses/AddUsers?cId="+cId + "&groupId=" + id+ "&model=");
+    function addGroupIdForm(id, cId) {
+        $('form[id="modalForm"]').attr("action", "/MyCourses/AddUsers?cId=" + cId + "&groupId=" + id + "&model=");
     }
-    function appendAction()
-    {
+    function appendAction() {
         var href = $('form[id="modalForm"]').attr("action");
-        $('form[id="modalForm"]').attr("action", href+model);
+        $('form[id="modalForm"]').attr("action", href + model);
 
     }
 </script>
-

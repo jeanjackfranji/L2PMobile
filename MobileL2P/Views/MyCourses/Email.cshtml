@@ -1,5 +1,5 @@
 ﻿@using L2PAPIClient.DataModel;
-@using Grp.L2PSite.MobileApp.Services;
+@using MobileL2P.Services;
 @{
     ViewData["Title"] = "Emails";
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Email" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses",new { cId = @course.uniqueid})"  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Email", "MyCourses",new { cId = @course.uniqueid})"     class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>

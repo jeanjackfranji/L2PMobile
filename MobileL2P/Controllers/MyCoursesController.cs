@@ -6,9 +6,9 @@ using System.Net;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Grp.L2PSite.MobileApp.Services;
+using MobileL2P.Services;
 using ICSharpCode.SharpZipLib.Zip;
-using Grp.L2PSite.MobileApp.Models;
+using MobileL2P.Models;
 using MobileL2P.Controllers;
 using System.Web.Mvc;
 
@@ -472,7 +472,7 @@ namespace MobileL2P.Controllers
                     assignments = assnList.dataSet;
                 }
 
-                string tempFilePath = Path.GetTempPath() + "Grp.L2PSite.MobileApp" + DateTime.Now.ToString("dd.MM.yyyy.hh_mm_ss");
+                string tempFilePath = Path.GetTempPath() + "MobileL2P" + DateTime.Now.ToString("dd.MM.yyyy.hh_mm_ss");
                 string tempDownloadFilesPath = tempFilePath + "/downloadFiles/";
                 string tempZipPath = tempFilePath + "/downloadZip/";
 

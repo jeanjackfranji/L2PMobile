@@ -3,8 +3,8 @@
 }
 
 <div class="container">
-    <form id="target_login" method="post" role="form"
-          asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">
+    @using (Html.BeginForm("Login", "Account", new { returnurl = @ViewData["ReturnUrl"] }, FormMethod.Post, new { id = "target_login" }))
+    {
         <div class="row">
             <div class="col s12">
                 <div class="card light-blue darken-2">
@@ -22,7 +22,7 @@
             </div>
             <button hidden="hidden" type="submit" class="waves-light">Log in</button>
         </div>
-    </form>
+    }
 </div>
 
 <script>

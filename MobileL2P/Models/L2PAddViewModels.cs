@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Grp.L2PSite.MobileApp.Models
+namespace MobileL2P.Models
 {
     public class HyperLinkViewModel
     {

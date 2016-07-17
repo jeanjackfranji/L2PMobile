@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using HtmlAgilityPack;
 
-namespace Grp.L2PSite.MobileApp.Services
+namespace MobileL2P.Services
 {
     public class HtmlConverter
     {

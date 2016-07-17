@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Grp.L2PSite.MobileApp.Services
+namespace MobileL2P.Services
 {
     public class FileSizeFormatProvider : IFormatProvider, ICustomFormatter
     {

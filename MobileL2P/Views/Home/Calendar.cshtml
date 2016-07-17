@@ -1,9 +1,8 @@
 ﻿@using L2PAPIClient.DataModel;
-@using Grp.L2PSite.MobileApp.Services;
+@using MobileL2P.Services;
 @{
-    ViewData["Title"] = "My Schedule";
+    ViewData["Title"] = Resources.MySchedule;
     List<L2PCourseEvent> courseEvents = ViewData["courseEventsList"] as List<L2PCourseEvent>;
-
     string events = "";
     foreach(L2PCourseEvent cEvent in courseEvents)
     {
@@ -50,7 +49,7 @@
     </div>
     <div class="modal-footer centered">
         <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text" style="margin-right: 10px"><i class="material-icons right">clear</i>Cancel</a>
-        <a id="a_to_course" asp-controller="Home" asp-action="MyCourses" asp-route-cId="-1" class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px"><i class="material-icons right">send</i>Go to Event</a>
+        <a id="a_to_course" href="@Url.Action("Home", "MyCourses",new { cId = -1})" class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px"><i class="material-icons right">send</i>Go to Event</a>
     </div>
 </div>
 

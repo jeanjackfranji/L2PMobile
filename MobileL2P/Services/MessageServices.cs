@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Grp.L2PSite.MobileApp.Services
+namespace MobileL2P.Services
 {
     // This class is used by the application to send Email and SMS
     // when you turn on two-factor authentication in ASP.NET Identity.

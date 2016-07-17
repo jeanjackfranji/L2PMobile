@@ -9,7 +9,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using System.Web;
 
-namespace Grp.L2PSite.MobileApp.Services
+namespace MobileL2P.Services
 {
     public static class Tools
     {

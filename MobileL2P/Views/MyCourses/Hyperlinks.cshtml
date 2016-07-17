@@ -1,5 +1,5 @@
 ﻿@using L2PAPIClient.DataModel;
-@using Grp.L2PSite.MobileApp.Services;
+@using MobileL2P.Services;
 @{
     ViewData["Title"] = "Hyperlinks";
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Hyperlinks" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses",new { cId = @course.uniqueid })"    class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Hyperlinks", "MyCourses",new { cId = @course.uniqueid })"  class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>
@@ -46,13 +46,13 @@
                                         <label for="@hpl.itemId"></label>
                                     </td>
                                 }
-                                @if (!String.IsNullOrEmpty(hpl.description))
+                                @if (!string.IsNullOrEmpty(hpl.description))
                                 {
-                                    <td><a asp-controller="L2P" asp-action="ShowHyperlink" asp-route-cId="@course.uniqueid" asp-route-hId="@hpl.itemId">@hpl.description</a></td>
+                                    <td><a href="@Url.Action("ShowHyperlink", "L2P",new { cId = @course.uniqueid, hId= @hpl.itemId })">@hpl.description</a></td>
                                 }
                                 else
                                 {
-                                    <td><a asp-controller="L2P" asp-action="ShowHyperlink" asp-route-cId="@course.uniqueid" asp-route-hId="@hpl.itemId">@hpl.url</a></td>
+                                    <td><a href="@Url.Action("ShowHyperlink", "L2P",new { cId = @course.uniqueid, hId= @hpl.itemId })">@hpl.url</a></td>
                                 }
                                 <td>@Html.Raw(hpl.notes)</td>
                                 <td class="center-align"><a href="@hpl.url"><i class="material-icons">pageview</i></a></td>
@@ -70,8 +70,8 @@
                 <i class="material-icons">menu</i>
             </a>
             <ul>
-                <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-                <li><a asp-controller="L2P" asp-action="AddHyperlink" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+                <li><a  href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+                <li><a  href="@Url.Action("AddHyperlink", "L2P",new { cId = @course.uniqueid })" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     }
@@ -85,7 +85,7 @@
     </div>
     <div class="modal-footer centered">
         <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-        <a id="a_delete_hyperlinks" asp-controller="L2P" asp-action="DeleteHyperlinks" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        <a id="a_delete_hyperlinks" href="@Url.Action("DeleteHyperlinks", "L2P",new { cId = @course.uniqueid })" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
     </div>
 </div>
 
