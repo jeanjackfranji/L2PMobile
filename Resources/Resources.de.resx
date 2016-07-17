@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>Über uns</value>
   </data>
+  <data name="AboutProject" xml:space="preserve">
+    <value>Über unser Projekt</value>
+  </data>
   <data name="Announcements" xml:space="preserve">
     <value>Ankündigungen</value>
   </data>
@@ -171,6 +174,16 @@
   <data name="Literature" xml:space="preserve">
     <value>Literatur</value>
   </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Einloggen</value>
+  </data>
+  <data name="LoginText" xml:space="preserve">
+    <value>Sobald Sie auf den Login-Button klicken, werden Sie an der RWTH L2P Authentifizierung umgeleitet  werden
+                            Seite und werden aufgefordert , Ihre Anmeldedaten einzugeben, um Zugriff auf unsere Anwendung zur Verfügung zu stellen</value>
+  </data>
+  <data name="LogInVia" xml:space="preserve">
+    <value>Login über RWTH L2P</value>
+  </data>
   <data name="MediaLibrary" xml:space="preserve">
     <value>Medienbibliothek</value>
   </data>
@@ -201,8 +214,20 @@
   <data name="SharedDocuments" xml:space="preserve">
     <value>Gemeinsame Dokumente</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Ausloggen</value>
+  </data>
   <data name="Subject" xml:space="preserve">
     <value>Thema</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Unsere Teammitglieder  sind</value>
+  </data>
+  <data name="TeamMembers" xml:space="preserve">
+    <value>Dieses Projekt wurde gebaut, um die mobile Version der RWTH Aachen L2P -System zu verbessern. Wir sind eine Gruppe von 5 Personen , die auf Herstellung einer ansprechenden Web-Version Verwendung von Material UI gearbeitet.</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Titel</value>

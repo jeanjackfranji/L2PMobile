@@ -4,17 +4,16 @@
 
 <div class="row" style="margin-top: 10px; margin-bottom: 10px">
     <div class="col s12 center-align">
-        <div class="chip" style="font-size: 16px"><i class="material-icons">info</i>About Us</div>
+        <div class="chip" style="font-size: 16px"><i class="material-icons">info</i>@ViewData["Title"]</div>
     </div>
 </div>
 <div class="col s12">
     <div class="card light-blue darken-2">
         <div class="card-content white-text">
-            <span class="card-title">About Our Project</span>
+            <span class="card-title">@Resources.AboutProject</span>
             <p>
-                This project was built to improve the mobile version of the RWTH Aachen L2P System.
-                We are a group of 5 people that worked on making a responsive web version using Material UI.<br /><br />
-                Our Team Members Are:<br /><br />
+                @Resources.TeamMembers<br /><br />
+                @Resources.Team<br /><br />
             </p>
             <table>
                 <tr>

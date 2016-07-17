@@ -33,16 +33,16 @@
     @if (cId != null)
     {      
         <ul id="coursesDropdown" class="dropdown-content">
-            <li><a href="@Url.Action("LearningMaterials", "MyCourses",new { cId = @cId})" class="waves-effect waves-light blue-text">LearningMaterials</a></li>
-            <li><a href="@Url.Action("Assignments", "MyCourses",new { cId = @cId})"       class="waves-effect waves-light blue-text">Assignments</a></li>
-            <li><a href="@Url.Action("MediaLibrary", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">MediaLibrary</a></li>
-            <li><a href="@Url.Action("SharedDocuments", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">SharedDocuments</a></li>
-            <li><a href="@Url.Action("Email", "MyCourses",new { cId = @cId})"             class="waves-effect waves-light blue-text">Emails</a></li>
-            <li><a href="@Url.Action("Announcement", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">Announcements</a></li>
-            <li><a href="@Url.Action("Hyperlinks", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">Hyperlinks</a></li>
-            <li><a href="@Url.Action("Literature", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">Literature</a></li>
-            <li><a href="@Url.Action("DiscussionForum", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">DiscussionForum</a></li>
-            <li><a href="@Url.Action("GroupWorkspace", "MyCourses",new { cId = @cId})"    class="waves-effect waves-light blue-text">GroupWorkspace</a></li>
+            <li><a href="@Url.Action("LearningMaterials", "MyCourses",new { cId = @cId})" class="waves-effect waves-light blue-text">@Resources.LearningMaterials</a></li>
+            <li><a href="@Url.Action("Assignments", "MyCourses",new { cId = @cId})"       class="waves-effect waves-light blue-text">>@Resources.Assignments</a></li>
+            <li><a href="@Url.Action("MediaLibrary", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">>@Resources.MediaLibrary</a></li>
+            <li><a href="@Url.Action("SharedDocuments", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">>@Resources.SharedDocuments</a></li>
+            <li><a href="@Url.Action("Email", "MyCourses",new { cId = @cId})"             class="waves-effect waves-light blue-text">>@Resources.Emails</a></li>
+            <li><a href="@Url.Action("Announcement", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">>@Resources.Announcements</a></li>
+            <li><a href="@Url.Action("Hyperlinks", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">>@Resources.Hyperlinks</a></li>
+            <li><a href="@Url.Action("Literature", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">>@Resources.Literature</a></li>
+            <li><a href="@Url.Action("DiscussionForum", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">>@Resources.DiscussionForum</a></li>
+            <li><a href="@Url.Action("GroupWorkspace", "MyCourses",new { cId = @cId})"    class="waves-effect waves-light blue-text">>@Resources.GroupWorkspace</a></li>
         </ul>
     }
     <ul id="dpd_languages" class="dropdown-content">
@@ -80,13 +80,13 @@
                 {
                     <li>
                         <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
-                            <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
+                            <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">@Resources.SignOut <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
                         </form>
                     </li>
                 }
                 else
                 {
-                    <li><a href="@Url.Action("Login", "Account")" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign In <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
+                    <li><a href="@Url.Action("Login", "Account")" class="waves-effect waves-light" style="padding-left: 20px !important;">@Resources.SignIn <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
                 }
                 
             </ul>

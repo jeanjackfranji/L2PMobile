@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About Our Project.
+        /// </summary>
+        public static string AboutProject {
+            get {
+                return ResourceManager.GetString("AboutProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Announcements.
         /// </summary>
         public static string Announcements {
@@ -223,6 +232,34 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As soon as you click on the login button, you will be redirected to the RWTH L2P authentication
+        ///                            page and be prompted to enter your login credentials to provide access to our application..
+        /// </summary>
+        public static string LoginText {
+            get {
+                return ResourceManager.GetString("LoginText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In via RWTH L2P.
+        /// </summary>
+        public static string LogInVia {
+            get {
+                return ResourceManager.GetString("LogInVia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Media Library.
         /// </summary>
         public static string MediaLibrary {
@@ -313,11 +350,48 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign In.
+        /// </summary>
+        public static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subject.
         /// </summary>
         public static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///                Our Team Members Are:.
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This project was built to improve the mobile version of the RWTH Aachen L2P System. We are a group of 5 people that worked on making a responsive web version using Material UI..
+        /// </summary>
+        public static string TeamMembers {
+            get {
+                return ResourceManager.GetString("TeamMembers", resourceCulture);
             }
         }
         
