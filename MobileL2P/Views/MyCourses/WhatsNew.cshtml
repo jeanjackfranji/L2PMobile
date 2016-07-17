@@ -1,8 +1,7 @@
 ﻿@using L2PAPIClient.DataModel;
-@using MobileL2P.Services;
-@using LanguageResourceFile;
+@using Grp.L2PSite.MobileApp.Services;
 @{
-    ViewData["Title"] = "What's New";
+    ViewData["Title"] = Resources.WhatsNew;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PWhatsNewDataType cWhatsNew = ViewData["CourseWhatsNew"] as L2PWhatsNewDataType;
     List<L2PAssignmentElement> assignments = ViewData["Assignments"] as List<L2PAssignmentElement>;
@@ -12,7 +11,7 @@
 
 <div class="row" style="margin-bottom: 0px !important">
     <div class="col s12 center-align">
-        <div class="chip"><i class="material-icons">new_releases</i><b>What's New</b> | @course.courseTitle</div>
+        <div class="chip"><i class="material-icons">new_releases</i><b>@Resources.WhatsNew</b> | @course.courseTitle</div>
     </div>
 </div>
    <div class="row">
@@ -24,13 +23,13 @@
                 <div class="col s12 m6">
                     <div class="card indigo lighten-5">
                         <div class="card-content black-text hoverable">
-                            <span class="card-title"><i class="material-icons blue-text">notifications_active</i> Exam Results</span>
+                            <span class="card-title"><i class="material-icons blue-text">notifications_active</i> @Resources.ExamResults</span>
                             <span class="badge red white-text">important</span>
                             <p>
                                 <b>Name:</b> @userResult.firstname, @userResult.lastname
                                 <br/>
                                 <b>Grade:</b> @userResult.grade <br />
-                                <a asp-controller="MyCourses" asp-action="ExamResults" asp-route-cId="@course.uniqueid">Go to Detailed Results</a>
+                                <a href="@Url.Action("ExamResults", "MyCourses", new{ cId = @course.uniqueid})">@Resources.DetailedResults</a>
                             </p>
                         </div>
                     </div>
@@ -40,7 +39,7 @@
         <div class="col s12 m6">
             <div class="card indigo lighten-5 dismissable">
                 <div class="card-content black-text hoverable">
-                    <span class="card-title">@Resource.LearningMaterials</span>
+                    <span class="card-title">@Resources.LearningMaterials</span>
                     <ul class="collection">
                         @if (cWhatsNew.learningMaterials != null)
                         {
@@ -53,8 +52,8 @@
                                 L2PFileInformationElement fileInfo = Tools.DeserializeObject<L2PFileInformationElement>(lm.fileInformation);
                                 <li class="collection-item avatar">
                                     <img src="@Tools.getImagePathByFileName(lm.name)" class="circle" style="background-size: 80% !important" />
-                                    <span class="title"><a asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@lm.selfUrl" asp-route-filename="@lm.name">@lm.name.Replace("_"," ")</a></span>
-                                    <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@lm.selfUrl" asp-route-filename="@lm.name"><i class="material-icons blue-text">get_app</i></a>
+                                    <span class="title"><a href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})" >@lm.name.Replace("_"," ")</a></span>
+                                    <a id="a-secondary-content" class="secondary-content" href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})"><i class="material-icons blue-text">get_app</i></a>
                                     <p>
                                         @if (lm.relatedLectureDates != null && lm.relatedLectureDates.Count() > 0)
                                         {
@@ -73,19 +72,19 @@
         <div class="col s12 m6">
             <div class="card indigo lighten-5 dismissable">
                 <div class="card-content black-text hoverable">
-                    <span class="card-title">Assignments</span>
+                    <span class="card-title">@Resources.Assignments</span>
                     <ul class="collection">
                         @if (assignments != null)
                         {
-                            @foreach (L2PAssignmentElement assign in assignments)
+                            foreach (L2PAssignmentElement assign in assignments)
                             {
                                 if (assign.correction == null)
                                 {
                                     assign.correction = new L2PAssignmentCorrection();
                                 }
                                 <li class="collection-item avatar">
-                                    <span class="title"><a asp-controller="L2P" asp-action="ShowAssignment" asp-route-cId="@course.uniqueid" asp-route-aid="@assign.itemId">@assign.title</a></span>
-                                    <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="DownloadsZip" asp-route-CAID="@course.uniqueid" asp-route-AID="@assign.itemId"><i class="material-icons blue-text">get_app</i></a>
+                                    <span class="title"><a href="@Url.Action("ShowAssignment", "L2P", new{ cId = @course.uniqueid, aid=@assign.itemId})" >@assign.title</a></span>
+                                    <a id="a-secondary-content" class="secondary-content" href="@Url.Action("DownloadsZip", "MyCourses", new{ cId = @course.uniqueid, CAID= @assign.itemId })" ><i class="material-icons blue-text">get_app</i></a>
                                     <p>
                                         @if (assign.solution != null)
                                         {
@@ -118,7 +117,7 @@
         <div class="col s12 m6">
             <div class="card indigo lighten-5 dismissable">
                 <div class="card-content black-text hoverable">
-                    <span class="card-title">Recent Announcements</span>
+                    <span class="card-title">@Resources.RecentAnnouncement</span>
                     <ul class="collapsible" data-collapsible="accordion">
                         @if (cWhatsNew.announcements != null)
                         {
@@ -128,7 +127,7 @@
                             foreach (L2PAnnouncementElement anm in anncmts)
                             {
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons grey-text">announcement</i><a asp-controller="L2P" asp-action="ShowAnnouncement" asp-route-cId="@course.uniqueid" asp-route-hId="@anm.itemId">@anm.title</a></div>
+                                    <div class="collapsible-header"><i class="material-icons grey-text">announcement</i><a href="@Url.Action("ShowAnnouncement", "L2P", new{ cId = @course.uniqueid, aid=@anm.itemId})">@anm.title</a></div>
                                     <div class="collapsible-body"><p>@Html.Raw(@anm.body)</p></div>
                                 </li>
                             }
@@ -141,7 +140,7 @@
         <div class="col s12 m6">
             <div class="card indigo lighten-5 dismissable">
                 <div class="card-content black-text hoverable">
-                    <span class="card-title">Recent Discussions</span>
+                    <span class="card-title">@Resources.RecentDiscussion</span>
                     <ul class="collapsible" data-collapsible="accordion">
                         @if (cWhatsNew.discussionItems != null)
                         {
@@ -151,7 +150,7 @@
                             foreach (L2PDiscussionItemElement disc in discussions)
                             {
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a asp-controller="MyCourses" asp-action="DiscussionForum" asp-route-cId="@disc.selfId">@disc.subject</a></div>
+                                    <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a href="@Url.Action("DiscussionForum", "MyCourses", new{ cId =@disc.selfId})">@disc.subject</a></div>
                                     <div class="collapsible-body"><p>@Html.Raw(@disc.body)</p></div>
                                 </li>
                             }

@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel;
 @using MobileL2P.Services;
 @{
-    ViewData["Title"] = "Hyperlinks";
+    ViewData["Title"] = Resources.Literature;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PLiteratureElementDataType> literatures = ViewData["CourseLiterature"] as List<L2PLiteratureElementDataType>;
@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Literature", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>
@@ -25,8 +25,8 @@
                             <input id="cb_check_all" type="checkbox" />
                             <label for="cb_check_all"></label>
                         </th>
-                        <th data-field="Title">Title</th>
-                        <th data-field="Authors">Authors</th>
+                        <th data-field="Title">@Resources.Title</th>
+                        <th data-field="Authors">@Resources.Authors</th>
                         @*<th data-field="Publication Type">Publication Type</th>*@
                         @* hiden to make all the view compatibale with each other *@
                         @*<th data-field="Publisher">Publisher</th>
@@ -46,7 +46,7 @@
                                     <label for="@L.itemID"></label>
                                 </td>
                                 <td>
-                                    <a asp-controller="L2P" asp-action="ViewLiterature" asp-route-cId="@course.uniqueid" asp-route-lId="@L.itemID">@L.title</a>
+                                    <a href="@Url.Action("ViewLiterature", "L2P", new{ cId = @course.uniqueid, lId=@L.itemID})">@L.title</a>
                                 </td>
                                 <td>
                                     @L.authors
@@ -78,7 +78,7 @@
             </a>
             <ul>
                 <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-                <li><a asp-controller="L2P" asp-action="AddLiterature" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+                <li><a href="@Url.Action("AddLiterature", "L2P", new{ cId = @course.uniqueid})" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     }
@@ -87,12 +87,12 @@
 <!-- Modal Structure -->
 <div id="confirmModal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Delete Literature(s)</h4>
-        <p>Are you sure you want to delete the selected Literature(s)</p>
+        <h4>@Resources.DeleteLiterature</h4>
+        <p>@Resources.DeleteLiteratureAsk</p>
     </div>
     <div class="modal-footer centered">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-        <a id="a_delete_literature" asp-controller="L2P" asp-action="DeleteLiterature" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+        <a id="a_delete_literature" href="@Url.Action("DeleteLiterature", "L2P", new{ cId = @course.uniqueid})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
     </div>
 </div>
 

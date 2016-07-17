@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel;
-@using MobileL2P.Services;
+@using Grp.L2PSite.MobileApp.Services;
 @{
-    ViewData["Title"] = "Emails";
+    ViewData["Title"] = Resources.Emails;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PEmailElement> emails = ViewData["CourseEmails"] as List<L2PEmailElement>;
@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a href="@Url.Action("WhatsNew", "MyCourses",new { cId = @course.uniqueid})"  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a href="@Url.Action("Email", "MyCourses",new { cId = @course.uniqueid})"     class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Email", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>
@@ -28,9 +28,9 @@
                             <label for="cb_check_all"></label>
                         </th>
                     }
-                    <th data-field="from">Sender</th>
-                    <th data-field="title">Subject</th>
-                    <th data-field="hasAttachment">Attachments</th>
+                    <th data-field="from">@Resources.Sender</th>
+                    <th data-field="title">@Resources.Subject</th>
+                    <th data-field="hasAttachment">@Resources.Attachments</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,22 +48,22 @@
                             }
                             @if (!String.IsNullOrEmpty(eml.from))
                             {
-                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.from</a></td>
+                                <td><a href="@Url.Action("ShowEmail", "L2P", new{ cId = @course.uniqueid, eId=@eml.itemId})">@eml.from</a></td>
 
                             }
                             else
                             {
-                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.itemId</a></td>
+                                <td><a href="@Url.Action("ShowEmail", "L2P", new{ cId = @course.uniqueid, eId=@eml.itemId})">@eml.itemId</a></td>
 
                             }
                             @if (!String.IsNullOrEmpty(eml.subject))
                             {
 
-                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.subject</a></td>
+                                <td><a href="@Url.Action("ShowEmail", "L2P", new{ cId = @course.uniqueid, eId=@eml.itemId})">@eml.subject</a></td>
                             }
                             else
                             {
-                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.itemId</a></td>
+                                <td><a href="@Url.Action("ShowEmail", "L2P", new{ cId = @course.uniqueid, eId=@eml.itemId})">@eml.itemId</a></td>
                             }
 
                             @if (eml.attachments != null)
@@ -91,7 +91,7 @@
         </a>
         <ul>
             <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-            <li><a asp-controller="L2P" asp-action="AddEmail" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+            <li><a href="@Url.Action("AddEmail", "L2P", new{ cId = @course.uniqueid})" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 }
@@ -99,12 +99,12 @@
 <!-- Modal Structure -->
 <div id="confirmModal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Delete Email(s)</h4>
-        <p>Are you sure you want to delete the selected email(s)</p>
+        <h4>@Resources.DeleteEmail</h4>
+        <p>@Resources.DeleteEmailAsk</p>
     </div>
     <div class="modal-footer centered">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-        <a id="a_delete_emails" asp-controller="L2P" asp-action="DeleteEmails" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+        <a id="a_delete_emails" href="@Url.Action("DeleteEmails", "L2P", new{ cId = @course.uniqueid})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
     </div>
 </div>
 
