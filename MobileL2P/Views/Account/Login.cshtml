@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="container">
+    <form id="target_login" method="post" role="form"
+          asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">
+        <div class="row">
+            <div class="col s12">
+                <div class="card light-blue darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Login via RWTH L2P</span>
+                        <p>
+                            As soon as you click on the login button, you will be redirected to the RWTH L2P authentication
+                            page and be prompted to enter your login credentials to provide access to our application.
+                        </p>
+                    </div>
+                    <div class="card-action center-align">
+                        <a class="orange darken-2 waves-effect waves-light btn" onclick="redirectToLtoP()"> Log in</a>
+                    </div>
+                </div>
+            </div>
+            <button hidden="hidden" type="submit" class="waves-light">Log in</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function redirectToLtoP() {
+        var URL = '@ViewData["L2PURL"]';
+        if (URL != undefined) {
+            URL = URL.replace("&amp;", "&");
+            window.open(encodeURI(URL), "_blank");
+            $("#target_login").submit();
+        }
+    };
+</script>

@@ -1,0 +1,119 @@
+﻿@using Grp.L2PSite.MobileApp.Services;
+@{
+    string cId = Context.Session["CourseId"] as string;
+    string language = Context.Session["Language"] as string;
+    if (String.IsNullOrEmpty(language))
+    {
+        language = "EN";
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="The mobile version of the RWTH Learning App (L2P).">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - L2P Mobile</title>
+
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Materialize CSS + Calendar + Clock -->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" media="screen,projection" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.8.0/fullcalendar.min.css' />
+    <link rel="stylesheet" href="~/wwwroot/css/lolliclock.css" /> 
+    <link rel="stylesheet" href="~/wwwroot/css/site.css" /> 
+    
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+    @if (cId != null)
+    {      
+        <ul id="coursesDropdown" class="dropdown-content">
+            <li><a asp-controller="MyCourses" asp-action="LearningMaterials" asp-route-cId="@cId" class="waves-effect waves-light blue-text">LearningMaterials</a></li>
+            <li><a asp-controller="MyCourses" asp-action="Assignments" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Assignments</a></li>
+            <li><a asp-controller="MyCourses" asp-action="MediaLibrary" asp-route-cId="@cId" class="waves-effect waves-light blue-text">MediaLibrary</a></li>
+            <li><a asp-controller="MyCourses" asp-action="SharedDocuments" asp-route-cId="@cId"  class="waves-effect waves-light blue-text">SharedDocuments</a></li>
+            <li><a asp-controller="MyCourses" asp-action="Email" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Emails</a></li>
+            <li><a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Announcements</a></li>
+            <li><a asp-controller="MyCourses" asp-action="Hyperlinks" asp-route-cId="@cId"  class="waves-effect waves-light blue-text">Hyperlinks</a></li>
+            <li><a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Literature</a></li>
+            <li><a asp-controller="MyCourses" asp-action="DiscussionForum" asp-route-cId="@cId" class="waves-effect waves-light blue-text">DiscussionForum</a></li>
+            <li><a asp-controller="MyCourses" asp-action="GroupWorkspace" asp-route-cId="@cId" class="waves-effect waves-light blue-text">GroupWorkspace</a></li>
+        </ul>
+    }
+    <ul id="dpd_languages" class="dropdown-content">
+        <li>@Html.ActionLink("English", "Language", "Home", new {@culture= "EN-US" , @class = "elements" }, null)</li>
+        <li> @Html.ActionLink("Deutsch", "Language", "Home", new {@culture= "DE" , @class = "elements" }, null)</li>
+    </ul>
+    <nav class="blue darken-4" role="navigation">
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo margin-left-20">L2P Mobile</a>
+            <a href="#" data-activates="mobile" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        
+            <ul class="right">
+                <li><a class="dropdown-button" href="#!" data-activates="dpd_languages">@language<i class="material-icons right">arrow_drop_down</i></a></li>
+                @if (cId != null)
+                {
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-button" href="#!" data-constrainwidth="false" data-activates="coursesDropdown"><i class="material-icons right">more_vert</i></a></li>
+                }
+            </ul>
+            <ul class="side-nav" id="mobile">
+                <li style="height: 60px">
+                    <div class="row valign-wrapper">
+                        <div class="col s12" >
+                            <img src="~/wwwroot/images/l2p_logo_shadow.png" />
+                            <img width="100" src="~/wwwroot/images/photo.jpg">
+                        </div>=
+                    </div>
+                </li>
+                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="MyCourses" style="padding-left: 20px !important;">@Resources.MyCourses<i class="left material-icons" style="color: #0D47A1 !important;">school</i></a></li>
+                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="Calendar" style="padding-left: 20px !important;">@Resources.Calendar<i class="left material-icons" style="color: #0D47A1 !important;">perm_contact_calendar</i></a></li>
+                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="About" style="padding-left: 20px !important;">@Resources.About<i class="left material-icons" style="color: #0D47A1 !important;">info_outline</i></a></li>
+                <li class="divider"></li>
+                
+                @if (Tools.isUserLoggedInAndAPIActive(Context))
+                {
+                    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
+                    </form>
+                }
+                else
+                {
+                    <li><a class="waves-effect waves-light" asp-controller="Account" asp-action="Login" style="padding-left: 20px !important;">Sign In <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
+                }
+                
+            </ul>
+        </div>
+    </nav>
+
+    <main class="layout__content">
+        <div class="page-container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Import JS Plugins-->
+    <script type="text/javascript" src='~/wwwroot/js/lolliclock.js'></script>
+    <script type="text/javascript" src='~/wwwroot/js/materialize.js'></script>
+    <script type="text/javascript" src='~/wwwroot/js/moment.js'></script>
+    <script type="text/javascript" src='~/wwwroot/js/selectize.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.8.0/fullcalendar.min.js'></script>
+    <script>
+        $(function () {
+            $(".dropdown-button").dropdown();
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            }
+            );
+        });
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,149 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@model AssignmentViewModel
+@{
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+
+    bool? isEditMode = ViewData["EditMode"] as bool?;
+    if (isEditMode.HasValue)
+    {
+        ViewData["Title"] = "Edit Assignment";
+    }
+    else
+    {
+        ViewData["Title"] = "Add Assignment";
+    }
+
+    string currentDirectory = ViewData["CurrentDirectory"] as string;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Assignment" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Assignment</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditAssignment" : "AddAssignment" )" asp-route-cId="@course.uniqueid" method="post" role="form" enctype="multipart/form-data">
+        <div class="row">
+            <div asp-validation-summary="ValidationSummary.All"></div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="Title" class="validate" type="text" />
+                <label asp-for="Title">Title*</label>
+                <span asp-validation-for="Title" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label asp-for="Description">Description*</label>
+                <input asp-for="Description" class="validate" type="text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="groupSubmissionAllowed" type="checkbox" name="groupSubmissionAllowed" />
+                <label for="groupSubmissionAllowed">Allow Group Submission</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="totalPoint" class="validate" type="number" />
+                <label asp-for="totalPoint">Total Point*</label>
+                <span asp-validation-for="totalPoint" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+
+                <input type="date" class="datepicker" asp-for="DueDate" />
+                <label asp-for="DueDate">Due Date*</label>
+
+            </div>
+        </div>
+<div class="row">
+    <div class="input-field col s12">
+
+        <input id="pick-a-time2" asp-for="DueDatehours" />
+        <label asp-for="DueDatehours">Due Date Time*</label>
+    </div>
+</div>
+
+<div class="row">
+    <p>Please choose a assignment file</p>
+    <div class="file-field input-field">
+        <div class="btn blue">
+            <span>Upload File</span>
+            <input type="file" id="file" name="file" />
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <p>Please choose a sample solution file</p>
+    <div class="file-field input-field">
+        <div class="btn blue">
+            <span>Upload File</span>
+            <input type="file" id="fileSo" name="fileSo" />
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row right-align">
+    <div class="input-field col s12">
+        <input asp-for="itemId" hidden="hidden" value="@(isEditMode.HasValue ? Model.itemId + "" : "-1")" />
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+</div>
+    </form>
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 16 // Creates a dropdown of 15 years to control year
+        });
+        $(function () {
+            $('#pick-a-time1').lolliclock({ autoclose: true });
+        });
+        $(function () {
+            $('#pick-a-time2').lolliclock({ autoclose: true });
+        });
+        $(function () {
+            $('#pick-a-time3').lolliclock({ autoclose: true });
+        });
+
+        $('input[id="cb_check_all"]').change(function () {
+            if ($(this).is(':checked')) {
+                $('input[name="groupSubmissionAllowed"]').prop('checked', true);
+
+            } else {
+                $('input[name="groupSubmissionAllowed"]').prop('checked', false);
+
+            }
+
+        });
+
+
+    });
+</script>

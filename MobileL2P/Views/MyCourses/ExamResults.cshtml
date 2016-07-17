@@ -1,0 +1,49 @@
+﻿@using L2PAPIClient.DataModel;
+@{
+    ViewData["Title"] = "What's New";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PExamResultViewDataType examResults = ViewData["ExamResults"] as L2PExamResultViewDataType;
+    L2PGradeDistributionViewDataType gradeDist = ViewData["ExamResultStatistics"] as L2PGradeDistributionViewDataType;
+
+}
+
+<div class="row" style="margin-bottom: 0px !important">
+    <div class="col s12 center-align">
+        <div class="chip"><i class="material-icons">new_releases</i>@course.courseTitle</div>
+    </div>
+</div>
+<div class="row">
+    @if (examResults.dataset != null && examResults.dataset.Count > 0)
+    {
+        L2PExamResultDataType userResult = examResults.dataset.First();
+        customKVList list = userResult.customFields;
+        if (userResult.isPublished)
+        {
+            <div class="col s12">
+                <div class="card indigo lighten-5">
+                    <div class="card-content black-text hoverable">
+                        <span class="card-title"><i class="material-icons blue-text">notifications_active</i> Exam Results</span>
+                        <p>
+                            @foreach (customKVPair pair in userResult.customFields.pairs)
+                            {
+                                double value = 0;
+                                double.TryParse(@pair.Value, out value);
+                                if (@pair.Key != "PDatum")
+                                {
+                                    if (value < 1000)
+                                    {
+                                        <b>@pair.Key : </b> @pair.Value
+                                        <br />
+                                    }
+                                }
+                            }
+                            <br />
+                            <b>Grade:</b> @userResult.grade
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

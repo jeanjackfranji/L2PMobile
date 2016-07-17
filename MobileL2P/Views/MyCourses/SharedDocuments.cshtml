@@ -1,0 +1,180 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@model FolderViewModel
+@{
+    ViewData["Title"] = "Shared Documents";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    List<L2PLearningMaterialElement> sharedDocuments = ViewData["CourseSharedDocuments"] as List<L2PLearningMaterialElement>;
+    string currentDirectory = ViewData["CurrentDirectory"] as string;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="SharedDocuments" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+        </div>
+    </div>
+</nav>
+<div class="col s12">
+    <ul class="collection with-header">
+        <li class="collection-header" style="padding-left: 10px">
+            <div class="row padding-left-zero">
+                <div class="col s1" style="margin-top: 22px">
+                    <input id="cb_check_all" type="checkbox" />
+                    <label for="cb_check_all"></label>
+                </div>
+                <div class="col s11 center-align">
+                    <h4>@ViewData["Title"]</h4>
+                </div>
+            </div>
+        </li>
+        @{
+            foreach (L2PLearningMaterialElement sd in sharedDocuments)
+            {
+                L2PFileInformationElement fileInfo = Tools.DeserializeObject<L2PFileInformationElement>(sd.fileInformation);
+                <li class="collection-item avatar padding-left-10">
+                    <input type="checkbox" name="tbl_cb" id="@sd.itemId" />
+                    <label class="label-checkbox" for="@sd.itemId"></label>
+                    @if (sd.isDirectory)
+                    {
+                        <i class="large material-icons circle white grey-text rel-position" style="font-size: 40px">folder_open</i>
+                        <span class="title"><a asp-controller="MyCourses" asp-action="SharedDocuments" asp-route-cId="@course.uniqueid" asp-route-ExtdDir="@sd.name">@sd.name</a></span>
+                        <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="SharedDocuments" asp-route-cId="@course.uniqueid" asp-route-ExtdDir="@sd.name"><i class="material-icons blue-text">send</i></a>
+                    }
+                    else
+                    {
+                        <img src="@Tools.getImagePathByFileName(sd.name)" class="circle rel-position" style="background-size: 80% !important" />
+                        <span class="title"><a asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@sd.selfUrl" asp-route-filename="@sd.name">@sd.name</a></span>
+                        <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@sd.selfUrl" asp-route-filename="@sd.name"><i class="material-icons blue-text">get_app</i></a>
+                    }
+                    <p class="margin-left-25">
+                        @if (sd.relatedLectureDates != null && sd.relatedLectureDates.Count() > 0)
+                        {
+                            <b>Lecture Date:</b> @Tools.toDateString(sd.relatedLectureDates.First());
+                            <br />
+                        }
+                       @Html.Raw(fileInfo != null ? "<b>Size: </b>" + Tools.ToFileSize(fileInfo.fileSize) : "")
+                    </p>
+                </li>
+            }
+        }
+    </ul>
+    <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+        <a class="btn-floating btn-large blue darken-3">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+            <li><a href="#newFolderModal" class="btn-floating waves-effect waves-light green modal-trigger"><i class="material-icons">create_new_folder</i></a></li>
+            <li><a href="#newFileModal" class="btn-floating waves-effect waves-light green modal-trigger"><i class="material-icons">note_add</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div id="confirmModal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Delete Media(s)</h4>
+        <p>Are you sure you want to delete the selected Media(s) or folder(s)?</p>
+    </div>
+    <div class="modal-footer centered">
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+        <a id="a_delete_sharedDocs" asp-controller="L2P" asp-action="DeleteMediaLibrary" asp-route-cId="@course.uniqueid" asp-route-curDir="@currentDirectory" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+    </div>
+</div>
+
+<!-- New Folder Modal -->
+<div id="newFolderModal" class="modal bottom-sheet">
+    <form asp-controller="L2P" asp-action="AddFolder" asp-route-cId="@course.uniqueid" asp-route-ModelNb="2" asp-route-curDir="@currentDirectory" method="post" role="form">
+        <div class="modal-content">
+            <h4>New Folder</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label asp-for="Name">Name*</label>
+                    <input asp-for="Name" class="validate" type="text" required />
+                    <span asp-validation-for="Name" class="red-text"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer centered">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text" style="margin-right: 10px"><i class="material-icons right">clear</i>Cancel</a>
+            <button class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px" type="submit" name="action">
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- New File Modal -->
+<div id="newFileModal" class="modal bottom-sheet">
+    <form asp-controller="L2P" asp-action="AddFile" asp-route-cId="@course.uniqueid" asp-route-ModelNb="2" asp-route-curDir="@currentDirectory" method="post" enctype="multipart/form-data">
+        <div class="modal-content">
+            <h4>New File</h4>
+            <div class="row">
+                <p>Please choose a file to upload in Shared Documents</p>
+                <div class="file-field input-field">
+                    <div class="btn blue">
+                        <span>Upload File</span>
+                        <input type="file" id="file" name="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer centered">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text" style="margin-right: 10px"><i class="material-icons right">clear</i>Cancel</a>
+            <button class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px" type="submit" name="action">
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    //Global Variables
+    var str = "";
+    var url = "/L2P/DeleteSharedDocuments?cId=@course.uniqueid&curDir=@currentDirectory&SDIds=";
+
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+
+        if('@ViewData["Message"]' != ''){
+            Materialize.toast('@ViewData["Message"]', 2000) // 2000 is the duration of the toast
+        }
+    });
+
+    //Method to check/uncheck boxes
+    $('input[id="cb_check_all"]').change(function () {
+        if ($(this).is(':checked')) {
+            $('input[name="tbl_cb"]').prop('checked', true);
+            $('input[name="tbl_cb"]').each(function (index, value) {
+                str += $(this).attr("id") + '-';
+            });
+        } else {
+            $('input[name="tbl_cb"]').prop('checked', false);
+            str = "";
+        }
+        $("#a_delete_sharedDocs").attr("href", url + str);
+    });
+
+    //Method to check/uncheck boxes and handle accordingly to delete hyperlinks
+    $('input[name="tbl_cb"]').change(function () {
+        if ($(this).is(':checked')) {
+            if (str.indexOf($(this).attr("id") + '-') < 0) {
+                str += $(this).attr("id") + '-';
+            }
+        } else {
+            if (str.indexOf($(this).attr("id") + '-') >= 0) {
+                str = str.replace($(this).attr("id") + '-', '');
+            }
+        }
+        $("#a_delete_sharedDocs").attr("href", url + str);
+    });
+
+</script>

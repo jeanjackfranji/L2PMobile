@@ -1,0 +1,9 @@
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\bin\Debug\Resources.dll
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\bin\Debug\Resources.pdb
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.Resources.resources
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.dll
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.pdb
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\bin\Debug\de\Resources.resources.dll
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.Resources.de.resources
+C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\de\Resources.resources.dll

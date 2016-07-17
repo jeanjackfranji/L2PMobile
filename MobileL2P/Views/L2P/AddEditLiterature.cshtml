@@ -1,0 +1,266 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@model LiteratureViewModel
+@{
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+
+    bool? isEditMode = ViewData["EditMode"] as bool?;
+    if (isEditMode.HasValue)
+    {
+        ViewData["Title"] = "Edit Literature";
+    }
+    else
+    {
+        ViewData["Title"] = "Add Literature";
+    }
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Literature</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditLiterature" : "AddLiterature" )" asp-route-cId="@course.uniqueid" method="post" role="form">
+        <div class="row">
+            <div asp-validation-summary="ValidationSummary.All"></div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="title" class="validate" type="text"  />
+                <label asp-for="title">Title*</label>
+                <span asp-validation-for="title" class="red-text"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="ltype" asp-for="type" class="validate" type="text">
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Book">New Book</option>
+                    <option value="InBook">New in Book</option>
+                    <option value="Article">New Article</option>
+                    <option value="In-Proceedings">In Proceedings</option>
+                    <option value="Other Literature">Other Literature</option>
+                </select>
+                <label asp-for="type">Literature Type*</label>
+                <span asp-validation-for="type" class="red-text"></span>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="authors" class="validate" type="text" />
+                <label asp-for="authors">Authors*</label>
+                <span asp-validation-for="authors" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="edition" class="validate" type="text" />
+                <label asp-for="edition">Edition</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="series" class="validate" type="text" />
+                <label asp-for="series">Series</label>
+            </div>
+        </div>
+        <div class="row" id="book_title_div">
+            <div class="input-field col s12">
+                <input asp-for="booktitle" class="validate" type="text" />
+                <label asp-for="booktitle">Book Title*</label>
+            </div>
+        </div>
+       
+      
+        <div class="row" id="journal_name_div">
+            <div class="input-field col s12">
+                <input asp-for="journalName" class="validate" type="text" />
+                <label asp-for="journalName">Journal Name*</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="volume" class="validate" type="text" />
+                <label asp-for="volume">Volume</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="number" class="validate" type="text" />
+                <label asp-for="number">Number</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="isxn" class="validate" type="text" />
+                <label asp-for="isxn">ISXN</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="publisher" class="validate" type="text" />
+                <label asp-for="publisher">Publisher</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="address" class="validate" type="text" />
+                <label asp-for="address">Address</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="fromPage" class="validate" type="number" />
+                <label asp-for="fromPage">From Page</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="toPage" class="validate" type="number" />
+                <label asp-for="toPage">To Page</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="year" class="validate" type="number" />
+                <label asp-for="year">Publication Year*</label>
+                <span asp-validation-for="year" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="doi" class="validate" type="text" />
+                <label asp-for="doi">DOI</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="url" class="validate" type="text" placeholder="http://" />
+                <label asp-for="url">URL</label>
+                <span asp-validation-for="url" class="red-text"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <select asp-for="role" class="validate" type="text" id="lrole">
+                    <option value="" disabled selected>Choose Role</option>
+                    <option value="Primary Literature">Primary Literature</option>
+                    <option value="Scondary Literature">Scondary Literature</option>
+                    <option value="None">None</option>
+                    <option value="Invalid">InValid</option>
+                </select>
+                <label asp-for="role">Role</label>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12" id="lrelevance">
+                <select asp-for="relevance" class="validate" type="text">
+                    <option value="" disabled selected>Choose Relevance</option>
+                    <option value="Mandatory">Mandatory</option>
+                    <option value="Optional">Optional</option>
+                    <option value="None">None</option>
+                    <option value="Invalid">Invalid</option>
+                </select>
+                <label asp-for="relevance">Relevance</label>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="comments" class="validate" type="text" />
+                <label asp-for="comments">Comments</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="availability" class="validate" type="text" />
+                <label asp-for="availability">Availability</label>
+            </div>
+        </div>
+
+
+
+
+        <div class="row right-align">
+            <div class="input-field col s12">
+                <input asp-for="itemId" hidden="hidden" value="@(isEditMode.HasValue ? Model.itemId + "" : "-1")" />
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+        $('[name=ltype] option').filter(function () {
+            return ($(this).text() == type); 
+        }).prop('selected', true);
+        
+        $('[name=lrelevance] option').filter(function () {
+            return ($(this).text() == type);
+        }).prop('selected', true);
+
+        $('[name=lrole] option').filter(function () {
+            return ($(this).text() == type);
+        }).prop('selected', true);
+
+        toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
+        //this will call our toggleFields function every time the selection value of our underAge field changes
+        $("#ltype").change(function () { toggleFields(); });
+   
+        //this toggles the visibility of our parent permission fields depending on the current selected value of the underAge field
+        function toggleFields()
+        {
+            if ($("#ltype").val() == "InBook") {
+                $("#book_title_div").show();
+                $("#journal_name_div").hide();
+
+                $("#booktitle").attr("required", "required");
+                $("#fromPage").attr("required", "required");
+                $("#toPage").attr("required", "required");
+                $("#publisher").attr("required", "required");
+                $("#journalName").removeAttr("required", "required");
+            }
+            else if ($("#ltype").val() == "Article") {
+                $("#journal_name_div").show();
+                $("#book_title_div").hide();
+
+                $("#booktitle").removeAttr("required", "required");
+                $("#fromPage").removeAttr("required", "required");
+                $("#toPage").removeAttr("required", "required");
+                $("#publisher").removeAttr("required", "required");
+                $("#journalName").attr("required", "required");
+            }
+            else if ($("#ltype").val() == "In-Proceedings") {
+                $("#book_title_div").show();
+                $("#journal_name_div").hide();
+
+                $("#booktitle").attr("required", "required");
+                $("#fromPage").attr("required", "required");
+                $("#toPage").attr("required", "required");
+                $("#publisher").attr("required", "required");
+                $("#journalName").removeAttr("required", "required");
+            }
+            else if ($("#ltype").val() == "Book") {
+                $("#journalName").attr("required", "required");
+                $("#publisher").attr("required", "required");
+                $("#booktitle").removeAttr("required", "required");
+                $("#fromPage").removeAttr("required", "required");
+                $("#toPage").removeAttr("required", "required");
+            }      
+        }
+    });
+</script>

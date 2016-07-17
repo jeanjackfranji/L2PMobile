@@ -1,0 +1,13 @@
+﻿<script>
+    System.import("js/validate-scripts").catch(console.log.bind(console));
+
+    function redirectToLtoP() {
+        var URL = '@ViewData["L2PURL"]';
+        if (URL != undefined) {
+            URL = URL.replace("&amp;", "&");
+            window.open(encodeURI(URL), "_blank");
+            $("#target_login").submit();
+        }
+    };
+
+</script>

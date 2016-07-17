@@ -1,0 +1,139 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@{
+    ViewData["Title"] = "Hyperlinks";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    List<L2PLiteratureElementDataType> literatures = ViewData["CourseLiterature"] as List<L2PLiteratureElementDataType>;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <table class="bordered highlight">
+                <thead>
+                    <tr>
+                        <th>
+                            <input id="cb_check_all" type="checkbox" />
+                            <label for="cb_check_all"></label>
+                        </th>
+                        <th data-field="Title">Title</th>
+                        <th data-field="Authors">Authors</th>
+                        @*<th data-field="Publication Type">Publication Type</th>*@
+                        @* hiden to make all the view compatibale with each other *@
+                        @*<th data-field="Publisher">Publisher</th>
+                        <th data-field="Publication Year">Publication Year</th>
+                        <th data-field="url">url</th>
+                        <th data-field="Status">Status</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (literatures != null)
+                    {
+                        foreach (L2PLiteratureElementDataType L in literatures)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="tbl_cb" id="@L.itemID" />
+                                    <label for="@L.itemID"></label>
+                                </td>
+                                <td>
+                                    <a asp-controller="L2P" asp-action="ViewLiterature" asp-route-cId="@course.uniqueid" asp-route-lId="@L.itemID">@L.title</a>
+                                </td>
+                                <td>
+                                    @L.authors
+                                </td>
+                                @*<td>
+                                    @L.contentType
+                                </td>*@
+                                @* hidden to make all the views compatable *@
+                                @*<td>
+                                    @L.publisher
+                                </td>
+                                <td>
+                                    @L.year
+                                </td>
+                                <td>@L.url</td>
+                                <td>@L.state</td>*@
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+@if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+    {
+        <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+            <a class="btn-floating btn-large blue darken-3">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul>
+                <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+                <li><a asp-controller="L2P" asp-action="AddLiterature" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
+    }
+</div>
+
+<!-- Modal Structure -->
+<div id="confirmModal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Delete Literature(s)</h4>
+        <p>Are you sure you want to delete the selected Literature(s)</p>
+    </div>
+    <div class="modal-footer centered">
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+        <a id="a_delete_literature" asp-controller="L2P" asp-action="DeleteLiterature" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+    </div>
+</div>
+
+<script>
+    //Global Variables
+    var str = "";
+    var url = "/L2P/DeleteLiterature?cId=@course.uniqueid&lIds=";
+
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+
+        if('@ViewData["Message"]' != ''){
+            Materialize.toast('@ViewData["Message"]', 3000) // 3000 is the duration of the toast
+        }
+    });
+
+    //Method to check/uncheck boxes
+    $('input[id="cb_check_all"]').change(function () {
+        if ($(this).is(':checked')) {
+            $('input[name="tbl_cb"]').prop('checked', true);
+            $('input[name="tbl_cb"]').each(function (index, value) {
+                str += $(this).attr("id") + '-';
+            });
+        } else {
+            $('input[name="tbl_cb"]').prop('checked', false);
+            str = "";
+        }
+        $("#a_delete_literature").attr("href", url + str);
+    });
+
+    //Method to check/uncheck boxes and handle accordingly to delete hyperlinks
+    $('input[name="tbl_cb"]').change(function () {
+        if ($(this).is(':checked')) {
+            if (str.indexOf($(this).attr("id") + '-') < 0) {
+                str += $(this).attr("id") + '-';
+            }
+        } else {
+            if (str.indexOf($(this).attr("id") + '-') >= 0) {
+                str = str.replace($(this).attr("id") + '-', '');
+            }
+        }
+        $("#a_delete_literature").attr("href", url + str);
+    });
+</script>

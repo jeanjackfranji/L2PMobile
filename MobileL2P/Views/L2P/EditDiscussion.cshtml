@@ -1,0 +1,59 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@model DiscussionViewModel
+@{
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+
+    bool? isEditMode = ViewData["EditMode"] as bool?;
+    if (isEditMode.HasValue)
+    {
+        ViewData["Title"] = "Edit Disscuion";
+    }
+    else
+    {
+        ViewData["Title"] = "Add Disscuion";
+    }
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20)</a>
+            <a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px">Discussion</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 12px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditDiscussion" : "PostDiscussion" )" asp-route-cId="@course.uniqueid" method="post" role="form" enctype="multipart/form-data">
+        <div class="row">
+            <div asp-validation-summary="ValidationSummary.All"></div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="title" class="validate" type="text" />
+                <label asp-for="title">title</label>
+                <span asp-validation-for="title" class="red-text"></span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label asp-for="body">Body</label>
+                <textarea asp-for="body" class="materialize-textarea validate"></textarea>
+                <span asp-validation-for="body" class="red-text"></span>
+            </div>
+        </div>
+        
+        <div class="row right-align">
+            <div class="input-field col s12">
+                <input asp-for="dId" hidden="hidden" value="@(isEditMode.HasValue ? Model.dId + "" : "-1")" />
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

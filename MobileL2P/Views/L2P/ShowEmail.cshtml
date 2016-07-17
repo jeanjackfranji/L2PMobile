@@ -1,0 +1,86 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@{
+    ViewData["Title"] = "View Email";
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    EmailViewModel email = ViewData["EmailModel"] as EmailViewModel;
+    if (email == null) { email = new EmailViewModel(); }
+    List<L2PAttachmentElement> attachments = ViewData["attachments"] as List<L2PAttachmentElement>;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Email" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Emails</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row"></div>
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="URL">URL*</label>
+        <div id="div_text_area">@email.subject</div>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="div_text_area">Notes</label>
+        <div id="div_text_area">@Html.Raw(email.body)</div>
+    </div>
+</div>
+@if (attachments != null)
+{
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="div_text_area">Attachments</label>
+        <div id="div_text_area">
+            <ul class="collection">
+                @if (attachments != null)
+            {
+                foreach (L2PAttachmentElement attachment in attachments)
+                {
+                        <li class="collection-item avatar">
+                            <img src="@Tools.getImagePathByFileName(attachment.fileName)" class="circle" style="background-size: 80% !important" />
+                            <span class="title"><a asp-controller="MyCourses" asp-action="DownloadAttachment" asp-route-url="@attachment.downloadUrl" asp-route-filename="@attachment.fileName">@attachment.fileName</a></span>
+                            <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="DownloadAttachment" asp-route-url="@attachment.downloadUrl" asp-route-filename="@attachment.fileName"><i class="material-icons blue-text">get_app</i></a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+ </div>
+ }
+@if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+{
+    <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+        <a class="btn-floating btn-large blue darken-3">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+         </ul>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="confirmModal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Delete Emails(s)</h4>
+            <p>Are you sure you want to delete the selected email(s)</p>
+        </div>
+        <div class="modal-footer centered-content">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+            <a asp-controller="L2P" asp-action="DeleteEmails" asp-route-cId="@course.uniqueid" asp-route-hIds="@email.itemId-" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        </div>
+    </div>
+  }
+
+<script>
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+    });
+</script>

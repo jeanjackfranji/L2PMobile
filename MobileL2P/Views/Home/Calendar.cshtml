@@ -1,0 +1,93 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@{
+    ViewData["Title"] = "My Schedule";
+    List<L2PCourseEvent> courseEvents = ViewData["courseEventsList"] as List<L2PCourseEvent>;
+
+    string events = "";
+    foreach(L2PCourseEvent cEvent in courseEvents)
+    {
+        events += "{" +
+                    " \n    title: '" + cEvent.title + "'," +
+                    " \n    start: '" + Tools.toDateTime(cEvent.eventDate).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                    " \n    end: '" + Tools.toDateTime(cEvent.endDate).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                    " \n    description: '" + cEvent.description + "'," +
+                    " \n    location: '" + cEvent.location + "'," +
+                    " \n    category: '" + cEvent.category + "'," +
+                    " \n    contentType: '" + cEvent.contentType + "'," +
+                    " \n    courseId: '" + cEvent.courseID + "'" +
+                    " \n},";
+    }
+
+    events = events.TrimEnd(',');
+
+}
+
+<div class="row" style="margin-top: 10px; margin-bottom: 10px">
+    <div class="col s12 center-align">
+        <div class="chip"><i class="material-icons">perm_contact_calendar</i><b>My Calendar</b></div>
+    </div>
+</div>
+<div class="col s12 centered-content">
+    <div id='calendar'></div>
+    <button id="btn_open_modal" data-target="newEventModal" class="btn modal-trigger hide">Modal</button>
+</div>
+
+<!-- New File Modal -->
+<div id="newEventModal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h5 id="m_title" >event title</h5>
+        <div class="row" style="margin-bottom: 0px !important">
+            <p>
+                <b>Location:    </b><span id="m_location"   >event location</span><br/>
+                <b>Start Time:  </b><span id="m_startTime"  >start time</span><br />
+                <b>End Time:    </b><span id="m_endTime"    >end time</span><br />
+                <b>Description: </b><span id="m_description">event description</span><br />
+                <b>Category:    </b><span id="m_category"   >event category</span><br />
+                <b>Type:        </b><span id="m_eventType"   >Event Type</span>
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer centered">
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text" style="margin-right: 10px"><i class="material-icons right">clear</i>Cancel</a>
+        <a id="a_to_course" asp-controller="Home" asp-action="MyCourses" asp-route-cId="-1" class="modal-action left waves-effect waves-light btn-flat green white-text" style="margin-left: 10px"><i class="material-icons right">send</i>Go to Event</a>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('.modal-trigger').leanModal();
+
+        // page is now ready, initialize the calendar...
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay',
+                editable: true
+            },
+            events: [
+
+                // more events here
+                @Html.Raw(events)
+                
+            ],
+            eventClick: function (calEvent, jsEvent, view) {
+
+                $("#m_title").text(calEvent.title);
+                $("span[id='m_location']").text(calEvent.location);
+                $("span[id='m_startTime']").text(calEvent.start.format('DD/MM/YYYY - hh:mm'));
+                $("span[id='m_endTime']").text(calEvent.end.format('DD/MM/YYYY - hh:mm'));
+                $("span[id='m_description']").text(calEvent.description);
+                $("span[id='m_category']").text(calEvent.category);
+                $("span[id='m_eventType']").text(calEvent.contentType);
+                $("a[id='a_to_course']").attr("href", "/MyCourses/WhatsNew?cId=" + calEvent.courseId);
+                $('#btn_open_modal').trigger("click");
+
+            }
+        });
+
+    });
+</script>

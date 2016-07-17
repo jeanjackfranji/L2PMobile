@@ -1,0 +1,21 @@
+﻿@using L2PAPIClient.DataModel;
+@{
+    ViewData["Title"] = "Course Info";
+    L2PCourseInfoData course = (L2PCourseInfoData)ViewData["CourseInfo"];
+}
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h3>@ViewData["Title"]</h3>
+        <h4>
+            <strong>@course.courseTitle</strong>
+        </h4>
+        <h4>
+            <strong>Course Description</strong>
+        </h4>
+        <p>
+            @course.courseTitle held during Winter semester gave students an introduction and overview of theories, models, and techniques used in Human-Computer Interaction and the design of user interfaces. DIS II builds on these foundations, and provides an understanding of how interactive multimedia systems are built from a computer science point of view. It covers the principles of event-based operating systems, window system architectures, input and output device technology for multiple modalities, as well as User Interface Management Systems and UI development toolkits and their relative merits. In the labs, students will develop a minimalistic window system themselves, but also learn to work with various real-life development environments, including window systems such as Java Swing and multimedia development environments, to develop user interfaces.
+        </p>
+    </div>
+</div>
+

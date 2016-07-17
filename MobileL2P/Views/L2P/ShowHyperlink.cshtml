@@ -1,0 +1,70 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@{
+    ViewData["Title"] = "View Hyperlink";
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    HyperLinkViewModel hyperlink = ViewData["HyperlinkModel"] as HyperLinkViewModel;
+    if (hyperlink == null) { hyperlink = new HyperLinkViewModel(); }
+    
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Hyperlinks" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Hyperlinks</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row"></div>
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="URL">URL*</label>
+        <div id="div_text_area"><a href="@hyperlink.URL">@hyperlink.URL</a></div>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="Title">Title</label>
+        <div id="div_text_area">@hyperlink.Title</div>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12" style="margin-top: 0px">
+        <label for="div_text_area">Notes</label>
+        <div id="div_text_area">@Html.Raw(hyperlink.Notes)</div>
+    </div>
+</div>
+@if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+{
+    <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+        <a class="btn-floating btn-large blue darken-3">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+            <li><a asp-controller="L2P" asp-action="EditHyperlink" asp-route-cId="@course.uniqueid" asp-route-hId="@hyperlink.itemId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
+        </ul>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="confirmModal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Delete Hyperlink(s)</h4>
+            <p>Are you sure you want to delete the selected hyperlink(s)</p>
+        </div>
+        <div class="modal-footer centered-content">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+            <a asp-controller="L2P" asp-action="DeleteHyperlinks" asp-route-cId="@course.uniqueid" asp-route-hIds="@hyperlink.itemId-" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+    });
+</script>

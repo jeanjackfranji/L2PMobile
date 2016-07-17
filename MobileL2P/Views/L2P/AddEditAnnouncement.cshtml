@@ -1,0 +1,70 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@model AnnouncementViewModel
+@{
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+
+    bool? isEditMode = ViewData["EditMode"] as bool?;
+    if (isEditMode.HasValue)
+    {
+        ViewData["Title"] = "Edit Announcement";
+    }
+    else
+    {
+        ViewData["Title"] = "Add Announcement";
+    }
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Announcement</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditAnnouncement" : "AddAnnouncement" )" asp-route-cId="@course.uniqueid" method="post" role="form" enctype="multipart/form-data">
+        <div class="row">
+            <div asp-validation-summary="ValidationSummary.All"></div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="title" class="validate" type="text" />
+                <label asp-for="title">title</label>
+                <span asp-validation-for="title" class="red-text"></span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label asp-for="body">Body</label>
+                <textarea asp-for="body" class="materialize-textarea validate"></textarea>
+                <span asp-validation-for="body" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <p>Please choose a file to upload in learning materials</p>
+            <div class="file-field input-field">
+                <div class="btn blue">
+                    <span>Upload File</span>
+                    <input type="file" id="file" name="file"/>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row right-align">
+            <div class="input-field col s12">
+                <input asp-for="itemId" hidden="hidden" value="@(isEditMode.HasValue ? Model.itemId + "" : "-1")"/>
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

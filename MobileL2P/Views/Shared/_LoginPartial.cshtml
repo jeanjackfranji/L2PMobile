@@ -1,0 +1,11 @@
+﻿@using Grp.L2PSite.MobileApp.Services
+@if (Tools.isUserLoggedInAndAPIActive(Context))
+{
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+        <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
+    </form>
+}
+else
+{
+    <li><a class="waves-effect waves-light" asp-controller="Account" asp-action="Login" style="padding-left: 20px !important;">Sign In <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
+}

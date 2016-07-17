@@ -1,0 +1,153 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@{
+    ViewData["Title"] = "Emails";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    List<L2PEmailElement> emails = ViewData["CourseEmails"] as List<L2PEmailElement>;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Email" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="col s12">
+        <table class="bordered highlight">
+            <thead>
+
+                <tr>
+                    @if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+                    {
+                        <th>
+                            <input id="cb_check_all" type="checkbox" />
+                            <label for="cb_check_all"></label>
+                        </th>
+                    }
+                    <th data-field="from">Sender</th>
+                    <th data-field="title">Subject</th>
+                    <th data-field="hasAttachment">Attachments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (emails != null)
+                {
+                    foreach (L2PEmailElement eml in emails)
+                    {
+                        <tr>
+                            @if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+							{
+                                <td>
+                                    <input type="checkbox" name="tbl_cb" id="@eml.itemId" />
+                                    <label for="@eml.itemId"></label>
+                                </td>
+                            }
+                            @if (!String.IsNullOrEmpty(eml.from))
+                            {
+                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.from</a></td>
+
+                            }
+                            else
+                            {
+                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.itemId</a></td>
+
+                            }
+                            @if (!String.IsNullOrEmpty(eml.subject))
+                            {
+
+                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.subject</a></td>
+                            }
+                            else
+                            {
+                                <td><a asp-controller="L2P" asp-action="ShowEmail" asp-route-cId="@course.uniqueid" asp-route-hId="@eml.itemId">@eml.itemId</a></td>
+                            }
+
+                            @if (eml.attachments != null)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+{
+    <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+        <a class="btn-floating btn-large blue darken-3">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+            <li><a asp-controller="L2P" asp-action="AddEmail" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+        </ul>
+    </div>
+}
+
+<!-- Modal Structure -->
+<div id="confirmModal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Delete Email(s)</h4>
+        <p>Are you sure you want to delete the selected email(s)</p>
+    </div>
+    <div class="modal-footer centered">
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+        <a id="a_delete_emails" asp-controller="L2P" asp-action="DeleteEmails" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+    </div>
+</div>
+
+<script>
+
+    //Global Variables
+    var str = "";
+    var url = "/L2P/DeleteEmails?cId=@course.uniqueid&hIds=";
+
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+
+        if ('@ViewData["Message"]' != '') {
+            Materialize.toast('@ViewData["Message"]', 3000) // 3000 is the duration of the toast
+        }
+    });
+
+    //Method to check/uncheck boxes
+    $('input[id="cb_check_all"]').change(function () {
+        if ($(this).is(':checked')) {
+            $('input[name="tbl_cb"]').prop('checked', true);
+            $('input[name="tbl_cb"]').each(function (index, value) {
+                str += $(this).attr("id") + '-';
+            });
+        } else {
+            $('input[name="tbl_cb"]').prop('checked', false);
+            str = "";
+        }
+        $("#a_delete_emails").attr("href", url + str);
+    });
+
+    //Method to check/uncheck boxes and handle accordingly to delete emails
+    $('input[name="tbl_cb"]').change(function () {
+        if ($(this).is(':checked')) {
+            if (str.indexOf($(this).attr("id") + '-') < 0) {
+                str += $(this).attr("id") + '-';
+            }
+        } else {
+            if (str.indexOf($(this).attr("id") + '-') >= 0) {
+                str = str.replace($(this).attr("id") + '-', '');
+            }
+        }
+        $("#a_delete_emails").attr("href", url + str);
+    });
+</script>
+

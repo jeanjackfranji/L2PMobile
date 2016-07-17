@@ -1,0 +1,78 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+
+@{
+    ViewData["Title"] = "Assignments";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    List<L2PAssignmentElement> assignments = ViewData["Assignments"] as List<L2PAssignmentElement>;
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Assignments" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            @if (assignments != null)
+            {
+
+                <ul class="collection">
+                    @foreach (L2PAssignmentElement A in assignments)
+                    {
+                        List<L2PAttachmentElement> fileInfo = A.assignmentDocuments;
+
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle white"><a asp-controller="MyCourses" asp-action="DownloadsZip" asp-route-CAID="@course.uniqueid" asp-route-AID="@A.itemId"><i class="material-icons white">get_app</i></a></i>
+                            <span class="title">
+                                <a asp-controller="L2P" asp-action="ShowAssignment" asp-route-cId="@course.uniqueid" asp-route-aid="@A.itemId">@A.title</a><br />
+                            </span>
+                            <p>
+                                
+                                <b>Publish Date:</b> @Tools.toDateString(A.assignmentPublishDate) <br />
+                                <b>Due Date:</b> @Tools.toDateTimeString(A.dueDate)<br />
+                                <b>Total Point:</b> @A.totalPoint<br />
+                                <b>Group submission:</b> @(A.groupSubmissionAllowed ? "Yes" : "No")<br />
+                                <a id="a-secondary-content" class="secondary-content" asp-controller="L2P" asp-action="ShowAssignment" asp-route-cId="@course.uniqueid" asp-route-aid="@A.itemId"><i class="material-icons blue-text">send</i></a>
+                            </p>
+
+                        </li>
+
+
+                    }
+                </ul>
+
+            }
+        </div>
+    </div>
+    @if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+    {
+        <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+            <a class="btn-floating btn-large blue darken-3">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul>
+                       <li><a asp-controller="L2P" asp-action="AddAssignment" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
+    }
+</div>
+
+<script>
+
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+
+        if ('@ViewData["Message"]' != '') {
+            Materialize.toast('@ViewData["Message"]', 3000) // 3000 is the duration of the toast
+        }
+    });
+
+</script>

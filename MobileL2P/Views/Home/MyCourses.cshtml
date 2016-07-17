@@ -1,0 +1,74 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@{
+    ViewData["Title"] = "My Courses";
+    List<L2PCourseInfoData> semestersList = new List<L2PCourseInfoData>();
+    List<L2PCourseInfoData> currentSemesterCourses = (List<L2PCourseInfoData>)ViewData["currentSemesterCourses"];
+    Object semCode = ViewData["chosenSemesterCode"];
+
+    semestersList = (List<L2PCourseInfoData>)ViewData["semestersList"];
+    var semesters = (from a in semestersList
+                     select new { code = a.semester, name = Tools.formatSemesterCode(a.semester) }).Distinct();
+}
+
+<div class="row" style="margin-top: 10px; margin-bottom: 10px">
+    <div class="col s12 center-align">
+        <div class="chip" style="font-size: 16px" ><i class="material-icons">school</i>My Courses</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        @if (semesters != null && semesters.Any())
+        {
+            if (semCode == null)
+            {
+                semCode = semesters.First().code;
+            }
+            <div class="input-field col s12">
+                <select>
+                    <option value="" disabled>Semester Select</option>
+                    @foreach (var sem in semesters.ToList())
+                    {
+                        if (sem.code.Equals(semCode))
+                        {
+                            <option value="@semCode" selected>@Tools.formatSemesterCode(semCode.ToString())</option>
+                        }
+                        else
+                        {
+                            <option value="@sem.code">@sem.name</option>
+                        }
+                    }
+                </select>
+                <label>Choose your semester</label>
+            </div>
+            <ul class="collection">
+                @{
+                    foreach (L2PCourseInfoData course in currentSemesterCourses)
+                    {
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle">school</i>
+                            <span class="title"><a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid">@course.courseTitle</a></span>
+                            <p>
+                                @course.courseStatus <br>
+                                @course.description
+                            </p>
+                            <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid"><i class="material-icons blue-text">send</i></a>
+                        </li>
+                    }
+                }
+            </ul>
+        }                   
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    $("select").change(function () {
+
+        window.location = "?semId=" + $(this).val();
+    });
+
+</script>

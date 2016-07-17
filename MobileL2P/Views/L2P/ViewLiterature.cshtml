@@ -1,0 +1,151 @@
+﻿@using L2PAPIClient.DataModel
+@using Grp.L2PSite.MobileApp.Services
+@{
+    ViewData["Title"] = "View Literature";
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    LiteratureViewModel Literature = ViewData["LiteratureModel"] as LiteratureViewModel;
+    if (Literature == null) { Literature = new LiteratureViewModel(); }
+
+}
+
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Literatures</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <table class="bordered">
+                <tbody>
+                    <tr>
+                        <td for="title" style="color:blue">Title*</td>
+                        <td id="div_text_area">@Literature.title</td>
+                    </tr>
+                    <tr>
+                       
+                        <td for="type" style="color:blue">Publication Type</td>
+                        <td id="div_text_area">@Literature.type</td>
+                    </tr>
+                    <tr>
+                        <td for="authors" style="color:blue">Authors</td>
+                        <td id="div_text_area">@Literature.authors</td>
+                    </tr>
+                    <tr>
+                        <td for="edition" style="color:blue">Edition</td>
+                        <td id="div_text_area">@Literature.edition</td>
+                    </tr>
+
+                    <tr>
+                        <td for="series" style="color:blue">Series</td>
+                        <td id="div_text_area">@Literature.series</td>
+                    </tr>
+                    <tr>
+                        <td for="booktitle" style="color:blue">Book Title</td>
+                        <td id="div_text_area">@Literature.booktitle</td>
+                    </tr>
+                    <tr>
+                        <td for="journalName" style="color:blue">Journal Name</td>
+                        <td id="div_text_area">@Literature.journalName</td>
+                    </tr>
+                    <tr>
+                        <td for="volume" style="color:blue">Volume</td>
+                        <td id="div_text_area">@Literature.volume</td>
+                    </tr>
+                    <tr>
+                        <td for="number" style="color:blue">Number</td>
+                        <td id="div_text_area">@Literature.number</td>
+                    </tr>
+                    <tr>
+                        <td for="isxn" style="color:blue">ISXN</td>
+                        <td id="div_text_area">@Literature.isxn</td>
+                    </tr>
+                    <tr>
+                        <td for="publisher" style="color:blue">Publisher</td>
+                        <td id="div_text_area">@Literature.publisher</td>
+                    </tr>
+                    <tr>
+                        <td for="address" style="color:blue">Address</td>
+                        <td id="div_text_area">@Literature.address</td>
+                    </tr>
+                    <tr>
+                        <td for="fromPage" style="color:blue">From Page</td>
+                        <td id="div_text_area">@Literature.fromPage</td>
+                    </tr>
+                    <tr>
+                        <td for="toPage" style="color:blue">To Page</td>
+                        <td id="div_text_area">@Literature.toPage</td>
+                    </tr>
+                    <tr>
+                        <td for="year" style="color:blue">Publication Year</td>
+                        <td id="div_text_area">@Literature.year</td>
+                    </tr>
+                    <tr>
+                        <td for="doi" style="color:blue">DOI</td>
+                        <td id="div_text_area">@Literature.doi</td>
+                    </tr>
+                    <tr>
+                        <td for="url" style="color:blue">Relevance</td>
+                        <td id="div_text_area">@Literature.url</td>
+                    </tr>
+                    <tr>
+                        <td for="role" style="color:blue">Role</td>
+                        <td id="div_text_area">@Literature.role</td>
+                    </tr>
+                    <tr>
+                        <td for="relevance" style="color:blue">Relevance</td>
+                        <td id="div_text_area">@Literature.relevance</td>
+                    </tr>
+                    <tr>
+                        <td for="comments" style="color:blue">Comments</td>
+                        <td id="div_text_area">@Literature.comments</td>
+                    </tr>
+                    <tr>
+                        <td for="availability" style="color:blue">Availability</td>
+                        <td id="div_text_area">@Literature.availability</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+            {
+    <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
+        <a class="btn-floating btn-large blue darken-3">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
+            <li><a asp-controller="L2P" asp-action="EditLiterature" asp-route-cId="@course.uniqueid" asp-route-lId="@Literature.itemId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
+        </ul>
+    </div>
+
+        <!-- Modal Structure -->
+                <div id="confirmModal" class="modal bottom-sheet">
+                    <div class="modal-content">
+                        <h4>Delete Literature(s)</h4>
+                        <p>Are you sure you want to delete the selected literature(s)</p>
+                    </div>
+                    <div class="modal-footer centered-content">
+                        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+                        <a asp-controller="L2P" asp-action="DeleteLiterature" asp-route-cId="@course.uniqueid" asp-route-lIds="@Literature.itemId-" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+                    </div>
+                </div>
+}
+
+
+
+<script>
+        $(function () {
+            $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+        });
+</script>
+

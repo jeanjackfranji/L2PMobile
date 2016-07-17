@@ -1,0 +1,66 @@
+﻿@using L2PAPIClient.DataModel;
+@using Grp.L2PSite.MobileApp.Services;
+@{
+    ViewData["Title"] = "Discussion Forum";
+    L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
+    L2PRole userRole = ViewData["userRole"] as L2PRole;
+    List<L2PDiscussionItemElement> discussion = ViewData["DiscussionForum"] as List<L2PDiscussionItemElement>;
+    if (discussion == null)
+    {
+        discussion = new List<L2PDiscussionItemElement>();
+    }
+}
+<nav>
+    <div class="nav-wrapper white">
+        <div class="col s12">
+            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20)...</a>
+            <a asp-controller="MyCourses" asp-action="DiscussionForum" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px">@ViewData["Title"]</a>
+        </div>
+    </div>
+</nav>
+<div class="col s12">
+    <ul class="tabs">
+        <li class="tab col s3"><a class="active blue-text" href="#recent">Recent</a></li>
+        <li class="tab col s3"><a class="blue-text" href="#mydiscuss">My Discussions</a></li>
+    </ul>
+</div>
+<div id="recent" class="col s12">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        @foreach (L2PDiscussionItemElement elem in discussion)
+        {
+            if (elem != null)
+            {
+                <li style="margin-left:0px; margin-right: 0px;">
+                    <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a asp-controller="L2P" asp-action="ShowDiscussion" asp-route-cID="@course.uniqueid" asp-route-dID="@elem.selfId">@elem.subject</a></div>
+                    <div class="collapsible-body" style="padding-left: 5px;">
+                        <p>
+                            @Html.Raw(@elem.body)
+                        <span style="font-size: x-small; float: right;">By @elem.from | Posted at @Tools.toDateTimeString(@elem.created)</span>
+                        <br />
+                    </p>
+                </div>
+            </li>
+            }
+        }
+    </ul>
+</div>
+<div id="mydiscuss" class="col s12">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        @foreach (L2PDiscussionItemElement elem in discussion)
+        {
+            if (elem != null && elem.byMe == true)
+            {
+                <li style="margin-left:0px; margin-right: 0px;">
+                    <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a asp-controller="L2P" asp-action="ShowDiscussion" asp-route-cID="@course.uniqueid" asp-route-dID="@elem.selfId">@elem.subject</a></div>
+                    <div class="collapsible-body" style="padding-left: 5px;">
+                        <p>
+                            @Html.Raw(@elem.body)
+                            <span style="font-size: x-small; float: right;">By @elem.from | Posted at @Tools.toDateTimeString(@elem.created)</span>
+                            <br />
+                        </p>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
