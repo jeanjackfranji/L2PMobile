@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel
 @model MobileL2P.Models.GroupWorkSpaceViewModel
 @{
-    ViewData["Title"] = "Group Workspace";
+    ViewData["Title"] = Resources.GroupWorkspace;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PgwsElement> groupInfo = ViewData["groupInfo"] as List<L2PgwsElement>;

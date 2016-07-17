@@ -159,11 +159,20 @@
   <data name="ExamResults" xml:space="preserve">
     <value>Prüfungsergebnisse</value>
   </data>
+  <data name="GroupWorkspace" xml:space="preserve">
+    <value>Gruppe Arbeitsplatz</value>
+  </data>
+  <data name="Hyperlinks" xml:space="preserve">
+    <value>Hyperlinks</value>
+  </data>
   <data name="LearningMaterials" xml:space="preserve">
     <value>Lernmaterialien</value>
   </data>
   <data name="Literature" xml:space="preserve">
     <value>Literatur</value>
+  </data>
+  <data name="MediaLibrary" xml:space="preserve">
+    <value>Medienbibliothek</value>
   </data>
   <data name="MyCourses" xml:space="preserve">
     <value>Meine Kurse</value>
@@ -188,6 +197,9 @@
   </data>
   <data name="Sender" xml:space="preserve">
     <value>Absender</value>
+  </data>
+  <data name="SharedDocuments" xml:space="preserve">
+    <value>Gemeinsame Dokumente</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Thema</value>

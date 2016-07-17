@@ -2,7 +2,7 @@
 @using MobileL2P.Services;
 @model MobileL2P.Models.FolderViewModel
 @{
-    ViewData["Title"] = "Shared Documents";
+    ViewData["Title"] = Resources.SharedDocuments;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PLearningMaterialElement> sharedDocuments = ViewData["CourseSharedDocuments"] as List<L2PLearningMaterialElement>;

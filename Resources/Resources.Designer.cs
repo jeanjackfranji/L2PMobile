@@ -187,6 +187,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Workspace.
+        /// </summary>
+        public static string GroupWorkspace {
+            get {
+                return ResourceManager.GetString("GroupWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hyperlinks.
+        /// </summary>
+        public static string Hyperlinks {
+            get {
+                return ResourceManager.GetString("Hyperlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Learning Materials.
         /// </summary>
         public static string LearningMaterials {
@@ -201,6 +219,15 @@ namespace Resources {
         public static string Literature {
             get {
                 return ResourceManager.GetString("Literature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media Library.
+        /// </summary>
+        public static string MediaLibrary {
+            get {
+                return ResourceManager.GetString("MediaLibrary", resourceCulture);
             }
         }
         
@@ -273,6 +300,15 @@ namespace Resources {
         public static string Sender {
             get {
                 return ResourceManager.GetString("Sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared Documents.
+        /// </summary>
+        public static string SharedDocuments {
+            get {
+                return ResourceManager.GetString("SharedDocuments", resourceCulture);
             }
         }
         
