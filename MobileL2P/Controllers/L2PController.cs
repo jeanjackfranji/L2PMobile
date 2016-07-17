@@ -748,7 +748,7 @@ namespace MobileL2P.Controllers
         // View Announcement with Privilege Validation
         // GET: /L2P/ShowAnnouncement?
         [HttpGet]
-        public async Task<ActionResult> ShowAnnouncement(string cId, int hId)
+        public async Task<ActionResult> ShowAnnouncement(string cId, int aId)
         {
             try
             {
@@ -759,7 +759,7 @@ namespace MobileL2P.Controllers
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
 
-                    L2PAnnouncementList aList = await L2PAPIClient.api.Calls.L2PviewAnnouncement(cId, hId);
+                    L2PAnnouncementList aList = await L2PAPIClient.api.Calls.L2PviewAnnouncement(cId, aId);
                     if (aList != null)
                     {
                         AnnouncementViewModel model = new AnnouncementViewModel();
@@ -1092,7 +1092,7 @@ namespace MobileL2P.Controllers
         // View Email with Privilege Validation
         // GET: /L2P/ShowEmail?
         [HttpGet]
-        public async Task<ActionResult> ShowEmail(string cId, int hId)
+        public async Task<ActionResult> ShowEmail(string cId, int eId)
         {
             try
             {
@@ -1103,7 +1103,7 @@ namespace MobileL2P.Controllers
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
 
-                    L2PEmailList eList = await L2PAPIClient.api.Calls.L2PviewEmail(cId, hId);
+                    L2PEmailList eList = await L2PAPIClient.api.Calls.L2PviewEmail(cId, eId);
                     if (eList != null)
                     {
                         EmailViewModel model = new EmailViewModel();

@@ -47,12 +47,12 @@
                     {
                         <li class="collection-item avatar">
                             <i class="material-icons circle">school</i>
-                            <span class="title"><a @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})>@course.courseTitle</a></span>
+                            <span class="title"><a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = course.uniqueid})">@course.courseTitle</a></span>
                             <p>
                                 @course.courseStatus <br>
                                 @course.description
                             </p>
-                            <a id="a-secondary-content" class="secondary-content" @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})><i class="material-icons blue-text">send</i></a>
+                            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = course.uniqueid})" id="a-secondary-content" class="secondary-content" ><i class="material-icons blue-text">send</i></a>
                         </li>
                     }
                 }

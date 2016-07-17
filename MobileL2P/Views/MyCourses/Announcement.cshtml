@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a  @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a @Url.Action("MyCourses", "Announcement", new{ cId = @course.uniqueid}) class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})"  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Announcement", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>
@@ -46,11 +46,11 @@
                                 }
                                 @if (!String.IsNullOrEmpty(ann.title))
                                 {
-                                    <td><a @Url.Action("L2P", "ShowAnnouncement", new{ cId = @course.uniqueid, aId= @ann.itemId })>@ann.title</a></td>
+                                    <td><a href="@Url.Action("ShowAnnouncement", "L2P", new{ cId = @course.uniqueid, aId= @ann.itemId })">@ann.title</a></td>
                                 }
                                 else
                                 {
-                                    <td><a asp-controller="L2P" asp-action="ShowAnnouncement" asp-route-cId="@course.uniqueid" asp-route-hId="@ann.itemId">@ann.itemId</a></td>
+                                    <td><a href="@Url.Action("ShowAnnouncement", "L2P", new{ cId = @course.uniqueid, aId= @ann.itemId })">@ann.itemId</a></td>
                                 }
                                 @if (ann.attachments != null)
                                 {
@@ -76,7 +76,7 @@
             </a>
             <ul>
                 <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-                <li><a asp-controller="L2P" asp-action="AddAnnouncement" asp-route-cId="@course.uniqueid" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+                <li><a href="@Url.Action("AddAnnouncement", "L2P", new{ cId = @course.uniqueid})" class="btn-floating waves-effect waves-light green"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     }
@@ -90,8 +90,8 @@
         <p>Are you sure you want to delete the selected announcement(s)</p>
     </div>
     <div class="modal-footer centered">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-        <a id="a_delete_announcements" asp-controller="L2P" asp-action="DeleteAnnouncements" asp-route-cId="@course.uniqueid" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+        <a id="a_delete_announcements" href="@Url.Action("DeleteAnnouncements", "L2P", new{ cId = @course.uniqueid})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
     </div>
 </div>
 
