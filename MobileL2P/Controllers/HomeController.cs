@@ -82,7 +82,7 @@ namespace MobileL2P.Controllers
                     HttpContext.Session.Remove("CourseId");
 
                     List<L2PCourseEvent> courseEvents = new List<L2PCourseEvent>();
-                    L2PCourseInfoSetData courses = L2PAPIClient.api.Calls.L2PviewAllCourseInfoAsync().Result;
+                    L2PCourseInfoSetData courses = await L2PAPIClient.api.Calls.L2PviewAllCourseInfoAsync();
 
                     if(courses.dataset != null)
                     {

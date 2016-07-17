@@ -33,21 +33,21 @@
     @if (cId != null)
     {      
         <ul id="coursesDropdown" class="dropdown-content">
-            <li><a asp-controller="MyCourses" asp-action="LearningMaterials" asp-route-cId="@cId" class="waves-effect waves-light blue-text">LearningMaterials</a></li>
-            <li><a asp-controller="MyCourses" asp-action="Assignments" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Assignments</a></li>
-            <li><a asp-controller="MyCourses" asp-action="MediaLibrary" asp-route-cId="@cId" class="waves-effect waves-light blue-text">MediaLibrary</a></li>
-            <li><a asp-controller="MyCourses" asp-action="SharedDocuments" asp-route-cId="@cId"  class="waves-effect waves-light blue-text">SharedDocuments</a></li>
-            <li><a asp-controller="MyCourses" asp-action="Email" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Emails</a></li>
-            <li><a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Announcements</a></li>
-            <li><a asp-controller="MyCourses" asp-action="Hyperlinks" asp-route-cId="@cId"  class="waves-effect waves-light blue-text">Hyperlinks</a></li>
-            <li><a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@cId" class="waves-effect waves-light blue-text">Literature</a></li>
-            <li><a asp-controller="MyCourses" asp-action="DiscussionForum" asp-route-cId="@cId" class="waves-effect waves-light blue-text">DiscussionForum</a></li>
-            <li><a asp-controller="MyCourses" asp-action="GroupWorkspace" asp-route-cId="@cId" class="waves-effect waves-light blue-text">GroupWorkspace</a></li>
+            <li><a href="@Url.Action("LearningMaterials", "MyCourses",new { cId = @cId})" class="waves-effect waves-light blue-text">LearningMaterials</a></li>
+            <li><a href="@Url.Action("Assignments", "MyCourses",new { cId = @cId})"       class="waves-effect waves-light blue-text">Assignments</a></li>
+            <li><a href="@Url.Action("MediaLibrary", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">MediaLibrary</a></li>
+            <li><a href="@Url.Action("SharedDocuments", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">SharedDocuments</a></li>
+            <li><a href="@Url.Action("Email", "MyCourses",new { cId = @cId})"             class="waves-effect waves-light blue-text">Emails</a></li>
+            <li><a href="@Url.Action("Announcement", "MyCourses",new { cId = @cId})"      class="waves-effect waves-light blue-text">Announcements</a></li>
+            <li><a href="@Url.Action("Hyperlinks", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">Hyperlinks</a></li>
+            <li><a href="@Url.Action("Literature", "MyCourses",new { cId = @cId})"        class="waves-effect waves-light blue-text">Literature</a></li>
+            <li><a href="@Url.Action("DiscussionForum", "MyCourses",new { cId = @cId})"   class="waves-effect waves-light blue-text">DiscussionForum</a></li>
+            <li><a href="@Url.Action("GroupWorkspace", "MyCourses",new { cId = @cId})"    class="waves-effect waves-light blue-text">GroupWorkspace</a></li>
         </ul>
     }
     <ul id="dpd_languages" class="dropdown-content">
-        <li>@Html.ActionLink("English", "Language", "Home", new {@culture= "EN-US" , @class = "elements" }, null)</li>
-        <li> @Html.ActionLink("Deutsch", "Language", "Home", new {@culture= "DE" , @class = "elements" }, null)</li>
+        <li><a href="@Url.Action("Language", "Home",new { @culture = "EN-US"})" class="waves-effect waves-light">English</a></li>
+        <li><a href="@Url.Action("Language", "Home",new { @culture = "DE"})" class="waves-effect waves-light">Deutsch</a></li>
     </ul>
     <nav class="blue darken-4" role="navigation">
         <div class="nav-wrapper">
@@ -71,20 +71,22 @@
                         </div>=
                     </div>
                 </li>
-                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="MyCourses" style="padding-left: 20px !important;">@Resources.MyCourses<i class="left material-icons" style="color: #0D47A1 !important;">school</i></a></li>
-                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="Calendar" style="padding-left: 20px !important;">@Resources.Calendar<i class="left material-icons" style="color: #0D47A1 !important;">perm_contact_calendar</i></a></li>
-                <li><a class="waves-effect waves-light" asp-controller="Home" asp-action="About" style="padding-left: 20px !important;">@Resources.About<i class="left material-icons" style="color: #0D47A1 !important;">info_outline</i></a></li>
+                <li><a href="@Url.Action("MyCourses", "Home")" class="waves-effect waves-light" style="padding-left: 20px !important;">@Resources.MyCourses<i class="left material-icons" style="color: #0D47A1 !important;">school</i></a></li>
+                <li><a href="@Url.Action("Calendar", "Home")" class="waves-effect waves-light"  style="padding-left: 20px !important;">@Resources.Calendar<i class="left material-icons" style="color: #0D47A1 !important;">perm_contact_calendar</i></a></li>
+                <li><a href="@Url.Action("About", "Home")"    class="waves-effect waves-light"  style="padding-left: 20px !important;">@Resources.About<i class="left material-icons" style="color: #0D47A1 !important;">info_outline</i></a></li>
                 <li class="divider"></li>
                 
                 @if (Tools.isUserLoggedInAndAPIActive(Context))
                 {
-                    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
-                        <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
-                    </form>
+                    <li>
+                        <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                            <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
+                        </form>
+                    </li>
                 }
                 else
                 {
-                    <li><a class="waves-effect waves-light" asp-controller="Account" asp-action="Login" style="padding-left: 20px !important;">Sign In <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
+                    <li><a href="@Url.Action("Login", "Account")" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign In <i class="left material-icons" style="color: #0D47A1 !important;">input</i></a></li>
                 }
                 
             </ul>
