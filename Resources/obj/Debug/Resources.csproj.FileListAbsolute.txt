@@ -7,3 +7,13 @@ C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources
 C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\bin\Debug\de\Resources.resources.dll
 C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\Resources.Resources.de.resources
 C:\Users\Jean Jack\Desktop\MvcInternationalization\Resources\obj\Debug\de\Resources.resources.dll
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\bin\Debug\Resources.dll
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\bin\Debug\Resources.pdb
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\bin\Debug\de\Resources.resources.dll
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.Resources.resources
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.Resources.de.resources
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\de\Resources.resources.dll
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.dll
+C:\Users\Neetha\Documents\Visual Studio 2015\Projects\L2PMobile\Resources\obj\Debug\Resources.pdb

@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel;
 @using Grp.L2PSite.MobileApp.Services;
 @{
-    ViewData["Title"] = "My Courses";
+    ViewData["Title"] = Resources.MyCourses;
     List<L2PCourseInfoData> semestersList = new List<L2PCourseInfoData>();
     List<L2PCourseInfoData> currentSemesterCourses = (List<L2PCourseInfoData>)ViewData["currentSemesterCourses"];
     Object semCode = ViewData["chosenSemesterCode"];
@@ -47,12 +47,12 @@
                     {
                         <li class="collection-item avatar">
                             <i class="material-icons circle">school</i>
-                            <span class="title"><a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid">@course.courseTitle</a></span>
+                            <span class="title"><a @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})>@course.courseTitle</a></span>
                             <p>
                                 @course.courseStatus <br>
                                 @course.description
                             </p>
-                            <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid"><i class="material-icons blue-text">send</i></a>
+                            <a id="a-secondary-content" class="secondary-content" @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})><i class="material-icons blue-text">send</i></a>
                         </li>
                     }
                 }

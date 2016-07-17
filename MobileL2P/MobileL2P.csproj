@@ -217,6 +217,7 @@
     <Content Include="wwwroot\js\selectize.min.js" />
     <Content Include="wwwroot\js\site.js" />
     <Content Include="wwwroot\js\validate-scripts.js" />
+    <Content Include="Views\Home\Calendar.cshtml" />
     <None Include="wwwroot\_references.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -232,7 +233,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\L2P\AddEditAnnouncement.cshtml" />

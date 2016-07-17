@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel;
 @using Grp.L2PSite.MobileApp.Services;
 @{
-    ViewData["Title"] = "Announcements";
+    ViewData["Title"] = Resources.Announcements;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PAnnouncementElement> announcements = ViewData["CourseAnnouncements"] as List<L2PAnnouncementElement>;
@@ -10,8 +10,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a  @Url.Action("MyCourses", "WhatsNew", new{ cId = @course.uniqueid})  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a @Url.Action("MyCourses", "Announcement", new{ cId = @course.uniqueid}) class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
         </div>
     </div>
 </nav>
@@ -27,8 +27,8 @@
                                 <label for="cb_check_all"></label>
                             </th>
                         }
-                        <th data-field="title">Title</th>
-                        <th data-field="hasAttachment">Attachments</th>
+                        <th data-field="title">@Resources.Title</th>
+                        <th data-field="hasAttachment">@Resources.Attachments</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                                 }
                                 @if (!String.IsNullOrEmpty(ann.title))
                                 {
-                                    <td><a asp-controller="L2P" asp-action="ShowAnnouncement" asp-route-cId="@course.uniqueid" asp-route-hId="@ann.itemId">@ann.title</a></td>
+                                    <td><a @Url.Action("L2P", "ShowAnnouncement", new{ cId = @course.uniqueid, aId= @ann.itemId })>@ann.title</a></td>
                                 }
                                 else
                                 {
