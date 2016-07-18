@@ -28,7 +28,14 @@ namespace MobileL2P.Controllers
                     //remove previously save course id
                     HttpContext.Session.Remove("CourseId");
                     if (Tools.hasCookieToken)
-                        await AuthenticationManager.CheckAccessTokenAsync();
+                    {
+                        Auth auth = new Auth();
+                        if (HttpContext.Session["authenticator"] != null)
+                        {
+                            auth = HttpContext.Session["authenticator"] as Auth;
+                        }
+                        await auth.CheckAccessTokenAsync();
+                    }
 
                     L2PCourseInfoSetData result = await L2PAPIClient.api.Calls.L2PviewAllCourseInfoAsync();
                     L2PCourseInfoSetData resultBySemester = null;

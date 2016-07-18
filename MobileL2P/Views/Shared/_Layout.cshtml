@@ -2,7 +2,7 @@
 @{
     string cId = Context.Session["CourseId"] as string;
     string language = Context.Session["Language"] as string;
-    if (String.IsNullOrEmpty(language))
+    if (string.IsNullOrEmpty(language))
     {
         language = "EN";
     }
@@ -79,9 +79,10 @@
                 @if (Tools.isUserLoggedInAndAPIActive(Context))
                 {
                     <li>
-                        <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                        @using (Html.BeginForm("LogOff", "Account", null, FormMethod.Post, new { id = "logoutForm" }))
+                        {
                             <a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light" style="padding-left: 20px !important;">Sign Out <i class="left material-icons" style="color: #0D47A1 !important;">exit_to_app</i></a>
-                        </form>
+                        }
                     </li>
                 }
                 else

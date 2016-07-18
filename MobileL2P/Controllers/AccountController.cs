@@ -28,7 +28,9 @@ namespace MobileL2P.Controllers
                 if (!Tools.hasCookieToken)
                 {
                     //Init the Auth Process
-                    ViewData["L2PURL"] = await L2PAPIClient.AuthenticationManager.StartAuthenticationProcessAsync().ConfigureAwait(false);
+                    L2PAPIClient.Auth authenticator = new L2PAPIClient.Auth();
+                    ViewData["L2PURL"] = await authenticator.StartAuthenticationProcessAsync().ConfigureAwait(false);
+                    HttpContext.Session.Add("authenticator", authenticator);
                     return View();
                 }
                 else
@@ -56,9 +58,16 @@ namespace MobileL2P.Controllers
                 {
                     // Just wait 5 seconds - this is the recommended querying time for OAuth by ITC
                     Thread.Sleep(5000);
-                    OAuthTokenRequestData reqData = await L2PAPIClient.AuthenticationManager.CheckAuthenticationProgressAsync();
 
-                    done = (L2PAPIClient.AuthenticationManager.getState() == L2PAPIClient.AuthenticationManager.AuthenticationState.ACTIVE);
+                    L2PAPIClient.Auth auth = new L2PAPIClient.Auth();
+                    if(HttpContext.Session["authenticator"] != null)
+                    {
+                        auth = HttpContext.Session["authenticator"] as L2PAPIClient.Auth;
+                    }
+
+                    OAuthTokenRequestData reqData = await auth.CheckAuthenticationProgressAsync();
+
+                    done = (auth.getState() == L2PAPIClient.Auth.AuthenticationState.ACTIVE);
                     if (done)
                     {
                         HttpCookie accessCookie = new HttpCookie("CRTID", Encryptor.Encrypt(reqData.access_token));
