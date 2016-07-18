@@ -29,10 +29,10 @@ namespace MobileL2P.Controllers
                     HttpContext.Session.Remove("CourseId");
                     if (Tools.hasCookieToken)
                     {
-                        Auth auth = new Auth();
+                        UserAuth auth = new UserAuth();
                         if (HttpContext.Session["authenticator"] != null)
                         {
-                            auth = HttpContext.Session["authenticator"] as Auth;
+                            auth = HttpContext.Session["authenticator"] as UserAuth;
                         }
                         await auth.CheckAccessTokenAsync();
                     }

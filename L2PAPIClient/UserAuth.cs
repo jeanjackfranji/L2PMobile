@@ -9,11 +9,11 @@ using System.Threading;
 
 namespace L2PAPIClient
 {
-    public class Auth
+    public class UserAuth
     {
         private UserConfig config = new UserConfig();
 
-        public Auth() { }
+        public UserAuth() { }
 
         #region general Authentication Managemant
 
