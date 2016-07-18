@@ -26,7 +26,6 @@ namespace MobileL2P.Controllers
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
-
                     HttpContext.Session.Add("CourseId", cId);
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["CourseWhatsNew"] = await L2PAPIClient.api.Calls.L2PwhatsNewSinceAsync(cId, 180000);

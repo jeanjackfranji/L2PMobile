@@ -317,13 +317,14 @@ namespace MobileL2P.Controllers
                         {
                             HtmlConverter con = new HtmlConverter();
                             HyperLinkViewModel model = new HyperLinkViewModel();
-                            foreach (L2PHyperlinkElement hyperlink in hlList.dataSet)
-                            {
-                                model.URL = hyperlink.url;
-                                model.Title = hyperlink.description;
+                            L2PHyperlinkElement hyperlink = hlList.dataSet.First();
+
+                            model.URL = hyperlink.url;
+                            model.Title = hyperlink.description;
+                            if (!string.IsNullOrEmpty(hyperlink.notes))
                                 model.Notes = con.ConvertHtml(hyperlink.notes);
-                                model.itemId = hyperlink.itemId;
-                            }
+                            model.itemId = hyperlink.itemId;
+
                             ViewData["EditMode"] = true;
                             ViewData["ChosenCourse"] = course;
                             ViewData["userRole"] = userRole;
@@ -809,12 +810,11 @@ namespace MobileL2P.Controllers
 
                             HtmlConverter con = new HtmlConverter();
                             AnnouncementViewModel model = new AnnouncementViewModel();
-                            foreach (L2PAnnouncementElement announcement in aList.dataSet)
-                            {
-                                model.title = announcement.title;
+                            L2PAnnouncementElement announcement = aList.dataSet.First();
+                            model.title = announcement.title;
+                            if (!string.IsNullOrEmpty(announcement.body))
                                 model.body = con.ConvertHtml(announcement.body);
-                                model.itemId = announcement.itemId;
-                            }
+                            model.itemId = announcement.itemId;
                             ViewData["EditMode"] = true;
                             ViewData["ChosenCourse"] = course;
                             ViewData["userRole"] = userRole;
@@ -1041,7 +1041,7 @@ namespace MobileL2P.Controllers
                         var recipients = Request.Form.Get("recipients");
                         if (recipients != null)
                         {
-                            newEmail.recipients = recipients.Replace(",",";") + ";";
+                            newEmail.recipients = recipients.Replace(",", ";") + ";";
                         }
                         newEmail.subject = model.subject;
 
@@ -1829,7 +1829,7 @@ namespace MobileL2P.Controllers
                             newAssignment.groupSubmissionAllowed = false;
                         newAssignment.title = model.Title;
                         newAssignment.totalMarks = model.totalPoint;
-                       
+
                         L2PAddUpdateResponse response = await L2PAPIClient.api.Calls.L2PAddAssignment(cId, newAssignment);
                         return RedirectToAction(nameof(MyCoursesController.Assignments), "MyCourses", new { cId = cId, @msg = "Assignment was successfully added!" });
                     }
@@ -1880,7 +1880,7 @@ namespace MobileL2P.Controllers
 
                                 model.Description = a.description;
 
-                                model.DueDate = Tools.toDateTimeString(a.dueDate);
+                                model.DueDate = Tools.toDateString(a.dueDate);
                                 model.DueDatehours = Tools.toHoursString(a.dueDate);
                                 if (a.groupSubmissionAllowed)
                                 {
@@ -1964,7 +1964,7 @@ namespace MobileL2P.Controllers
                             newAssignment.groupSubmissionAllowed = false;
                         newAssignment.title = model.Title;
                         newAssignment.totalMarks = model.totalPoint;
-                        
+
                         return RedirectToAction(nameof(MyCoursesController.Assignments), "MyCourses", new { cId = cId, @msg = "Sample Solution was successfully added!" });
                     }
 
@@ -2099,12 +2099,12 @@ namespace MobileL2P.Controllers
 
                             HtmlConverter con = new HtmlConverter();
                             DiscussionViewModel model = new DiscussionViewModel();
-                            foreach (L2PDiscussionItemElement discuss in dList.dataSet)
-                            {
-                                model.title = discuss.subject;
+                            L2PDiscussionItemElement discuss = dList.dataSet.First();
+
+                            model.title = discuss.subject;
+                            if (!string.IsNullOrEmpty(discuss.body))
                                 model.body = con.ConvertHtml(discuss.body);
-                                model.dId = discuss.selfId;
-                            }
+                            model.dId = discuss.selfId;
                             ViewData["EditMode"] = true;
                             ViewData["ChosenCourse"] = course;
                             ViewData["userRole"] = userRole;
@@ -2350,7 +2350,7 @@ namespace MobileL2P.Controllers
                     }
 
 
-                    ViewData["ShowDiscussion"] = elem;
+                    //ViewData["ShowDiscussion"] = elem;
                     return View();
 
                 }

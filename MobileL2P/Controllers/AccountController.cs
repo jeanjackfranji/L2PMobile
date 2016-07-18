@@ -75,10 +75,11 @@ namespace MobileL2P.Controllers
                         HttpCookie refreshCookie = new HttpCookie("CRAID", Encryptor.Encrypt(reqData.refresh_token));
                         accessCookie.Expires = DateTime.MaxValue;
                         refreshCookie.Expires = DateTime.MaxValue;
+
                         //Add a Cookie
                         Response.Cookies.Add(accessCookie);
                         Response.Cookies.Add(refreshCookie);
-                        
+
                         System.Diagnostics.Debug.WriteLine(reqData.access_token + " :: :: " + reqData.refresh_token);
 
                         //Set logged in to true
