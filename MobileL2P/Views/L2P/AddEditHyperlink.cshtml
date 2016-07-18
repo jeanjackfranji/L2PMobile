@@ -19,7 +19,7 @@
     <div class="nav-wrapper white">
         <div class="col s12">
             <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a href="@Url.Action("Hyperlinks", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Hyperlinks</a>
+            <a href="@Url.Action("Hyperlinks", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@Resources.Hyperlinks</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
         </div>
     </div>
@@ -34,21 +34,21 @@
             <div class="input-field col s12">
                 <label for="URL">URL*</label>
                 @Html.TextBoxFor(m => m.URL, new { @class = "validate", type = "text", required = "required", placeholder = "http://" })
-                <span>@Html.ValidationMessageFor(m => m.URL)</span>
+                <span class="red-text">@Html.ValidationMessageFor(m => m.URL)</span>
              </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="Title">@Resources.Title*</label>
                 @Html.TextBoxFor(m => m.Title, new { @class = "validate", type = "text", required = "required" })
-                <span>@Html.ValidationMessageFor(m => m.Title)</span>
+                <span class="red-text">@Html.ValidationMessageFor(m => m.Title)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="Notes">Notes</label>
-                @Html.TextAreaFor(m => m.Notes, new { @class = "validate", type = "text"})
-                <span>@Html.ValidationMessageFor(m => m.Notes)</span>
+                @Html.TextAreaFor(m => m.Notes, new { @class = "materialize-textarea validate", type = "text"})
+                <span class="red-text">@Html.ValidationMessageFor(m => m.Notes)</span>
             </div>
         </div>
         <div class="row right-align">

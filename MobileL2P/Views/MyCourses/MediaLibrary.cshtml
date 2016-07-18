@@ -93,7 +93,7 @@
                 <div class="input-field col s12">
                     <label for="Name">Name*</label>
                     @Html.TextBoxFor(m => m.Name, new { @class = "validate", type = "text", required = "required" })
-                    <span>@Html.ValidationMessageFor(m => m.Name)</span>
+                    <span class="red-text">@Html.ValidationMessageFor(m => m.Name)</span>
                 </div>
             </div>
         </div>

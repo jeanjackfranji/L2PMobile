@@ -53,7 +53,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Hyperlink in a course
         // POST: /L2P/AddHyperlink?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddHyperlink(HyperLinkViewModel model, string cId)
         {
             try
@@ -114,7 +113,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new folder in the intended view (Learning Material,...)
         // POST: /L2P/AddFolder
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddFolder(string cId, int ModelNb, string curDir, FolderViewModel model)
         {
             try
@@ -174,7 +172,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new file in the intended view (Learning Material,...)
         // POST: /L2P/AddFile
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddFile(HttpPostedFileBase file, string cId, int ModelNb, string curDir)
         {
             try
@@ -678,7 +675,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Announcement in a course
         // POST: /L2P/AddAnnouncement?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddAnnouncement(AnnouncementViewModel model, string cId, HttpPostedFileBase file)
         {
             try
@@ -1012,7 +1008,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Email in a course
         // POST: /L2P/AddEmail?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddEmail(EmailViewModel model, string cId, HttpPostedFileBase file)
         {
             try
@@ -1038,6 +1033,7 @@ namespace MobileL2P.Controllers
                         L2PAddEmailRequest newEmail = new L2PAddEmailRequest();
                         newEmail.body = model.body;
                         newEmail.replyTo = "true";
+                        newEmail.attachmentsToUpload = new List<L2PUploadRequest>();
                         if (model.cc != null)
 
                             newEmail.cc = model.cc.Replace(",", ";") + ";";
@@ -1045,9 +1041,9 @@ namespace MobileL2P.Controllers
                         var recipients = Request.Form.Get("recipients");
                         if (recipients != null)
                         {
-                            newEmail.recipients = recipients + ";";
+                            newEmail.recipients = recipients.Replace(",",";") + ";";
                         }
-                        newEmail.subject = model.subject; ;
+                        newEmail.subject = model.subject;
 
                         if (file != null)
                         {
@@ -1798,7 +1794,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Hyperlink in a course
         // POST: /L2P/AddHyperlink?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddAssignment(AssignmentViewModel model, string cId, HttpPostedFileBase file, HttpPostedFileBase fileSo)
         {
             try
@@ -1993,7 +1988,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Hyperlink in a course
         // POST: /L2P/AddHyperlink?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditAssignment(AssignmentViewModel model, string cId, HttpPostedFileBase file, HttpPostedFileBase fileSo)
         {
             try
@@ -2295,7 +2289,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Announcement in a course
         // POST: /L2P/AddAnnouncement?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> PostDiscussion(DiscussionViewModel model, string cId)
         {
             try
@@ -2426,7 +2419,6 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Reply in a Discussion
         // POST: /L2P/ReplyDiscussion?
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReplyDiscussion(DiscussionViewModel model, string cId, int pId)
         {
             try

@@ -19,7 +19,7 @@
     <div class="nav-wrapper white">
         <div class="col s12">
             <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a href="@Url.Action("Literature", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Literature</a>
+            <a href="@Url.Action("Literature", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@Resources.Literature</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
         </div>
     </div>
@@ -34,7 +34,7 @@
             <div class="input-field col s12">
                 <label for="title">@Resources.Title*</label>
                 @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
-                <span>@Html.ValidationMessageFor(m => m.title)</span>
+                <span class="red-text">@Html.ValidationMessageFor(m => m.title)</span>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
             <div class="input-field col s12">
                 <label for="authors">@Resources.Authors*</label>
                 @Html.TextBoxFor(m => m.authors, new { @class = "validate", type = "text", required = "required" })
-                <span>@Html.ValidationMessageFor(m => m.authors)</span>
+                <span class="red-text">@Html.ValidationMessageFor(m => m.authors)</span>
             </div>
         </div>
         <div class="row">

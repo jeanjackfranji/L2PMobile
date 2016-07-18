@@ -27,7 +27,6 @@
 <div class="row">
 @using (Html.BeginForm(isEditMode.HasValue ? "EditAnnouncement" : "AddAnnouncement", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
      <div class="row">
                  @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
@@ -35,7 +34,7 @@
             <div class="input-field col s12">
                 <label for="title">@Resources.Title</label>
                 @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
-                <span>@Html.ValidationMessageFor(m => m.title)</span>
+                <span class="red-text">@Html.ValidationMessageFor(m => m.title)</span>
             </div>
         </div>
 
@@ -43,8 +42,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <label for="body">@Resources.Body</label>
-                    @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text", required = "required" })
-                    <span>@Html.ValidationMessageFor(m => m.body)</span>
+                    @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text"})
+                    <span class="red-text">@Html.ValidationMessageFor(m => m.body)</span>
                   </div>
                 </div>
 

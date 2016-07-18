@@ -178,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compose E-Mail.
+        /// </summary>
+        public static string ComposeEmail {
+            get {
+                return ResourceManager.GetString("ComposeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Announcement(s).
         /// </summary>
         public static string DeleteAnnouncement {
@@ -318,6 +327,15 @@ namespace Resources {
         public static string Emails {
             get {
                 return ResourceManager.GetString("Emails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
