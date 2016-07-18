@@ -795,7 +795,7 @@ namespace MobileL2P.Controllers
         // Get Method to Edit a Announcement in a course
         // GET: /L2P/EditAnnouncement
         [HttpGet]
-        public async Task<ActionResult> EditAnnouncement(string cId, int hId)
+        public async Task<ActionResult> EditAnnouncement(string cId, int aId)
         {
             try
             {
@@ -807,7 +807,7 @@ namespace MobileL2P.Controllers
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
                     if (userRole != null && (userRole.role.Contains("manager") || userRole.role.Contains("tutors")))
                     {
-                        L2PAnnouncementList aList = await L2PAPIClient.api.Calls.L2PviewAnnouncement(cId, hId);
+                        L2PAnnouncementList aList = await L2PAPIClient.api.Calls.L2PviewAnnouncement(cId, aId);
                         if (aList != null)
                         {
 
@@ -915,7 +915,7 @@ namespace MobileL2P.Controllers
         // Get Method to add a new Announcement in a course
         // GET: /L2P/DeleteAnnouncements
         [HttpGet]
-        public async Task<ActionResult> DeleteAnnouncements(string cId, string hIds)
+        public async Task<ActionResult> DeleteAnnouncements(string cId, string aIds)
         {
             try
             {
@@ -928,7 +928,7 @@ namespace MobileL2P.Controllers
                         string errorMessage = "You were redirected to this page with missing parameters.<br/> Please go back to the home page and try again.";
                         return RedirectToAction(nameof(HomeController.Error), "Home", new { @error = errorMessage });
                     }
-                    else if (String.IsNullOrEmpty(hIds))
+                    else if (String.IsNullOrEmpty(aIds))
                     {
                         return RedirectToAction(nameof(MyCoursesController.Announcement), "MyCourses", new { @cId = cId });
                     }
@@ -937,8 +937,8 @@ namespace MobileL2P.Controllers
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
                     if (userRole != null && (userRole.role.Contains("manager") || userRole.role.Contains("tutors")))
                     {
-                        hIds = hIds.TrimEnd('-');
-                        string[] announcementIds = hIds.Split('-');
+                        aIds = aIds.TrimEnd('-');
+                        string[] announcementIds = aIds.Split('-');
                         foreach (string hId in announcementIds)
                         {
                             int id = -1;

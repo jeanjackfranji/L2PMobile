@@ -239,4 +239,31 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="AddAnnouncement" xml:space="preserve">
+    <value>Add Announcement</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="DeleteAnnouncement" xml:space="preserve">
+    <value>Delete Announcement(s)</value>
+  </data>
+  <data name="DeleteAnnouncementMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the selected announcement(s)?</value>
+  </data>
+  <data name="EditAnnouncement" xml:space="preserve">
+    <value>Edit Annoucement</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Upload File</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Please choose a file to upload</value>
+  </data>
+  <data name="ViewAnnouncement" xml:space="preserve">
+    <value>View Announcement</value>
+  </data>
 </root>

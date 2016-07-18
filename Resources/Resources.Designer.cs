@@ -79,6 +79,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Announcement.
+        /// </summary>
+        public static string AddAnnouncement {
+            get {
+                return ResourceManager.GetString("AddAnnouncement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement.
+        /// </summary>
+        public static string Announcement {
+            get {
+                return ResourceManager.GetString("Announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Announcements.
         /// </summary>
         public static string Announcements {
@@ -115,11 +133,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Body.
+        /// </summary>
+        public static string Body {
+            get {
+                return ResourceManager.GetString("Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calendar.
         /// </summary>
         public static string Calendar {
             get {
                 return ResourceManager.GetString("Calendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Announcement(s).
+        /// </summary>
+        public static string DeleteAnnouncement {
+            get {
+                return ResourceManager.GetString("DeleteAnnouncement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected announcement(s)?.
+        /// </summary>
+        public static string DeleteAnnouncementMsg {
+            get {
+                return ResourceManager.GetString("DeleteAnnouncementMsg", resourceCulture);
             }
         }
         
@@ -174,6 +219,15 @@ namespace Resources {
         public static string DiscussionForum {
             get {
                 return ResourceManager.GetString("DiscussionForum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Annoucement.
+        /// </summary>
+        public static string EditAnnouncement {
+            get {
+                return ResourceManager.GetString("EditAnnouncement", resourceCulture);
             }
         }
         
@@ -401,6 +455,33 @@ namespace Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload File.
+        /// </summary>
+        public static string UploadFile {
+            get {
+                return ResourceManager.GetString("UploadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a file to upload.
+        /// </summary>
+        public static string UploadMessage {
+            get {
+                return ResourceManager.GetString("UploadMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Announcement.
+        /// </summary>
+        public static string ViewAnnouncement {
+            get {
+                return ResourceManager.GetString("ViewAnnouncement", resourceCulture);
             }
         }
         

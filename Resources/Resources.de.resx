@@ -238,4 +238,31 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="AddAnnouncement" xml:space="preserve">
+    <value>Neue Ankündigung</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Ankündigung</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="DeleteAnnouncement" xml:space="preserve">
+    <value>Löschen Ankündigung( en )</value>
+  </data>
+  <data name="DeleteAnnouncementMsg" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie die gewählte Ankündigung( en ) löschen möchten?</value>
+  </data>
+  <data name="EditAnnouncement" xml:space="preserve">
+    <value>Bearbeiten Ankündigung</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Datei hochladen</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Bitte wählen Sie eine Datei hochladen</value>
+  </data>
+  <data name="ViewAnnouncement" xml:space="preserve">
+    <value>Ankündigung zeigen</value>
+  </data>
 </root>
