@@ -1,39 +1,40 @@
 ﻿@using L2PAPIClient.DataModel
 @using MobileL2P.Services
-@model LiteratureViewModel
+@model MobileL2P.Models.LiteratureViewModel
 @{
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
 
     bool? isEditMode = ViewData["EditMode"] as bool?;
     if (isEditMode.HasValue)
     {
-        ViewData["Title"] = "Edit Literature";
+        ViewData["Title"] = Resources.EditLiterature;
     }
     else
     {
-        ViewData["Title"] = "Add Literature";
+        ViewData["Title"] = Resources.AddLiterature;
     }
 }
 
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Literature</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Literature", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Literature</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
         </div>
     </div>
 </nav>
 <div class="row">
-    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditLiterature" : "AddLiterature" )" asp-route-cId="@course.uniqueid" method="post" role="form">
+@using (Html.BeginForm(isEditMode.HasValue ? "EditLiterature" : "AddLiterature", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form" }))
+{   
         <div class="row">
-            <div asp-validation-summary="ValidationSummary.All"></div>
+           @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="title" class="validate" type="text"  />
-                <label asp-for="title">Title*</label>
-                <span asp-validation-for="title" class="red-text"></span>
+                <label for="title">@Resources.Title*</label>
+                @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
+                <span>@Html.ValidationMessageFor(m => m.title)</span>
             </div>
         </div>
 
@@ -47,79 +48,79 @@
                     <option value="In-Proceedings">In Proceedings</option>
                     <option value="Other Literature">Other Literature</option>
                 </select>
-                <label asp-for="type">Literature Type*</label>
-                <span asp-validation-for="type" class="red-text"></span>
+                <label for="type">Literature Type*</label>
+                @Html.TextBoxFor(m => m.type, new { @class = "validate", type = "text", required = "required" })
 
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="authors" class="validate" type="text" />
-                <label asp-for="authors">Authors*</label>
-                <span asp-validation-for="authors" class="red-text"></span>
+                <label for="authors">@Resources.Authors*</label>
+                @Html.TextBoxFor(m => m.authors, new { @class = "validate", type = "text", required = "required" })
+                <span>@Html.ValidationMessageFor(m => m.authors)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="edition" class="validate" type="text" />
-                <label asp-for="edition">Edition</label>
-            </div>
+                <label for="edition">Edition</label>
+                @Html.TextBoxFor(m => m.edition, new { @class = "validate", type = "text"})
+             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="series" class="validate" type="text" />
-                <label asp-for="series">Series</label>
+                <label for="series">Series</label>
+                @Html.TextBoxFor(m => m.series, new { @class = "validate", type = "text", required = "required" })
             </div>
         </div>
         <div class="row" id="book_title_div">
             <div class="input-field col s12">
-                <input asp-for="booktitle" class="validate" type="text" />
-                <label asp-for="booktitle">Book Title*</label>
-            </div>
+                <label for="booktitle">Book title*</label>
+                @Html.TextBoxFor(m => m.booktitle, new { @class = "validate", type = "text", required = "required" })
+             </div>
         </div>
        
       
         <div class="row" id="journal_name_div">
             <div class="input-field col s12">
-                <input asp-for="journalName" class="validate" type="text" />
-                <label asp-for="journalName">Journal Name*</label>
+                <label for="journalName">Journal Name*</label>
+                @Html.TextBoxFor(m => m.journalName, new { @class = "validate", type = "text", required = "required" })
             </div>
         </div>
         
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="volume" class="validate" type="text" />
-                <label asp-for="volume">Volume</label>
+                <label for="volume">Volume</label>
+                @Html.TextBoxFor(m => m.volume, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="number" class="validate" type="text" />
-                <label asp-for="number">Number</label>
+                <label for="number">Number</label>
+                @Html.TextBoxFor(m => m.number, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="isxn" class="validate" type="text" />
-                <label asp-for="isxn">ISXN</label>
+                <label for="isxn">ISXN</label>
+                @Html.TextBoxFor(m => m.isxn, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="publisher" class="validate" type="text" />
-                <label asp-for="publisher">Publisher</label>
+                <label for="publisher">Publisher</label>
+                @Html.TextBoxFor(m => m.publisher, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="address" class="validate" type="text" />
-                <label asp-for="address">Address</label>
+                <label for="address">Address</label>
+                @Html.TextBoxFor(m => m.address, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="fromPage" class="validate" type="number" />
-                <label asp-for="fromPage">From Page</label>
+                <label for="fromPage">From Page</label>
+                @Html.TextBoxFor(m => m.fromPage, new { @class = "validate", type = "text" })
             </div>
         </div>
         <div class="row">
@@ -193,14 +194,14 @@
 
         <div class="row right-align">
             <div class="input-field col s12">
-                <input asp-for="itemId" hidden="hidden" value="@(isEditMode.HasValue ? Model.itemId + "" : "-1")" />
+                @Html.TextBoxFor(m => m.itemId, new { @hidden = "hidden", @Value = isEditMode.HasValue ? Model.itemId + "" : "-1" })
                 <button class="btn waves-effect waves-light" type="submit" name="action">
                     Submit
                     <i class="material-icons right">send</i>
                 </button>
             </div>
         </div>
-    </form>
+}
 </div>
 <script>
     $(document).ready(function () {

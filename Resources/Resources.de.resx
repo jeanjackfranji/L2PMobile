@@ -265,4 +265,43 @@
   <data name="ViewAnnouncement" xml:space="preserve">
     <value>Ankündigung zeigen</value>
   </data>
+  <data name="AddAssignment" xml:space="preserve">
+    <value>Add Assignment</value>
+  </data>
+  <data name="AddHyperlink" xml:space="preserve">
+    <value>Neu Hyperlink</value>
+  </data>
+  <data name="AddLiterature" xml:space="preserve">
+    <value>Neu Literature</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>der Einsendeschluss</value>
+  </data>
+  <data name="DueDateTime" xml:space="preserve">
+    <value>die Einsendeschlusszeit</value>
+  </data>
+  <data name="EditAssignment" xml:space="preserve">
+    <value>Edit Assignment</value>
+  </data>
+  <data name="EditHyperlink" xml:space="preserve">
+    <value>Hyperlink Bearbeiten</value>
+  </data>
+  <data name="EditLiterature" xml:space="preserve">
+    <value>Literatur Bearbeiten</value>
+  </data>
+  <data name="GrpSubmission" xml:space="preserve">
+    <value>Lassen Gruppe Submission</value>
+  </data>
+  <data name="SampleSolution" xml:space="preserve">
+    <value>Bitte wählen Sie eine Musterlösung Datei</value>
+  </data>
+  <data name="TotalPoints" xml:space="preserve">
+    <value>Gesamtpunktzahl</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ansehen</value>
+  </data>
 </root>

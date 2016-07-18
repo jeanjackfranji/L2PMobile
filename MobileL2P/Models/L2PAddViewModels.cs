@@ -100,7 +100,7 @@ namespace MobileL2P.Models
         public string Description { get; set; }
 
         [Display(Name = "Allow Group Submission")]
-        public string groupSubmissionAllowed { get; set; }
+        public bool groupSubmissionAllowed { get; set; }
 
         [Required]
         [Display(Name = "Total Point")]

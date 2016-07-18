@@ -2,7 +2,7 @@
 @using MobileL2P.Services;
 @using Newtonsoft.Json;
 @{
-    ViewData["Title"] = "View Assignment";
+    ViewData["Title"] = Resources.Assignments;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     List<L2PAssignmentElement> assignment = ViewData["ViewAssignment"] as List<L2PAssignmentElement>;
@@ -10,9 +10,9 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Assignments" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
-            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Assignments", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">@ViewData["Title"]</a>
+            <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@Resources.View</a>
         </div>
     </div>
 </nav>
@@ -21,9 +21,7 @@
 <div class="container">
     @if (assignment != null)
     {
-
-
-        @foreach (L2PAssignmentElement assign in assignment)
+         foreach (L2PAssignmentElement assign in assignment)
         {
             List<L2PAttachmentElement> sampleSol = assign.SampleSolutionDocuments;
             List<L2PAttachmentElement> fileInfo = assign.assignmentDocuments;
@@ -34,20 +32,18 @@
             <div class="row">
                 <div class="col s12">
                     <table class="bordered">
-
                         <tbody>
-
-                            <tr>
-                                <td><b>Assignment Title:</b></td>
+                             <tr>
+                                <td><b>@Resources.Title :</b></td>
                                 <td>@assign.title</td>
                             </tr>
                             <tr>
-                                <td><b>Description:</b></td>
+                                <td><b>@Resources.Description :</b></td>
                                 <td>@Html.Raw(assign.description)</td>
 
                             </tr>
                             <tr>
-                                <td><b>Total Point</b>:</td>
+                                <td><b>@Resources.TotalPoints :</b></td>
                                 <td>@assign.totalPoint</td>
                             </tr>
                             <tr>
@@ -56,7 +52,7 @@
                             </tr>
 
                             <tr>
-                                <td><b>Due Date:</b></td>
+                                <td><b>@Resources.DueDate:</b></td>
                                 <td>@Tools.toDateString(assign.dueDate)</td>
 
                             </tr>
@@ -68,7 +64,7 @@
                                     <td>
                                         @foreach (L2PAttachmentElement a in fileInfo)
                                         {
-                                            <a asp-controller="MyCourses" asp-action="DownloadAssignment" asp-route-url="@a.downloadUrl" asp-route-filename="@a.fileName" asp-route-cId="@course.uniqueid">@a.fileName</a>
+                                            <a href="@Url.Action("DownloadAssignment", "MyCourses", new{ url = @a.downloadUrl, filename= @a.fileName, cId = @course.uniqueid })">@a.fileName</a>
                                             <br />
                                         }
                                     </td>
@@ -88,7 +84,7 @@
                                         @foreach (L2PAttachmentElement sa in sampleSol)
                                         {
 
-                                            <a asp-controller="MyCourses" asp-action="DownloadAssignment" asp-route-url="@sa.downloadUrl" asp-route-filename="@sa.fileName" asp-route-cId="@course.uniqueid">@sa.fileName</a>
+                                            <a href="@Url.Action("DownloadAssignment", "MyCourses", new{ url = @sa.downloadUrl, filename= @sa.fileName, cId = @course.uniqueid })">@sa.fileName</a>
 
                                         }
                                     </td>
@@ -101,7 +97,7 @@
                             </tr>
                             @if (userRole.role.Contains("student"))
                             {
-                                @if (corrInfo != null)
+                                if (corrInfo != null)
                                 {
                                     List<L2PAttachmentElement> corrdoc = corrInfo.correctionDocuments;
                                     <tr>
@@ -122,7 +118,7 @@
                                                 @foreach (L2PAttachmentElement c in corrdoc)
                                                 {
 
-                                                    <a asp-controller="MyCourses" asp-action="DownloadAssignment" asp-route-url="@c.downloadUrl" asp-route-filename="@c.fileName" asp-route-cId="@course.uniqueid">@c.fileName</a>
+                                                    <a href="@Url.Action("DownloadAssignment", "MyCourses", new{ url = @c.downloadUrl, filename= @c.fileName, cId = @course.uniqueid })">@c.fileName</a>
                                                     <br />
                                                     @Tools.toDateString(c.modifiedTimestamp)
                                                     <br />
@@ -147,15 +143,15 @@
                                     <td>
                                         @if (DateTime.Now > Tools.toDateTime(assign.dueDate))
                                         {
-                                            @if (soldoc != null)
+                                            if (soldoc != null)
                                             {
 
                                                 List<L2PAttachmentElement> sodoc = soldoc.solutionDocuments;
 
-                                                @foreach (L2PAttachmentElement s in sodoc)
+                                                foreach (L2PAttachmentElement s in sodoc)
                                                 {
 
-                                                    <a asp-controller="MyCourses" asp-action="DownloadAssignment" asp-route-url="@s.downloadUrl" asp-route-filename="@s.fileName" asp-route-cId="@course.uniqueid">@s.fileName</a>
+                                                    <a href="@Url.Action("DownloadAssignment", "MyCourses", new{ url = @s.downloadUrl, filename= @s.fileName, cId = @course.uniqueid })">@s.fileName</a>
                                                     <br />
                                                     @Tools.toDateString(s.modifiedTimestamp)
                                                     <br />
@@ -167,7 +163,7 @@
                                         }
                                         else
                                         {//change the asp-action to add solution 
-                                            <a class="btn-floating btn-large blue darken-3" asp-controller="L2P" asp-action="AddHyperlink" asp-route-cId="@course.uniqueid">
+                                            <a class="btn-floating btn-large blue darken-3" href="@Url.Action("AddAssignment", "L2P", new{ cId = @course.uniqueid })">
                                                 <i class="large material-icons">publish</i>
                                             </a>
                                         }
@@ -178,7 +174,7 @@
                     </table>
                 </div>
             </div>
-            @if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
+            if (userRole.role.Contains("managers") || userRole.role.Contains("tutors"))
             {
                 <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
                     <a class="btn-floating btn-large blue darken-3">
@@ -187,7 +183,7 @@
                     <ul>
 
                         <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-                        <li><a asp-controller="L2P" asp-action="EditAssignment" asp-route-cId="@course.uniqueid" asp-route-aId="@assign.itemId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
+                        <li><a href="@Url.Action("EditAssignment", "L2P", new{ cId = @course.uniqueid, aId=@assign.itemId })" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
                     </ul>
                 </div>
 
@@ -198,8 +194,8 @@
                         <p>Are you sure you want to delete the Assignment</p>
                     </div>
                     <div class="modal-footer centered-content">
-                        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-                        <a asp-controller="L2P" asp-action="DeleteAssignment" asp-route-cId="@course.uniqueid" asp-route-aId="@assign.itemId" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+                        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+                        <a href="@Url.Action("DeleteAssignment", "L2P", new{ cId = @course.uniqueid, aId=@assign.itemId })" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
                     </div>
                 </div>
             }

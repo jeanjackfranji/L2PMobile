@@ -1,17 +1,17 @@
 ﻿@using L2PAPIClient.DataModel
 @using MobileL2P.Services
-@model AssignmentViewModel
+@model MobileL2P.Models.AssignmentViewModel
 @{
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
 
     bool? isEditMode = ViewData["EditMode"] as bool?;
     if (isEditMode.HasValue)
     {
-        ViewData["Title"] = "Edit Assignment";
+        ViewData["Title"] = Resources.EditAssignment;
     }
     else
     {
-        ViewData["Title"] = "Add Assignment";
+        ViewData["Title"] = Resources.AddAssignment;
     }
 
     string currentDirectory = ViewData["CurrentDirectory"] as string;
@@ -20,82 +20,85 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Assignment" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Assignment</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Assignment", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Assignment</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
         </div>
     </div>
 </nav>
 <div class="row">
-    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditAssignment" : "AddAssignment" )" asp-route-cId="@course.uniqueid" method="post" role="form" enctype="multipart/form-data">
+@using (Html.BeginForm(isEditMode.HasValue ? "EditAssignment" : "AddAssignment", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
         <div class="row">
-            <div asp-validation-summary="ValidationSummary.All"></div>
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="Title" class="validate" type="text" />
-                <label asp-for="Title">Title*</label>
-                <span asp-validation-for="Title" class="red-text"></span>
+               <label for="Title">@Resources.Title*</label>
+                @Html.TextBoxFor(m => m.Title, new { @class = "validate", type = "text", required = "required" })
+                <span>@Html.ValidationMessageFor(m => m.Title)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <label asp-for="Description">Description*</label>
-                <input asp-for="Description" class="validate" type="text" />
+                <label for="Description">@Resources.Description*</label>
+                @Html.TextBoxFor(m => m.Description, new { @class = "validate", type = "text", required = "required" })
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="groupSubmissionAllowed" type="checkbox" name="groupSubmissionAllowed" />
-                <label for="groupSubmissionAllowed">Allow Group Submission</label>
+                <label for="groupSubmissionAllowed">@Resources.GrpSubmission</label>
+                @Html.CheckBoxFor(m => m.groupSubmissionAllowed, new { @checked = "checked" });
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="totalPoint" class="validate" type="number" />
-                <label asp-for="totalPoint">Total Point*</label>
-                <span asp-validation-for="totalPoint" class="red-text"></span>
+                <label for="totalPoint">@Resources.TotalPoints*</label>
+                @Html.TextBoxFor(m => m.totalPoint, new { @class = "validate", type = "number", required = "required" })
+                <span>@Html.ValidationMessageFor(m => m.totalPoint)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-
-                <input type="date" class="datepicker" asp-for="DueDate" />
-                <label asp-for="DueDate">Due Date*</label>
-
-            </div>
+                <label for="DueDate">@Resources.DueDate*</label>
+                @Html.TextBoxFor(m => m.DueDate, new { @class = "datepicker", type = "date", required = "required" })
+             </div>
         </div>
 <div class="row">
     <div class="input-field col s12">
-
-        <input id="pick-a-time2" asp-for="DueDatehours" />
-        <label asp-for="DueDatehours">Due Date Time*</label>
+        <label for="DueDatehours">@Resources.DueDateTime*</label>
+        @Html.TextBoxFor(m => m.DueDatehours, new { @id = "pick-a-time2", required = "required" })
     </div>
 </div>
 
 <div class="row">
-    <p>Please choose a assignment file</p>
-    <div class="file-field input-field">
-        <div class="btn blue">
-            <span>Upload File</span>
-            <input type="file" id="file" name="file" />
+    <div class="input-field col s12">
+        <p>@Resources.UploadMessage</p>
+        <div class="file-field input-field">
+            <div class="btn blue">
+                <span>@Resources.UploadFile</span>
+                <input type="file" id="file" name="file" />
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
         </div>
-        <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
         </div>
     </div>
-</div>
 
 
 <div class="row">
-    <p>Please choose a sample solution file</p>
-    <div class="file-field input-field">
-        <div class="btn blue">
-            <span>Upload File</span>
-            <input type="file" id="fileSo" name="fileSo" />
-        </div>
-        <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
+    <div class="input-field col s12">
+        <p>@Resources.SampleSolution</p>
+        <div class="file-field input-field">
+            <div class="btn blue">
+                <span>@Resources.UploadFile</span>
+                <input type="file" id="fileSo" name="fileSo" />
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
         </div>
     </div>
 </div>
@@ -104,14 +107,14 @@
 
 <div class="row right-align">
     <div class="input-field col s12">
-        <input asp-for="itemId" hidden="hidden" value="@(isEditMode.HasValue ? Model.itemId + "" : "-1")" />
+        @Html.TextBoxFor(m => m.itemId, new { @hidden = "hidden", @Value = isEditMode.HasValue ? Model.itemId + "" : "-1" })
         <button class="btn waves-effect waves-light" type="submit" name="action">
             Submit
             <i class="material-icons right">send</i>
         </button>
     </div>
 </div>
-    </form>
+}
 </div>
 
 

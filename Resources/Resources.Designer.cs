@@ -88,6 +88,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neue Aufgabe.
+        /// </summary>
+        public static string AddAssignment {
+            get {
+                return ResourceManager.GetString("AddAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Hyperlink.
+        /// </summary>
+        public static string AddHyperlink {
+            get {
+                return ResourceManager.GetString("AddHyperlink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Literature.
+        /// </summary>
+        public static string AddLiterature {
+            get {
+                return ResourceManager.GetString("AddLiterature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Announcement.
         /// </summary>
         public static string Announcement {
@@ -205,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zum Detaillierte Ergebnisse.
         /// </summary>
         public static string DetailedResults {
@@ -223,11 +259,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Due Date.
+        /// </summary>
+        public static string DueDate {
+            get {
+                return ResourceManager.GetString("DueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Due Date Time.
+        /// </summary>
+        public static string DueDateTime {
+            get {
+                return ResourceManager.GetString("DueDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Annoucement.
         /// </summary>
         public static string EditAnnouncement {
             get {
                 return ResourceManager.GetString("EditAnnouncement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Übung Bearbeiten.
+        /// </summary>
+        public static string EditAssignment {
+            get {
+                return ResourceManager.GetString("EditAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Hyperlink.
+        /// </summary>
+        public static string EditHyperlink {
+            get {
+                return ResourceManager.GetString("EditHyperlink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Literature.
+        /// </summary>
+        public static string EditLiterature {
+            get {
+                return ResourceManager.GetString("EditLiterature", resourceCulture);
             }
         }
         
@@ -255,6 +336,15 @@ namespace Resources {
         public static string GroupWorkspace {
             get {
                 return ResourceManager.GetString("GroupWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Group Submission.
+        /// </summary>
+        public static string GrpSubmission {
+            get {
+                return ResourceManager.GetString("GrpSubmission", resourceCulture);
             }
         }
         
@@ -386,6 +476,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose a sample solution file.
+        /// </summary>
+        public static string SampleSolution {
+            get {
+                return ResourceManager.GetString("SampleSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sender.
         /// </summary>
         public static string Sender {
@@ -459,6 +558,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Points.
+        /// </summary>
+        public static string TotalPoints {
+            get {
+                return ResourceManager.GetString("TotalPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload File.
         /// </summary>
         public static string UploadFile {
@@ -473,6 +581,15 @@ namespace Resources {
         public static string UploadMessage {
             get {
                 return ResourceManager.GetString("UploadMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
             }
         }
         

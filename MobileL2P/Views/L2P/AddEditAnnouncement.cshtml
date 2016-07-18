@@ -33,7 +33,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <label for="Name">@Resources.Title</label>
+                <label for="title">@Resources.Title</label>
                 @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
                 <span>@Html.ValidationMessageFor(m => m.title)</span>
             </div>
@@ -42,7 +42,7 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <label for="Name">@Resources.Body</label>
+                    <label for="body">@Resources.Body</label>
                     @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text", required = "required" })
                     <span>@Html.ValidationMessageFor(m => m.body)</span>
                   </div>
