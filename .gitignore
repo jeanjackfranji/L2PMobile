@@ -1,6 +1,5 @@
 /.vs
 /L2PAPIClient/obj
-/L2PAPIClient/bin
 /Resources/bin
 /Resources/obj
 /packages
@@ -8,3 +7,4 @@
 /MobileL2P/bin
 /L2PAPIClient/bin/Debug/L2PAPIClient.dll
 /L2PAPIClient/bin/Debug/L2PAPIClient.pdb
+/L2PAPIClient/bin/Debug/L2PAPIClient.dll.config

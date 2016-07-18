@@ -260,7 +260,6 @@
     <Content Include="Views\MyCourses\Literature.cshtml" />
     <Content Include="Views\MyCourses\MediaLibrary.cshtml" />
     <Content Include="Views\MyCourses\SharedDocuments.cshtml" />
-    <Content Include="Views\MyCourses\ShowSubject.cshtml" />
     <Content Include="Views\MyCourses\WhatsNew.cshtml" />
     <Content Include="Views\_ViewImports.cshtml" />
     <Content Include="Views\Home\MyCourses.cshtml" />

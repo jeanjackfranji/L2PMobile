@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using System.Threading;
 using System;
 using static MobileL2P.Services.Tools;
+using L2PAPIClient;
 using L2PAPIClient.DataModel;
 using System.Web.Mvc;
 using System.Web;
@@ -28,7 +29,9 @@ namespace MobileL2P.Controllers
                 if (!Tools.hasCookieToken)
                 {
                     //Init the Auth Process
-                    ViewData["L2PURL"] = await L2PAPIClient.AuthenticationManager.StartAuthenticationProcessAsync().ConfigureAwait(false);
+                    UserAuth authenticator = new UserAuth();
+                    ViewData["L2PURL"] = await authenticator.StartAuthenticationProcessAsync().ConfigureAwait(false);
+                    HttpContext.Session.Add("authenticator", authenticator);
                     return View();
                 }
                 else
@@ -56,9 +59,16 @@ namespace MobileL2P.Controllers
                 {
                     // Just wait 5 seconds - this is the recommended querying time for OAuth by ITC
                     Thread.Sleep(5000);
-                    OAuthTokenRequestData reqData = await L2PAPIClient.AuthenticationManager.CheckAuthenticationProgressAsync();
 
-                    done = (L2PAPIClient.AuthenticationManager.getState() == L2PAPIClient.AuthenticationManager.AuthenticationState.ACTIVE);
+                    UserAuth auth = new UserAuth();
+                    if(HttpContext.Session["authenticator"] != null)
+                    {
+                        auth = HttpContext.Session["authenticator"] as UserAuth;
+                    }
+
+                    OAuthTokenRequestData reqData = await auth.CheckAuthenticationProgressAsync();
+
+                    done = (auth.getState() == UserAuth.AuthenticationState.ACTIVE);
                     if (done)
                     {
                         HttpCookie accessCookie = new HttpCookie("CRTID", Encryptor.Encrypt(reqData.access_token));

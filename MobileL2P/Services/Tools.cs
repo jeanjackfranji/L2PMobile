@@ -163,46 +163,46 @@ namespace MobileL2P.Services
                     Match match = Regex.Match(fileName, @"$(?<=\.(pdf))", RegexOptions.IgnoreCase);
                     if (match.Success)
                     {
-                        return "../images/learning_material/PDF.png";
+                        return "../wwwroot/images/learning_material/PDF.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(png|jpg|jpeg|gif|bmp))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/Full_Image.png";
+                        return "../wwwroot/images/learning_material/Full_Image.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(3g2|3gp|asf|asx|avi|flv|mov|mp4|mpg|rm|swf|vob|wmv))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/Video_Message.png";
+                        return "../wwwroot/images/learning_material/Video_Message.png";
                     } 
                     else if (Regex.Match(fileName, @"$(?<=\.(doc|docx|rtf))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/MS_Word.png";
+                        return "../wwwroot/images/learning_material/MS_Word.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(log|txt|wpd|wps))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/Text_Document.png";
+                        return "../wwwroot/images/learning_material/Text_Document.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(csv|xls|xlsx))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/MS_Excel.png";
+                        return "../wwwroot/images/learning_material/MS_Excel.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(ppt|pptx|pps))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/MS_PowerPoint.png";
+                        return "../wwwroot/images/learning_material/MS_PowerPoint.png";
                     }
                     else if (Regex.Match(fileName, @"$(?<=\.(zip|rar|7z|tar.gz))", RegexOptions.IgnoreCase).Success)
                     {
-                        return "../images/learning_material/ZIP.png";
+                        return "../wwwroot/images/learning_material/ZIP.png";
                     }
                     else
                     {
-                        return "../images/learning_material/File.png";
+                        return "../wwwroot/images/learning_material/File.png";
                     }
                 }
-                return "../images/learning_material/File.png";
+                return "../wwwroot/images/learning_material/File.png";
             }
             catch
             {
-                return "../images/learning_material/File.png";
+                return "../wwwroot/images/learning_material/File.png";
             }
         }
 
