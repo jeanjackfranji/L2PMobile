@@ -1,5 +1,6 @@
 ﻿@using L2PAPIClient.DataModel
 @using MobileL2P.Services
+@using MobileL2P.Models
 @{
     ViewData["Title"] = "View Literature";
     L2PRole userRole = ViewData["userRole"] as L2PRole;
@@ -12,8 +13,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Literature" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Literatures</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Literature", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Literatures</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
         </div>
     </div>
@@ -29,7 +30,7 @@
                         <td id="div_text_area">@Literature.title</td>
                     </tr>
                     <tr>
-                       
+
                         <td for="type" style="color:blue">Publication Type</td>
                         <td id="div_text_area">@Literature.type</td>
                     </tr>
@@ -124,28 +125,26 @@
         </a>
         <ul>
             <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-            <li><a asp-controller="L2P" asp-action="EditLiterature" asp-route-cId="@course.uniqueid" asp-route-lId="@Literature.itemId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
+            <li><a href="@Url.Action("EditLiterature", "L2P", new { cId = @course.uniqueid, lId= @Literature.itemId})" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
         </ul>
     </div>
 
         <!-- Modal Structure -->
-                <div id="confirmModal" class="modal bottom-sheet">
-                    <div class="modal-content">
-                        <h4>Delete Literature(s)</h4>
-                        <p>Are you sure you want to delete the selected literature(s)</p>
-                    </div>
-                    <div class="modal-footer centered-content">
-                        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-                        <a asp-controller="L2P" asp-action="DeleteLiterature" asp-route-cId="@course.uniqueid" asp-route-lIds="@Literature.itemId-" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
-                    </div>
-                </div>
+    <div id="confirmModal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Delete Literature(s)</h4>
+            <p>Are you sure you want to delete the selected literature(s)</p>
+        </div>
+        <div class="modal-footer centered-content">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
+            <a href="@Url.Action("DeleteLiterature", "L2P", new { cId = @course.uniqueid, lIds = @Literature.itemId})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        </div>
+    </div>
 }
 
-
-
 <script>
-        $(function () {
-            $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
-        });
+    $(function () {
+        $('.modal-trigger').leanModal(); // Set the Modal to Trigger later on
+    });
 </script>
 

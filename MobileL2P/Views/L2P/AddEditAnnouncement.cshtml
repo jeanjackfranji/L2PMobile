@@ -25,11 +25,11 @@
     </div>
 </nav>
 <div class="row">
-@using (Html.BeginForm(isEditMode.HasValue ? "EditAnnouncement" : "AddAnnouncement", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-     <div class="row">
-                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @using (Html.BeginForm(isEditMode.HasValue ? "EditAnnouncement" : "AddAnnouncement", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
         <div class="row">
             <div class="input-field col s12">
@@ -39,37 +39,35 @@
             </div>
         </div>
 
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="body">@Resources.Body</label>
-                    @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text", required = "required" })
-                    <span>@Html.ValidationMessageFor(m => m.body)</span>
-                  </div>
-                </div>
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <p>@Resources.UploadMessage</p>
-                    <div class="file-field input-field">
-                        <div class="btn blue">
-                            <span>@Resources.UploadFile</span>
-                            <input type="file" id="file" name="file" />
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
-                    </div>
-                </div>
-        <div class="row right-align">
+        <div class="row">
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.itemId, new {@hidden="hidden", @Value= isEditMode.HasValue ? Model.itemId + "" : "-1"})
-                <button class="btn waves-effect waves-light" type="submit" name="action">
-                    Submit
-                    <i class="material-icons right">send</i>
-                </button>
+                <label for="body">@Resources.Body</label>
+                @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text"})
+                <span>@Html.ValidationMessageFor(m => m.body)</span>
             </div>
         </div>
-}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p>@Resources.UploadMessage</p>
+                        <div class="file-field input-field">
+                            <div class="btn blue">
+                                <span>@Resources.UploadFile</span>
+                                <input type="file" id="file" name="file" />
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row right-align">
+                    <div class="input-field col s12">
+                        @Html.TextBoxFor(m => m.itemId, new { @hidden = "hidden", @Value = isEditMode.HasValue ? Model.itemId + "" : "-1" })
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+    }
 </div>
