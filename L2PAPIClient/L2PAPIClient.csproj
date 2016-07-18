@@ -53,7 +53,7 @@
     <Compile Include="UserConfig.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DataModel.cs" />
-    <Compile Include="Auth.cs" />
+    <Compile Include="UserAuth.cs" />
     <Compile Include="RESTCalls.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

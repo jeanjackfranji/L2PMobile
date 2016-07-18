@@ -1,6 +1,6 @@
 ﻿@using L2PAPIClient.DataModel
 @using MobileL2P.Services
-@model DiscussionViewModel
+@model MobileL2P.Models.DiscussionViewModel
 @{
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
 
@@ -18,34 +18,39 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20)</a>
-            <a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 12px">Discussion</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 12px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20)</a>
+            <a href="@Url.Action("Announcement", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 12px">@Resources.DiscussionForum</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 12px">@(isEditMode.HasValue ? "Edit" : "Add")</a>
         </div>
     </div>
 </nav>
 <div class="row">
-    <form class="col s12" asp-controller="L2P" asp-action="@(isEditMode.HasValue? "EditDiscussion" : "PostDiscussion" )" asp-route-cId="@course.uniqueid" method="post" role="form" enctype="multipart/form-data">
+@using (Html.BeginForm(isEditMode.HasValue ? "EditDiscussion" : "PostDiscussion", "L2P", new { cId = @course.uniqueid }, FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "col s12" }))
+{
         <div class="row">
-            <div asp-validation-summary="ValidationSummary.All"></div>
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="title" class="validate" type="text" />
-                <label asp-for="title">title</label>
-                <span asp-validation-for="title" class="red-text"></span>
+                <label for="title">@Resources.Title</label>
+                @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
+                <span class="red-text">@Html.ValidationMessageFor(m => m.title)</span>
             </div>
         </div>
 
 
         <div class="row">
             <div class="input-field col s12">
+
+                <label for="body">@Resources.Body</label>
+                @Html.TextBoxFor(m => m.body, new { @class = "validate", type = "text", required = "required" })
+                <span class="red-text">@Html.ValidationMessageFor(m => m.body)</span>
                 <label asp-for="body">Body</label>
                 <textarea asp-for="body" class="materialize-textarea validate"></textarea>
                 <span asp-validation-for="body" class="red-text"></span>
             </div>
         </div>
-        
+
         <div class="row right-align">
             <div class="input-field col s12">
                 <input asp-for="dId" hidden="hidden" value="@(isEditMode.HasValue ? Model.dId + "" : "-1")" />
@@ -55,5 +60,5 @@
                 </button>
             </div>
         </div>
-    </form>
+}
 </div>

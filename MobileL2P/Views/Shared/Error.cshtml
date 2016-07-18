@@ -12,11 +12,11 @@
                         <br/><br/>
                         <span class="red" >@Html.Raw(ViewData["error"])</span>
                         <br/><br />Here are some helpful links below:
-                    </>
+                    <p/>
                 </div>
                 <div class="card-action center-align">
-                        <a asp-controller="Home" asp-action="MyCourses" class="orange darken-2 waves-effect waves-light btn">Main Page</a>
-                        <a asp-controller="Account" asp-action="Login" class="orange darken-2 waves-effect waves-light btn">Login Page</a>
+                    <a href="@Url.Action("MyCourses", "Home")" class="orange darken-2 waves-effect waves-light btn">Main Page</a>
+                    <a href="@Url.Action("Login", "Account")"  class="orange darken-2 waves-effect waves-light btn">Login Page</a>
                 </div>
             </div>
         </div>
