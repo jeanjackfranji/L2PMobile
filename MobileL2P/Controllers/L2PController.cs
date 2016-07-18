@@ -1190,7 +1190,6 @@ namespace MobileL2P.Controllers
 
 
         //[HttpPost]
-        //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> AddSolution(IFormFile file, SolutionViewModel model, String cId, string aId)
         //{
         //    try
@@ -1274,7 +1273,6 @@ namespace MobileL2P.Controllers
 
 
         //[HttpGet]
-        //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> AddSolution(String cId, int sid)
         //{
         //    try
@@ -1794,7 +1792,7 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Hyperlink in a course
         // POST: /L2P/AddHyperlink?
         [HttpPost]
-        public async Task<ActionResult> AddAssignment(AssignmentViewModel model, string cId, HttpPostedFileBase file, HttpPostedFileBase fileSo)
+        public async Task<ActionResult> AddAssignment(AssignmentViewModel model, string cId)
         {
             try
             {
@@ -1814,7 +1812,6 @@ namespace MobileL2P.Controllers
                             return View("~/Views/L2P/AddEditAssignment.cshtml", model);
                         }
 
-
                         L2PAddAssignmentRequest newAssignment = new L2PAddAssignmentRequest();
                         newAssignment.description = model.Description;
 
@@ -1822,8 +1819,6 @@ namespace MobileL2P.Controllers
                         string two = model.DueDatehours;
 
                         DateTime dt = Convert.ToDateTime(one + " " + two);
-
-                        //DateTime dt1 = DateTime.ParseExact(one + " " + two, "dd/MM/yy h:mm:ss tt", CultureInfo.InvariantCulture);
                         long dtunix = (long)(TimeZoneInfo.ConvertTimeToUtc(dt) - new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
 
 
@@ -1834,65 +1829,8 @@ namespace MobileL2P.Controllers
                             newAssignment.groupSubmissionAllowed = false;
                         newAssignment.title = model.Title;
                         newAssignment.totalMarks = model.totalPoint;
-
-
-
-
-
-
-
+                       
                         L2PAddUpdateResponse response = await L2PAPIClient.api.Calls.L2PAddAssignment(cId, newAssignment);
-
-                        //if (file != null)
-                        //{
-
-                        //    L2PUploadRequest data = new L2PUploadRequest();
-                        //    data.fileName = ContentDispositionHeaderValue
-                        //        .Parse(file.ContentDisposition)
-                        //        .FileName
-                        //        .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
-
-                        //    using (System.IO.Stream stream = file.OpenReadStream())
-                        //    {
-                        //        byte[] buffer = new byte[stream.Length];
-                        //        await stream.ReadAsync(buffer, 0, (int)stream.Length);
-                        //        data.stream = Convert.ToBase64String(buffer);
-                        //    }
-
-                        //    L2PAssignmentList elem = await L2PAPIClient.api.Calls.L2PviewAssignment(cId, response.itemId);
-
-                        //    if (elem.dataSet != null && elem.dataSet.Any())
-                        //    {
-
-                        //        string directory = "/" + course.semester + "/" + cId + "/assessment/Lists/LA_AssignmentDocuments/A" + elem.dataSet.First().itemId + "/";
-                        //        await L2PAPIClient.api.Calls.L2PuploadInAssignments(cId, directory, data);
-
-                        //    }
-                        //}
-                        //if (fileSo != null)
-                        //{
-
-                        //    L2PUploadRequest data2 = new L2PUploadRequest();
-                        //    data2.fileName = ContentDispositionHeaderValue
-                        //        .Parse(fileSo.ContentDisposition)
-                        //        .FileName
-                        //        .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
-
-                        //    using (System.IO.Stream stream = fileSo.OpenReadStream())
-                        //    {
-                        //        byte[] buffer = new byte[stream.Length];
-                        //        await stream.ReadAsync(buffer, 0, (int)stream.Length);
-                        //        data2.stream = Convert.ToBase64String(buffer);
-                        //    }
-
-                        //    L2PAssignmentList elem = await L2PAPIClient.api.Calls.L2PviewAssignment(cId, response.itemId);
-                        //    if (elem.dataSet != null && elem.dataSet.Any())
-                        //    {
-                        //        string directory = "/" + course.semester + "/" + cId + "/assessment/Lists/LA_SolutionDocuments/A" + elem.dataSet.First().itemId + "/" + "S/" ;
-                        //        await L2PAPIClient.api.Calls.L2PuploadInAssignments(cId, directory, data2);
-
-                        //    }
-                        //}
                         return RedirectToAction(nameof(MyCoursesController.Assignments), "MyCourses", new { cId = cId, @msg = "Assignment was successfully added!" });
                     }
 
@@ -1988,7 +1926,7 @@ namespace MobileL2P.Controllers
         // Post Method to add a new Hyperlink in a course
         // POST: /L2P/AddHyperlink?
         [HttpPost]
-        public async Task<ActionResult> EditAssignment(AssignmentViewModel model, string cId, HttpPostedFileBase file, HttpPostedFileBase fileSo)
+        public async Task<ActionResult> EditAssignment(AssignmentViewModel model, string cId)
         {
             try
             {
@@ -2016,8 +1954,6 @@ namespace MobileL2P.Controllers
                         string two = model.DueDatehours;
 
                         DateTime dt = Convert.ToDateTime(one + " " + two);
-                        
-                        //DateTime dt1 = DateTime.ParseExact(one + " " + two, "dd/MM/yy h:mm:ss tt", CultureInfo.InvariantCulture);
                         long dtunix = (long)(TimeZoneInfo.ConvertTimeToUtc(dt) - new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
 
 
@@ -2028,59 +1964,7 @@ namespace MobileL2P.Controllers
                             newAssignment.groupSubmissionAllowed = false;
                         newAssignment.title = model.Title;
                         newAssignment.totalMarks = model.totalPoint;
-
-                        // await L2PAPIClient.api.Calls.L2PupdateAssignment(cId, newAssignment);
-
-                        //if (file != null)
-                        //{
-
-                        //    L2PUploadRequest data = new L2PUploadRequest();
-                        //    data.fileName = ContentDispositionHeaderValue
-                        //        .Parse(file.ContentDisposition)
-                        //        .FileName
-                        //        .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
-
-                        //    using (System.IO.Stream stream = file.OpenReadStream())
-                        //    {
-                        //        byte[] buffer = new byte[stream.Length];
-                        //        await stream.ReadAsync(buffer, 0, (int)stream.Length);
-                        //        data.stream = Convert.ToBase64String(buffer);
-                        //    }
-
-                        //    L2PAssignmentList elem = await L2PAPIClient.api.Calls.L2PviewAssignment(cId, response.itemId);
-
-                        //    if (elem.dataSet != null && elem.dataSet.Any())
-                        //    {
-
-                        //        string directory = "/" + course.semester + "/" + cId + "/assessment/Lists/LA_AssignmentDocuments/A" + elem.dataSet.First().itemId + "/";
-                        //        await L2PAPIClient.api.Calls.L2PuploadInAssignments(cId, directory, data);
-
-                        //    }
-                        //}
-                        //if (fileSo != null)
-                        //{
-
-                        //    L2PUploadRequest data2 = new L2PUploadRequest();
-                        //    data2.fileName = ContentDispositionHeaderValue
-                        //        .Parse(fileSo.ContentDisposition)
-                        //        .FileName
-                        //        .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
-
-                        //    using (System.IO.Stream stream = fileSo.OpenReadStream())
-                        //    {
-                        //        byte[] buffer = new byte[stream.Length];
-                        //        await stream.ReadAsync(buffer, 0, (int)stream.Length);
-                        //        data2.stream = Convert.ToBase64String(buffer);
-                        //    }
-
-                        //    L2PAssignmentList elem = await L2PAPIClient.api.Calls.L2PviewAssignment(cId, response.itemId);
-                        //    if (elem.dataSet != null && elem.dataSet.Any())
-                        //    {
-                        //        string directory = "/" + course.semester + "/" + cId + "/assessment/Lists/LA_SolutionDocuments/A" + elem.dataSet.First().itemId + "/" + "S/" ;
-                        //        await L2PAPIClient.api.Calls.L2PuploadInAssignments(cId, directory, data2);
-
-                        //    }
-                        //}
+                        
                         return RedirectToAction(nameof(MyCoursesController.Assignments), "MyCourses", new { cId = cId, @msg = "Sample Solution was successfully added!" });
                     }
 

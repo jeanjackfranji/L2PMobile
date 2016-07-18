@@ -115,16 +115,6 @@ namespace MobileL2P.Models
         //[Display(Name = "Due Date Hours")]
         public string DueDatehours { get; set; }
 
-
-        [StringLength(100)]
-        [Display(Name = "Assignment Documents")]
-        public string AssignmentDocuments { get; set; }
-
-
-        [StringLength(100)]
-        [Display(Name = "Sample Solution")]
-        public string SampleSolution { get; set; }
-
         public int itemId{ get;set;}
 
     }
