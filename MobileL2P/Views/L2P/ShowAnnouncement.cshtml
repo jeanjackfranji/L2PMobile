@@ -2,7 +2,7 @@
 @using MobileL2P.Services
 @using MobileL2P.Models
 @{
-    ViewData["Title"] = "View Announcement";
+    ViewData["Title"] = Resources.ViewAnnouncement;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     AnnouncementViewModel announcement = ViewData["AnnouncementModel"] as AnnouncementViewModel;
@@ -13,8 +13,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="Announcement" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px">Announcements</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("Announcement", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px">Announcements</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px">View</a>
         </div>
     </div>
@@ -23,20 +23,20 @@
 <div class="row"></div>
 <div class="row">
     <div class="input-field col s12" style="margin-top: 0px">
-        <label for="URL">Title*</label>
+        <label for="URL">@Resources.Title*</label>
         <div id="div_text_area">@announcement.title</div>
     </div>
 </div>
 <div class="row">
     <div class="input-field col s12" style="margin-top: 0px">
-        <label for="div_text_area">Body</label>
+        <label for="div_text_area">@Resources.Body</label>
         <div id="div_text_area">@Html.Raw(announcement.body)</div>
     </div>
 </div>
 @if (attachments != null) { 
 <div class="row">
     <div class="input-field col s12" style="margin-top: 0px">
-        <label for="div_text_area">Attachments</label>
+        <label for="div_text_area">@Resources.Attachments</label>
         <div id="div_text_area">
             <ul class="collection">
                 @if (attachments != null)
@@ -45,8 +45,8 @@
                     {
                         <li class="collection-item avatar">
                             <img src="@Tools.getImagePathByFileName(attachment.fileName)" class="circle" style="background-size: 80% !important" />
-                            <span class="title"><a asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@attachment.downloadUrl" asp-route-filename="@attachment.fileName">@attachment.fileName</a></span>
-                            <a id="a-secondary-content" class="secondary-content" asp-controller="MyCourses" asp-action="Downloads" asp-route-cId="@course.uniqueid" asp-route-url="@attachment.downloadUrl" asp-route-filename="@attachment.fileName"><i class="material-icons blue-text">get_app</i></a>
+                            <span class="title"><a href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@attachment.downloadUrl, filename=@attachment.fileName})">@attachment.fileName</a></span>
+                            <a id="a-secondary-content" class="secondary-content" href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@attachment.downloadUrl, filename=@attachment.fileName})"><i class="material-icons blue-text">get_app</i></a>
                         </li>
                     }
                 }
@@ -63,19 +63,19 @@
         </a>
         <ul>
             <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-            <li><a asp-controller="L2P" asp-action="EditAnnouncement" asp-route-cId="@course.uniqueid" asp-route-hId="@announcement.itemId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
+            <li><a href="@Url.Action("EditAnnouncement", "L2P", new{ cId = @course.uniqueid, aId=@announcement.itemId})" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
         </ul>
     </div>
 
     <!-- Modal Structure -->
     <div id="confirmModal" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>Delete Announcement(s)</h4>
-            <p>Are you sure you want to delete the selected announcement(s)</p>
+            <h4>@Resources.DeleteAnnouncement</h4>
+            <p>@Resources.DeleteAnnouncementMsg</p>
         </div>
         <div class="modal-footer centered-content">
-            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-            <a asp-controller="L2P" asp-action="DeleteAnnouncements" asp-route-cId="@course.uniqueid" asp-route-hIds="@announcement.itemId-" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+            <a href="@Url.Action("DeleteAnnouncements", "L2P", new{ cId = @course.uniqueid, aIds=@announcement.itemId})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
         </div>
     </div>
   }

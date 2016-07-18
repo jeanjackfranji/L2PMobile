@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About Us</value>
   </data>
+  <data name="AboutProject" xml:space="preserve">
+    <value>About Our Project</value>
+  </data>
   <data name="Announcements" xml:space="preserve">
     <value>Announcements</value>
   </data>
@@ -171,6 +174,16 @@
   <data name="Literature" xml:space="preserve">
     <value>Literature</value>
   </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="LoginText" xml:space="preserve">
+    <value>As soon as you click on the login button, you will be redirected to the RWTH L2P authentication
+                            page and be prompted to enter your login credentials to provide access to our application.</value>
+  </data>
+  <data name="LogInVia" xml:space="preserve">
+    <value>Log In via RWTH L2P</value>
+  </data>
   <data name="MediaLibrary" xml:space="preserve">
     <value>Media Library</value>
   </data>
@@ -201,8 +214,21 @@
   <data name="SharedDocuments" xml:space="preserve">
     <value>Shared Documents</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>
+                Our Team Members Are:</value>
+  </data>
+  <data name="TeamMembers" xml:space="preserve">
+    <value>This project was built to improve the mobile version of the RWTH Aachen L2P System. We are a group of 5 people that worked on making a responsive web version using Material UI.</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
@@ -212,5 +238,71 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="AddAnnouncement" xml:space="preserve">
+    <value>Add Announcement</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="DeleteAnnouncement" xml:space="preserve">
+    <value>Delete Announcement(s)</value>
+  </data>
+  <data name="DeleteAnnouncementMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the selected announcement(s)?</value>
+  </data>
+  <data name="EditAnnouncement" xml:space="preserve">
+    <value>Edit Annoucement</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Upload File</value>
+  </data>
+  <data name="UploadMessage" xml:space="preserve">
+    <value>Please choose a file to upload</value>
+  </data>
+  <data name="ViewAnnouncement" xml:space="preserve">
+    <value>View Announcement</value>
+  </data>
+  <data name="AddAssignment" xml:space="preserve">
+    <value>Neue Aufgabe</value>
+  </data>
+  <data name="AddHyperlink" xml:space="preserve">
+    <value>Add Hyperlink</value>
+  </data>
+  <data name="AddLiterature" xml:space="preserve">
+    <value>Add Literature</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="DueDateTime" xml:space="preserve">
+    <value>Due Date Time</value>
+  </data>
+  <data name="EditAssignment" xml:space="preserve">
+    <value>Übung Bearbeiten</value>
+  </data>
+  <data name="EditHyperlink" xml:space="preserve">
+    <value>Edit Hyperlink</value>
+  </data>
+  <data name="EditLiterature" xml:space="preserve">
+    <value>Edit Literature</value>
+  </data>
+  <data name="GrpSubmission" xml:space="preserve">
+    <value>Allow Group Submission</value>
+  </data>
+  <data name="SampleSolution" xml:space="preserve">
+    <value>Please choose a sample solution file</value>
+  </data>
+  <data name="TotalPoints" xml:space="preserve">
+    <value>Total Points</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>
