@@ -20,15 +20,12 @@ namespace MobileL2P.Services
         public static void getAndSetUserToken(HttpCookieCollection cookies, HttpContextBase context)
         {
             hasCookieToken = false;
-            UserConfig uConfig = new UserConfig();
             HttpCookie accessToken  =  cookies.Get("CRTID");
             HttpCookie refreshToken =  cookies.Get("CRAID");
             if (accessToken != null && refreshToken != null)
             {
                 Config.setAccessToken(Encryptor.Decrypt(accessToken.Value));
                 Config.setRefreshToken(Encryptor.Decrypt(refreshToken.Value));
-                uConfig.setAccessToken(accessToken.Value);
-                uConfig.setRefreshToken(refreshToken.Value);
                 hasCookieToken = true;
                 context.Session.Add("LoggedIn", LoginStatus.LoggedIn);
             }
