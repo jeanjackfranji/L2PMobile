@@ -32,7 +32,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <label for="title">@Resources.Title</label>
+                <label for="title">@Resources.Title*</label>
                 @Html.TextBoxFor(m => m.title, new { @class = "validate", type = "text", required = "required" })
                 <span class="red-text">@Html.ValidationMessageFor(m => m.title)</span>
             </div>

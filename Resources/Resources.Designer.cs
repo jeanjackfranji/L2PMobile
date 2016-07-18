@@ -223,6 +223,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Email(s).
+        /// </summary>
+        public static string DeleteEmails {
+            get {
+                return ResourceManager.GetString("DeleteEmails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sind Sie sicher, dass Sie die ausgewählte E-Mail ( s ) zu löschen?.
+        /// </summary>
+        public static string DeleteEmailsMsg {
+            get {
+                return ResourceManager.GetString("DeleteEmailsMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Literature(s).
         /// </summary>
         public static string DeleteLiterature {
