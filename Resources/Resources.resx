@@ -311,10 +311,10 @@
   <data name="DeleteEmails" xml:space="preserve">
     <value>Delete Email(s)</value>
   </data>
-  <data name="DeleteEmailsMsg" xml:space="preserve">
-    <value>Sind Sie sicher, dass Sie die ausgewählte E-Mail ( s ) zu löschen?</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="ViewDiscussion" xml:space="preserve">
+    <value>View Discussion</value>
   </data>
 </root>

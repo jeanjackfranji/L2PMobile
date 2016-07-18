@@ -310,10 +310,10 @@
   <data name="DeleteEmails" xml:space="preserve">
     <value>Löschen E-mails(s)</value>
   </data>
-  <data name="DeleteEmailsMsg" xml:space="preserve">
-    <value />
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
+  </data>
+  <data name="ViewDiscussion" xml:space="preserve">
+    <value>Diskussion zeigen</value>
   </data>
 </root>

@@ -43,7 +43,6 @@
                 <label for="body">@Resources.Body</label>
                 @Html.TextAreaFor(m => m.body, new { @class = "materialize-textarea validate", type = "text" })
                 <span class="red-text">@Html.ValidationMessageFor(m => m.body)</span>
-                <label asp-for="body">Body</label>
             </div>
         </div>
 

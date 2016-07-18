@@ -232,15 +232,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sind Sie sicher, dass Sie die ausgewählte E-Mail ( s ) zu löschen?.
-        /// </summary>
-        public static string DeleteEmailsMsg {
-            get {
-                return ResourceManager.GetString("DeleteEmailsMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete Literature(s).
         /// </summary>
         public static string DeleteLiterature {
@@ -635,6 +626,15 @@ namespace Resources {
         public static string ViewAnnouncement {
             get {
                 return ResourceManager.GetString("ViewAnnouncement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Discussion.
+        /// </summary>
+        public static string ViewDiscussion {
+            get {
+                return ResourceManager.GetString("ViewDiscussion", resourceCulture);
             }
         }
         

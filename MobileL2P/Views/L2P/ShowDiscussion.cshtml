@@ -1,7 +1,7 @@
 ﻿@using L2PAPIClient.DataModel
 @using MobileL2P.Services
 @{
-    ViewData["Title"] = "View Discussion";
+    ViewData["Title"] = Resources.ViewDiscussion;
     L2PRole userRole = ViewData["userRole"] as L2PRole;
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     List<L2PDiscussionItemElement> mainThread = ViewData["mainThread"] as List<L2PDiscussionItemElement>;
@@ -15,8 +15,8 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a asp-controller="MyCourses" asp-action="WhatsNew" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
-            <a asp-controller="MyCourses" asp-action="DiscussionForum" asp-route-cId="@course.uniqueid" class="breadcrumb blue-text" style="font-size: 9px;">Discussion Forum</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})"  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("DiscussionForum", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px;">@Resources.DiscussionForum</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px;">View</a>
         </div>
     </div>
@@ -52,38 +52,11 @@
                 }
             </div>
             <div class="card-action">
-                <a asp-controller="L2P" asp-action="ReplyDiscussion" asp-route-cId="@course.uniqueid" asp-route-hId="@headdiscussion.selfId" class="waves-effect waves-light btn"><i class="material-icons left">reply</i>Reply</a>
+                <a href="@Url.Action("ReplyDiscussion", "L2P", new{ cId = @course.uniqueid, hId= @headdiscussion.selfId})" class="waves-effect waves-light btn"><i class="material-icons left">reply</i>Reply</a>
             </div>
         </div>
     </div>
 </div>
-
-
-@*<div class="row">
-        <div class="input-field col s12" style="margin-top: 0px">
-            <label for="URL">Title*</label>
-            <div id="div_text_area">@discuss.title</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s12" style="margin-top: 0px">
-            <label for="div_text_area">Body</label>
-            <div id="div_text_area">@Html.Raw(discuss.body)</div>
-        </div>
-    </div>
-
-    @if (discuss.isByMe)
-    {
-        <div class="fixed-action-btn horizontal" style="bottom: 5px; right: 30px;">
-            <a class="btn-floating btn-large blue darken-3">
-                <i class="material-icons">menu</i>
-            </a>
-            <ul>
-                <li><a href="#confirmModal" class="btn-floating waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a></li>
-                <li><a asp-controller="L2P" asp-action="EditDiscussion" asp-route-cId="@course.uniqueid" asp-route-hId="@discuss.dId" class="btn-floating blue waves-effect waves-light"><i class="material-icons">mode_edit</i></a></li>
-            </ul>
-        </div>*@
-
 
 <!-- Modal Structure -->
 <div id="confirmModal" class="modal bottom-sheet">
@@ -92,8 +65,8 @@
         <p>Are you sure you want to delete the selected Discussion(s)</p>
     </div>
     <div class="modal-footer centered-content">
-        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">No</a>
-        <a asp-controller="L2P" asp-action="DeleteDiscussions" asp-route-cId="@course.uniqueid" asp-route-hIds="-1" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">Yes</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat red white-text">@Resources.No</a>
+        <a href="@Url.Action("DeleteDiscussions", "L2P", new{ cId = @course.uniqueid, hIds= -1})" class="modal-action modal-close waves-effect waves-light btn-flat green white-text ">@Resources.Yes</a>
     </div>
 </div>
 
