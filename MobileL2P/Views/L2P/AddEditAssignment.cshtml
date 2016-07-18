@@ -36,14 +36,15 @@
         <div class="row">
             <div class="input-field col s12">
                 <label for="Title">@Resources.Title*</label>
-                @Html.TextBoxFor(m => m.Title, new { @class = "validate", type = "text", required = "required" })
+                @Html.TextBoxFor(m => m.Title, new { @class = "validate", type = "text"})
                 <span>@Html.ValidationMessageFor(m => m.Title)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="Description">@Resources.Description*</label>
-                @Html.TextBoxFor(m => m.Description, new { @class = "validate", type = "text", required = "required" })
+                @Html.TextBoxFor(m => m.Description, new { @class = "validate", type = "text"})
+                <span>@Html.ValidationMessageFor(m => m.Description)</span>
             </div>
         </div>
         <div class="row">
@@ -55,20 +56,22 @@
         <div class="row">
             <div class="input-field col s12">
                 <label for="totalPoint">@Resources.TotalPoints*</label>
-                @Html.TextBoxFor(m => m.totalPoint, new { @class = "validate", type = "number", required = "required" })
+                @Html.TextBoxFor(m => m.totalPoint, new { @class = "validate", type = "number"})
                 <span>@Html.ValidationMessageFor(m => m.totalPoint)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="DueDate">@Resources.DueDate*</label>
-                @Html.TextBoxFor(m => m.DueDate, new { @class = "datepicker", type = "date", required = "required" })
+                @Html.TextBoxFor(m => m.DueDate, new { @class = "datepicker", type = "date" })
+                <span>@Html.ValidationMessageFor(m => m.DueDate)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="DueDatehours">@Resources.DueDateTime*</label>
-                @Html.TextBoxFor(m => m.DueDatehours, new { @id = "pick-a-time2", required = "required" })
+                @Html.TextBoxFor(m => m.DueDatehours, new { @id = "pick-a-time2"})
+                <span>@Html.ValidationMessageFor(m => m.DueDatehours)</span>
             </div>
         </div>
 
