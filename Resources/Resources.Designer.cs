@@ -178,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compose E-Mail.
+        /// </summary>
+        public static string ComposeEmail {
+            get {
+                return ResourceManager.GetString("ComposeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Announcement(s).
         /// </summary>
         public static string DeleteAnnouncement {
@@ -210,6 +219,24 @@ namespace Resources {
         public static string DeleteEmailAsk {
             get {
                 return ResourceManager.GetString("DeleteEmailAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Email(s).
+        /// </summary>
+        public static string DeleteEmails {
+            get {
+                return ResourceManager.GetString("DeleteEmails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sind Sie sicher, dass Sie die ausgewählte E-Mail ( s ) zu löschen?.
+        /// </summary>
+        public static string DeleteEmailsMsg {
+            get {
+                return ResourceManager.GetString("DeleteEmailsMsg", resourceCulture);
             }
         }
         
@@ -318,6 +345,15 @@ namespace Resources {
         public static string Emails {
             get {
                 return ResourceManager.GetString("Emails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         

@@ -58,7 +58,6 @@ namespace MobileL2P.Models
         [StringLength(100)]
         public string title { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string body { get; set; }
 
@@ -73,7 +72,6 @@ namespace MobileL2P.Models
         [StringLength(100)]
         public string subject { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string body { get; set; }
 
@@ -95,7 +93,6 @@ namespace MobileL2P.Models
         public string Title { get; set; }
 
         [Required]
-        [StringLength(200)]
         [Display(Name = "Description")]
         public string Description { get; set; }
 
@@ -111,19 +108,20 @@ namespace MobileL2P.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Due Date")]
         public string DueDate { get; set; }
+
         [Required]
         [StringLength(50)]
         [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
         //[Display(Name = "Due Date Hours")]
         public string DueDatehours { get; set; }
 
-     
-        [DataType(DataType.Url)]
+
+        [StringLength(100)]
         [Display(Name = "Assignment Documents")]
         public string AssignmentDocuments { get; set; }
 
 
-        [DataType(DataType.Url)]
+        [StringLength(100)]
         [Display(Name = "Sample Solution")]
         public string SampleSolution { get; set; }
 

@@ -173,7 +173,7 @@
                     <div class="file-field input-field">
                         <label for="ListOfUsers">Enter TIM ID's seperated with comma</label>
                         @Html.TextBoxFor(m => m.ListOfUsers, new { @class = "validate", type = "text" })
-                        <span>@Html.ValidationMessageFor(m => m.ListOfUsers)</span>
+                        <span class="red-text">@Html.ValidationMessageFor(m => m.ListOfUsers)</span>
                     </div>
                 </div>
             </div>
