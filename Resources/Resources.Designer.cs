@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neue Aufgabe.
+        ///   Looks up a localized string similar to Add Assignment.
         /// </summary>
         public static string AddAssignment {
             get {

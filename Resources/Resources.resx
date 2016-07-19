@@ -267,7 +267,7 @@
     <value>View Announcement</value>
   </data>
   <data name="AddAssignment" xml:space="preserve">
-    <value>Neue Aufgabe</value>
+    <value>Add Assignment</value>
   </data>
   <data name="AddHyperlink" xml:space="preserve">
     <value>Add Hyperlink</value>
