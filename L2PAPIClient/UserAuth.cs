@@ -9,6 +9,8 @@ using System.Threading;
 
 namespace L2PAPIClient
 {
+
+    //Object Oriented Approach
     public class UserAuth
     {
         private UserConfig config = new UserConfig();

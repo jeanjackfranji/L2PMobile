@@ -22,7 +22,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -59,7 +59,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -119,7 +119,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     string currentFolder = null;
                     if (curDir != null && curDir.Contains("/"))
@@ -178,7 +178,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     string currentFolder = null;
                     if (curDir != null && curDir.Contains("/"))
@@ -260,7 +260,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -306,7 +306,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -362,7 +362,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -421,7 +421,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -479,7 +479,7 @@ namespace MobileL2P.Controllers
 
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -537,7 +537,7 @@ namespace MobileL2P.Controllers
 
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -595,7 +595,7 @@ namespace MobileL2P.Controllers
 
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -646,7 +646,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -682,7 +682,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -751,7 +751,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -798,7 +798,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -852,7 +852,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -917,7 +917,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -968,7 +968,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     List<string> allPossibleRecipients = new List<string>();
@@ -1014,7 +1014,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1093,7 +1093,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1144,7 +1144,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -1196,7 +1196,7 @@ namespace MobileL2P.Controllers
         //    {
         //        // This method must be used before every L2P API call
         //        Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-        //        if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+        //        if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
         //        {
         //            L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
         //            L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1279,7 +1279,7 @@ namespace MobileL2P.Controllers
         //    {
         //        // This method must be used before every L2P API call
         //        Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-        //        if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+        //        if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
         //        {
         //            L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
         //            L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1335,7 +1335,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1398,7 +1398,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -1450,7 +1450,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1522,7 +1522,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1600,7 +1600,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1636,7 +1636,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1715,7 +1715,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -1761,7 +1761,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1798,7 +1798,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1863,7 +1863,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1932,7 +1932,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -1995,7 +1995,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2031,7 +2031,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     ViewData["ChosenCourse"] = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     ViewData["userRole"] = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2087,7 +2087,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2143,7 +2143,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2179,7 +2179,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2227,7 +2227,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     if (String.IsNullOrEmpty(cId))
                     {
@@ -2273,7 +2273,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);
@@ -2310,7 +2310,7 @@ namespace MobileL2P.Controllers
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 L2PDiscussionItemList elem;
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
                     L2PCourseInfoData course = await L2PAPIClient.api.Calls.L2PviewCourseInfoAsync(cId);
                     L2PRole userRole = await L2PAPIClient.api.Calls.L2PviewUserRoleAsync(cId);

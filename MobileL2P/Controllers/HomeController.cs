@@ -19,25 +19,17 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                LoginStatus lStatus = LoginStatus.Waiting;
+                // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (HttpContext.Session["LoggedIn"] != null)
-                    lStatus = (LoginStatus)(HttpContext.Session["LoggedIn"]);
-
-                if (lStatus == LoginStatus.LoggedIn)
+                UserAuth auth = null;
+                if (HttpContext.Session["authenticator"] != null)
+                {
+                    auth = HttpContext.Session["authenticator"] as UserAuth;
+                }
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext, auth))
                 {
                     //remove previously save course id
                     HttpContext.Session.Remove("CourseId");
-                    if (Tools.hasCookieToken)
-                    {
-                        UserAuth auth = new UserAuth();
-                        if (HttpContext.Session["authenticator"] != null)
-                        {
-                            auth = HttpContext.Session["authenticator"] as UserAuth;
-                        }
-                        await auth.CheckAccessTokenAsync();
-                    }
-
                     L2PCourseInfoSetData result = await L2PAPIClient.api.Calls.L2PviewAllCourseInfoAsync();
                     L2PCourseInfoSetData resultBySemester = null;
                     if (semId != null)
@@ -84,7 +76,7 @@ namespace MobileL2P.Controllers
             {
                 // This method must be used before every L2P API call
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
-                if (Tools.isUserLoggedInAndAPIActive(HttpContext))
+                if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
                     //remove previously save course id
                     HttpContext.Session.Remove("CourseId");
@@ -150,7 +142,7 @@ namespace MobileL2P.Controllers
             }
             Response.Cookies.Add(cookie);
 
-            return RedirectToAction(nameof(AccountController.Login), "Account");
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
     }

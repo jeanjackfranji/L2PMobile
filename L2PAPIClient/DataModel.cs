@@ -437,7 +437,7 @@ namespace L2PAPIClient.DataModel
     public class L2PWhatsNewDataType : L2PBaseData
     {
         public List<L2PAnnouncementElement> announcements;
-        public List<L2PAssignmentElement> assignements;
+        public List<L2PAssignmentElement> assignments;
         public List<L2PDiscussionItemElement> discussionItems;
         public List<L2PEmailElement> emails;
         public List<L2PHyperlinkElement> hyperlinks;

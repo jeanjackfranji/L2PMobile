@@ -15,7 +15,7 @@
 <nav>
     <div class="nav-wrapper white">
         <div class="col s12">
-            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})"  class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
+            <a href="@Url.Action("WhatsNew", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px; margin-left: 10px;">@Tools.truncateString(course.courseTitle, 20) @((course.courseTitle != null && course.courseTitle.Length > 20) ? "..." : "")</a>
             <a href="@Url.Action("DiscussionForum", "MyCourses", new{ cId = @course.uniqueid})" class="breadcrumb blue-text" style="font-size: 9px;">@Resources.DiscussionForum</a>
             <a href="#!" class="breadcrumb blue-text" style="font-size: 9px;">View</a>
         </div>
@@ -34,25 +34,26 @@
                     <br />
                 </div>
                 <span class="right" style="font-size: smaller; font-style:italic"><b>Posted on:</b> @Tools.toDateTimeString(headdiscussion.created)</span>
-                <br /><br /><span style="font-size: 16px" >All Replies</span> <br /><br />
-                @foreach (L2PDiscussionItemElement elem in mainThreadReplies)
+                <br /><br /><span style="font-size: 16px">All Replies</span> <br /><br />
+                @if (mainThreadReplies != null)
                 {
-                    <i class="material-icons left small circle" style="color:slategray !important;">person_outline</i>
-                    <p class="valign" style="font-size: 16px;">
-                        @elem.from
-                        @if (elem.replyToId != elem.parentDiscussionId)
-                        {
-                            <span style="font-size: x-small; color: blue">In Response To @mainThreadReplies.Find(item => item.selfId == elem.replyToId).from 's Post</span>
-                        }
-                    </p>
-                    <p>
-                        @Html.Raw(elem.body)
-                    </p>
-                    <span class="right" style="font-size: smaller; font-style:italic"><b>Posted on:</b> @Tools.toDateTimeString(headdiscussion.created)</span><br/><br />
+                    foreach (L2PDiscussionItemElement elem in mainThreadReplies)
+                    {
+                        <i class="material-icons left small circle" style="color:slategray !important;">person_outline</i>
+                        <p class="valign" style="font-size: 16px;">
+                            @elem.from
+                            @if (elem.replyToId != elem.parentDiscussionId)
+                            {
+                                <span style="font-size: x-small; color: blue">In Response To @mainThreadReplies.Find(item => item.selfId == elem.replyToId).from 's Post</span>
+                            }
+                        </p>
+                        <p>
+                            @Html.Raw(elem.body)
+                        </p>
+                        <span class="right" style="font-size: smaller; font-style:italic"><b>Posted on:</b> @Tools.toDateTimeString(headdiscussion.created)</span><br /><br />
+                    }
                 }
-            </div>
-            <div class="card-action">
-                <a href="@Url.Action("ReplyDiscussion", "L2P", new{ cId = @course.uniqueid, hId= @headdiscussion.selfId})" class="waves-effect waves-light btn"><i class="material-icons left">reply</i>Reply</a>
+
             </div>
         </div>
     </div>

@@ -246,7 +246,6 @@
     <Content Include="Views\L2P\AddEmail.cshtml" />
     <Content Include="Views\L2P\AddSolution.cshtml" />
     <Content Include="Views\L2P\EditDiscussion.cshtml" />
-    <Content Include="Views\L2P\ReplyDiscussion.cshtml" />
     <Content Include="Views\L2P\ShowAnnouncement.cshtml" />
     <Content Include="Views\L2P\ShowAssignment.cshtml" />
     <Content Include="Views\L2P\ShowDiscussion.cshtml" />

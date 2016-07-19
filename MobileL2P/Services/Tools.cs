@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace MobileL2P.Services
 {
@@ -35,14 +36,24 @@ namespace MobileL2P.Services
             }
         }
 
-        public static bool isUserLoggedInAndAPIActive(HttpContextBase context)
+        public static async Task<bool> isUserLoggedInAndAPIActive(HttpContextBase context, UserAuth auth = null)
         {
             LoginStatus login_status = LoginStatus.Waiting;
-            if(context.Session["LoggedIn"] != null)
+            bool l2pStatus = false;
+            if (context.Session["LoggedIn"] != null)
             {
                 login_status = (LoginStatus)context.Session["LoggedIn"];
             }
-            bool l2pStatus = AuthenticationManager.getState() == AuthenticationManager.AuthenticationState.ACTIVE;
+            if (auth != null)
+            {
+                await auth.CheckAccessTokenAsync();
+                l2pStatus = auth.getState() == UserAuth.AuthenticationState.ACTIVE;
+            }
+            else
+            {
+                await AuthenticationManager.CheckAccessTokenAsync();
+                l2pStatus = AuthenticationManager.getState() == AuthenticationManager.AuthenticationState.ACTIVE;
+            }
             return  (login_status.Equals(LoginStatus.LoggedIn) && l2pStatus);
         }
 

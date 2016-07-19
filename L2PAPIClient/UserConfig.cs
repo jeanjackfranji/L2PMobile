@@ -4,6 +4,7 @@ using System.Text;
 
 namespace L2PAPIClient
 {
+    //Object Oriented Approach
     public class UserConfig
     {
         public UserConfig() { }

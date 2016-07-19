@@ -1,14 +1,18 @@
 ﻿/* Page setup */
 
 @media only screen and (max-width : 992px) {
-    header, main, footer {
+    /*header, main, footer {
         padding-left: 0;
-    }
+    }*/
+
+    /*nav .brand-logo {
+        margin-left: 30px !important;
+    }*/
 
     nav .brand-logo {
-        left: 50% !important;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
+        left: 60px !important;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
     }
 
     #a-secondary-content{
@@ -20,6 +24,10 @@
     .container{
         margin-top: 20px;
     }
+}
+
+nav .brand-logo {
+    left: 50px;
 }
 
 .page-content {
@@ -63,9 +71,6 @@
     position: absolute;
 }
 
-nav .brand-logo {
-    left: 50px;
-}
 
 table p {
     margin: 0px;

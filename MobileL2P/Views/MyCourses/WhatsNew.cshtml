@@ -2,6 +2,20 @@
 @using MobileL2P.Services;
 @{
     ViewData["Title"] = Resources.WhatsNew;
+    string nbOfItems = ViewData["nbOfItems"] as string;
+    string lastSince = ViewData["lastSince"] as string;
+    int itemsNb = 0, lSince = 0;
+    int.TryParse(nbOfItems, out itemsNb);
+    int.TryParse(lastSince, out lSince);
+    if (itemsNb == 0 || itemsNb > 30)
+    {
+        itemsNb = 5;
+    }
+    if (lSince == 0)
+    {
+        lSince = 7;
+    }
+
     L2PCourseInfoData course = ViewData["ChosenCourse"] as L2PCourseInfoData;
     L2PWhatsNewDataType cWhatsNew = ViewData["CourseWhatsNew"] as L2PWhatsNewDataType;
     List<L2PAssignmentElement> assignments = ViewData["Assignments"] as List<L2PAssignmentElement>;
@@ -9,154 +23,195 @@
 
 }
 
-<div class="row" style="margin-bottom: 0px !important">
+<div class="row" style="margin-bottom: 10px !important">
     <div class="col s12 center-align">
         <div class="chip"><i class="material-icons">new_releases</i><b>@Resources.WhatsNew</b> | @course.courseTitle</div>
     </div>
 </div>
-   <div class="row">
-        @if (examResults.dataset != null && examResults.dataset.Count > 0)
+<div class="row" style="margin-bottom: 0px !important">
+    <div class="input-field col s4 m2 push-m7">
+        <select id="select_nbOfItems">
+            <option value="" disabled selected>Items:</option>
+            <option value="5"  @(itemsNb == 5 ? "selected": "")>5</option>
+            <option value="10" @(itemsNb == 10 ? "selected": "")>10</option>
+            <option value="15" @(itemsNb == 15 ? "selected": "")>15</option>
+        </select>
+        <label>Items</label>
+    </div>
+    <div class="input-field col s8 m3 push-m7">
+        <select id="select_lastSince">
+            <option value="" disabled selected>Since when:</option>
+            <option value="1" @(lSince == 1 ? "selected": "") >Last Day</option>
+            <option value="3" @(lSince == 3 ? "selected": "")>Last 3 Days</option>
+            <option value="7" @(lSince == 7 ? "selected": "")>Last 7 Days</option>
+            <option value="15" @(lSince == 15 ? "selected": "")>Last 15 Days</option>
+        </select>
+        <label>Since</label>
+    </div>
+</div>
+<div class="row">
+    @if (examResults.dataset != null && examResults.dataset.Count > 0)
+    {
+        L2PExamResultDataType userResult = examResults.dataset.First();
+        if (userResult.isPublished)
         {
-            L2PExamResultDataType userResult = examResults.dataset.First();
-            if (userResult.isPublished)
-            {
-                <div class="col s12 m6">
-                    <div class="card indigo lighten-5">
-                        <div class="card-content black-text hoverable">
-                            <span class="card-title"><i class="material-icons blue-text">notifications_active</i> @Resources.ExamResults</span>
-                            <span class="badge red white-text">important</span>
-                            <p>
-                                <b>Name:</b> @userResult.firstname, @userResult.lastname
-                                <br/>
-                                <b>Grade:</b> @userResult.grade <br />
-                                <a href="@Url.Action("ExamResults", "MyCourses", new{ cId = @course.uniqueid})">@Resources.DetailedResults</a>
-                            </p>
-                        </div>
+            <div class="col s12 m6">
+                <div class="card indigo lighten-5">
+                    <div class="card-content black-text hoverable">
+                        <span class="card-title"><i class="material-icons blue-text">notifications_active</i> @Resources.ExamResults</span>
+                        <span class="badge red white-text">important</span>
+                        <p>
+                            <b>Name:</b> @userResult.firstname, @userResult.lastname
+                            <br />
+                            <b>Grade:</b> @userResult.grade <br />
+                            <a href="@Url.Action("ExamResults", "MyCourses", new{ cId = @course.uniqueid})">@Resources.DetailedResults</a>
+                        </p>
                     </div>
                 </div>
-            }
-        }
-        <div class="col s12 m6">
-            <div class="card indigo lighten-5 dismissable">
-                <div class="card-content black-text hoverable">
-                    <span class="card-title">@Resources.LearningMaterials</span>
-                    <ul class="collection">
-                        @if (cWhatsNew.learningMaterials != null)
-                        {
-                            var learnMat = (from elt in cWhatsNew.learningMaterials
-                                            where elt.isDirectory == false
-                                            orderby elt.created descending
-                                            select elt).Take(5);
-                            foreach (L2PLearningMaterialElement lm in learnMat)
-                            {
-                                L2PFileInformationElement fileInfo = Tools.DeserializeObject<L2PFileInformationElement>(lm.fileInformation);
-                                <li class="collection-item avatar">
-                                    <img src="@Tools.getImagePathByFileName(lm.name)" class="circle" style="background-size: 80% !important" />
-                                    <span class="title"><a href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})" >@lm.name.Replace("_"," ")</a></span>
-                                    <a id="a-secondary-content" class="secondary-content" href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})"><i class="material-icons blue-text">get_app</i></a>
-                                    <p>
-                                        @if (lm.relatedLectureDates != null && lm.relatedLectureDates.Count() > 0)
-                                        {
-                                            <b>Lecture Date:</b> @Tools.toDateTimeString(lm.relatedLectureDates.First());
-                                            <br />
-                                        }
-                                        @Html.Raw(fileInfo != null ? "<b>Size: </b>" + Tools.ToFileSize(fileInfo.fileSize) : "")
-                                    </p>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
             </div>
-        </div>
-        <div class="col s12 m6">
-            <div class="card indigo lighten-5 dismissable">
-                <div class="card-content black-text hoverable">
-                    <span class="card-title">@Resources.Assignments</span>
-                    <ul class="collection">
-                        @if (assignments != null)
+        }
+    }
+    <div class="col s12 m6">
+        <div class="card indigo lighten-5 dismissable">
+            <div class="card-content black-text hoverable">
+                <span class="card-title">@Resources.LearningMaterials</span>
+                <ul class="collection">
+                    @if (cWhatsNew.learningMaterials != null)
+                    {
+                        var learnMat = (from elt in cWhatsNew.learningMaterials
+                                        where elt.isDirectory == false
+                                        orderby elt.created descending
+                                        select elt).Take(itemsNb);
+                        foreach (L2PLearningMaterialElement lm in learnMat)
                         {
-                            foreach (L2PAssignmentElement assign in assignments)
-                            {
-                                if (assign.correction == null)
-                                {
-                                    assign.correction = new L2PAssignmentCorrection();
-                                }
-                                <li class="collection-item avatar">
-                                    <span class="title"><a href="@Url.Action("ShowAssignment", "L2P", new{ CAID = @course.uniqueid, AID=@assign.itemId})" >@assign.title</a></span>
-                                    <a id="a-secondary-content" class="secondary-content" href="@Url.Action("DownloadsZip", "MyCourses", new{ CAID = @course.uniqueid, AID= @assign.itemId })" ><i class="material-icons blue-text">get_app</i></a>
-                                    <p>
-                                        @if (assign.solution != null)
-                                        {
-                                            <i class="material-icons circle green accent-3">done</i>
-                                        }
-                                        else
-                                        {
-                                            <i class="material-icons circle red accent-3">clear</i>
-                                        }
-                                        <b>Publish Date: </b>@Tools.toDateString(@assign.assignmentPublishDate)<br />
-                                        <b>Dute Date: </b>@Tools.toDateTimeString(@assign.dueDate)
-                                    </p>
-                                </li>
-                            }
-                            <li class="collection-item center-align">
-                                <b>Total Points: </b> @assignments.Sum(item => item.totalPoint) <br />
-                                <b>Total Obtained Points: </b> @assignments.Sum(item => item.correction.obtainedPoint) <br />
-                                @if (assignments.Sum(item => item.totalPoint) != 0)
-                                {
-                                    <b>Total Percentage: </b> @(String.Format("{0:0.00}", (assignments.Sum(item => item.correction.obtainedPoint) / @assignments.Sum(item => item.totalPoint) * 100)))
-                                    <span>%</span>
-                                }
+                            L2PFileInformationElement fileInfo = Tools.DeserializeObject<L2PFileInformationElement>(lm.fileInformation);
+                            <li class="collection-item avatar">
+                                <img src="@Tools.getImagePathByFileName(lm.name)" class="circle" style="background-size: 80% !important" />
+                                <span class="title"><a href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})">@lm.name.Replace("_", " ")</a></span>
+                                <a id="a-secondary-content" class="secondary-content" href="@Url.Action("Downloads", "MyCourses", new{ cId = @course.uniqueid, url=@lm.selfUrl, filename=@lm.name})"><i class="material-icons blue-text">get_app</i></a>
+                                <p>
+                                    @if (lm.relatedLectureDates != null && lm.relatedLectureDates.Count() > 0)
+                                    {
+                                        <b>Lecture Date:</b> @Tools.toDateTimeString(lm.relatedLectureDates.First());
+                                        <br />
+                                    }
+                                    @Html.Raw(fileInfo != null ? "<b>Size: </b>" + Tools.ToFileSize(fileInfo.fileSize) : "")
+                                </p>
                             </li>
                         }
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col s12 m6">
-            <div class="card indigo lighten-5 dismissable">
-                <div class="card-content black-text hoverable">
-                    <span class="card-title">@Resources.RecentAnnouncement</span>
-                    <ul class="collapsible" data-collapsible="accordion">
-                        @if (cWhatsNew.announcements != null)
-                        {
-                            var anncmts = (from elt in cWhatsNew.announcements
-                                           orderby elt.created descending
-                                           select elt).Take(5);
-                            foreach (L2PAnnouncementElement anm in anncmts)
-                            {
-                                <li>
-                                    <div class="collapsible-header"><i class="material-icons grey-text">announcement</i><a href="@Url.Action("ShowAnnouncement", "L2P", new{ cId = @course.uniqueid, aid=@anm.itemId})">@anm.title</a></div>
-                                    <div class="collapsible-body"><p>@Html.Raw(@anm.body)</p></div>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col s12 m6">
-            <div class="card indigo lighten-5 dismissable">
-                <div class="card-content black-text hoverable">
-                    <span class="card-title">@Resources.RecentDiscussion</span>
-                    <ul class="collapsible" data-collapsible="accordion">
-                        @if (cWhatsNew.discussionItems != null)
-                        {
-                            var discussions = (from elt in cWhatsNew.discussionItems
-                                               orderby elt.created descending
-                                               select elt).Take(5);
-                            foreach (L2PDiscussionItemElement disc in discussions)
-                            {
-                                <li>
-                                    <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a href="@Url.Action("DiscussionForum", "MyCourses", new{ cId =@disc.selfId})">@disc.subject</a></div>
-                                    <div class="collapsible-body"><p>@Html.Raw(@disc.body)</p></div>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
         </div>
     </div>
+    <div class="col s12 m6">
+        <div class="card indigo lighten-5 dismissable">
+            <div class="card-content black-text hoverable">
+                <span class="card-title">@Resources.Assignments</span>
+                <ul class="collection">
+                    @if (assignments != null)
+                    {
+                        foreach (L2PAssignmentElement assign in assignments)
+                        {
+                            if (assign.correction == null)
+                            {
+                                assign.correction = new L2PAssignmentCorrection();
+                            }
+                            <li class="collection-item avatar">
+                                <span class="title"><a href="@Url.Action("ShowAssignment", "L2P", new{ CAID = @course.uniqueid, AID=@assign.itemId})">@assign.title</a></span>
+                                <a id="a-secondary-content" class="secondary-content" href="@Url.Action("DownloadsZip", "MyCourses", new{ CAID = @course.uniqueid, AID= @assign.itemId })"><i class="material-icons blue-text">get_app</i></a>
+                                <p>
+                                    @if (assign.solution != null)
+                                    {
+                                        <i class="material-icons circle green accent-3">done</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="material-icons circle red accent-3">clear</i>
+                                    }
+                                    <b>Publish Date: </b>@Tools.toDateString(@assign.assignmentPublishDate)<br />
+                                    <b>Dute Date: </b>@Tools.toDateTimeString(@assign.dueDate)
+                                </p>
+                            </li>
+                        }
+                        <li class="collection-item center-align">
+                            <b>Total Points: </b> @assignments.Sum(item => item.totalPoint) <br />
+                            <b>Total Obtained Points: </b> @assignments.Sum(item => item.correction.obtainedPoint) <br />
+                            @if (assignments.Sum(item => item.totalPoint) != 0)
+                            {
+                                <b>Total Percentage: </b> @(String.Format("{0:0.00}", (assignments.Sum(item => item.correction.obtainedPoint) / @assignments.Sum(item => item.totalPoint) * 100)))
+                                <span>%</span>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card indigo lighten-5 dismissable">
+            <div class="card-content black-text hoverable">
+                <span class="card-title">@Resources.RecentAnnouncement</span>
+                <ul class="collapsible" data-collapsible="accordion">
+                    @if (cWhatsNew.announcements != null)
+                    {
+                        var anncmts = (from elt in cWhatsNew.announcements
+                                       orderby elt.created descending
+                                       select elt).Take(itemsNb);
+                        foreach (L2PAnnouncementElement anm in anncmts)
+                        {
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons grey-text">announcement</i><a href="@Url.Action("ShowAnnouncement", "L2P", new{ cId = @course.uniqueid, aid=@anm.itemId})">@anm.title</a></div>
+                                <div class="collapsible-body"><p>@Html.Raw(@anm.body)</p></div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card indigo lighten-5 dismissable">
+            <div class="card-content black-text hoverable">
+                <span class="card-title">@Resources.RecentDiscussion</span>
+                <ul class="collapsible" data-collapsible="accordion">
+                    @if (cWhatsNew.discussionItems != null)
+                    {
+                        var discussions = (from elt in cWhatsNew.discussionItems
+                                           orderby elt.created descending
+                                           where elt.selfId == elt.parentDiscussionId
+                                           select elt).Take(itemsNb);
+                        foreach (L2PDiscussionItemElement disc in discussions)
+                        {
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons grey-text">forum</i><a href="@Url.Action("ShowDiscussion", "L2P", new{cId=@course.uniqueid, dId =@disc.selfId})">@disc.subject</a></div>
+                                <div class="collapsible-body"><p>@Html.Raw(@disc.body)</p></div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+
+        //Method to select nb of items
+        $('select[id="select_nbOfItems"]').change(function () {
+            window.location.href = "/MyCourses/WhatsNew?cId=@course.uniqueid&lastSince=@lSince&nbOfItems=" + $(this).val();
+        });
+
+        //Method to select last since
+        $('select[id="select_lastSince"]').change(function () {
+            window.location.href = "/MyCourses/WhatsNew?cId=@course.uniqueid&nbOfItems=@nbOfItems&lastSince=" + $(this).val();
+        });
+    });
+
+
+
+</script>
