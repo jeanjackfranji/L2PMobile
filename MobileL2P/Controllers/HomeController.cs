@@ -3,9 +3,7 @@ using L2PAPIClient;
 using System;
 using System.Threading.Tasks;
 using MobileL2P.Services;
-using static MobileL2P.Services.Tools;
 using System.Collections.Generic;
-using System.Threading;
 using System.Web.Mvc;
 using System.Web;
 using MobileL2P.Helpers;
@@ -15,11 +13,13 @@ namespace MobileL2P.Controllers
     public class HomeController : BaseController
     {
 
+        //GET Method to show the list of My Courses
+        [HttpGet]
         public async Task<ActionResult> MyCourses(String semId)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to check if user is authorized
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 UserAuth auth = null;
                 if (HttpContext.Session["authenticator"] != null)
@@ -56,7 +56,6 @@ namespace MobileL2P.Controllers
             catch(Exception ex)
             {
                 //Let Cookie Expire
-                //Let Cookie Expire
                 HttpCookie accessCookie = new HttpCookie("CRTID");
                 HttpCookie refreshCookie = new HttpCookie("CRAID");
                 accessCookie.Expires = DateTime.Now.AddDays(-1);
@@ -70,6 +69,8 @@ namespace MobileL2P.Controllers
             return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
+        //GET Method to show the main calendar
+        [HttpGet]
         public async Task<ActionResult> Calendar()
         {
             try
@@ -109,11 +110,14 @@ namespace MobileL2P.Controllers
             }
         }
 
+        //GET Method to show the about us page
+        [HttpGet]
         public ActionResult About()
         {
             return View();
         }
         
+        //General Error Page to display the error message.
         public ActionResult Error(string error)
         {
             if(error != null && error.Contains("401 (Unauthorized)"))
@@ -124,6 +128,7 @@ namespace MobileL2P.Controllers
             return View("~/Views/Shared/Error.cshtml");
         }
 
+        //Language Method to set the language culture of the project
         public ActionResult Language(string culture = "EN")
         {
             // Validate input
@@ -141,7 +146,7 @@ namespace MobileL2P.Controllers
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-
+            //Redirect to the same page
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 

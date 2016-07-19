@@ -6,6 +6,7 @@ using MobileL2P.Helpers;
 
 namespace MobileL2P.Controllers
 {
+    //Base Controller that handles adding a culture cookie (EN/DE localization)
     public class BaseController : Controller
     {
 

@@ -13,6 +13,7 @@ using System.Web;
 namespace MobileL2P.Controllers
 {
 
+    //Account Controller Responsible for Authorization and Login / Logout Process
     public class AccountController : BaseController
     {
         public AccountController() { }
@@ -25,6 +26,7 @@ namespace MobileL2P.Controllers
             try
             {
                 ViewData["ReturnUrl"] = returnUrl;
+                //Check if user has already authorized
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (!Tools.hasCookieToken)
                 {
@@ -60,6 +62,7 @@ namespace MobileL2P.Controllers
                     // Just wait 5 seconds - this is the recommended querying time for OAuth by ITC
                     Thread.Sleep(5000);
 
+                    //Obj oriented approach for authorization process
                     UserAuth auth = new UserAuth();
                     if(HttpContext.Session["authenticator"] != null)
                     {
@@ -71,16 +74,14 @@ namespace MobileL2P.Controllers
                     done = (auth.getState() == UserAuth.AuthenticationState.ACTIVE);
                     if (done)
                     {
+                        //Add a Cookie to save tokens locally
                         HttpCookie accessCookie = new HttpCookie("CRTID", Encryptor.Encrypt(reqData.access_token));
                         HttpCookie refreshCookie = new HttpCookie("CRAID", Encryptor.Encrypt(reqData.refresh_token));
                         accessCookie.Expires = DateTime.MaxValue;
                         refreshCookie.Expires = DateTime.MaxValue;
 
-                        //Add a Cookie
                         Response.Cookies.Add(accessCookie);
                         Response.Cookies.Add(refreshCookie);
-
-                        System.Diagnostics.Debug.WriteLine(reqData.access_token + " :: :: " + reqData.refresh_token);
 
                         //Set logged in to true
                         HttpContext.Session.Add("LoggedIn", Tools.ObjectToByteArray(LoginStatus.LoggedIn));

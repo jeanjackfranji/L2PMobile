@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using MobileL2P.Services;
 using ICSharpCode.SharpZipLib.Zip;
 using MobileL2P.Models;
-using MobileL2P.Controllers;
 using System.Web.Mvc;
 
 namespace MobileL2P.Controllers
@@ -22,7 +21,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
@@ -67,7 +66,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext))
                 {
@@ -89,12 +88,13 @@ namespace MobileL2P.Controllers
             }
         }
 
+        //Obsolete
         [HttpGet] // Get Method to show the subject info of a course.
         public async Task<ActionResult> ShowSubject(String cId)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -117,7 +117,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -169,7 +169,7 @@ namespace MobileL2P.Controllers
 
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -218,7 +218,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -246,13 +246,13 @@ namespace MobileL2P.Controllers
             }
         }
 
-        [HttpGet] // Get Method to show all the hyperlinks of a course
+        [HttpGet] // Get Method to show all the litreature of a course
         public async Task<ActionResult> Literature(String cId)
         {
 
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -283,12 +283,12 @@ namespace MobileL2P.Controllers
         }
 
 
-        [HttpGet] // Get Method to show all the hyperlinks of a course
+        [HttpGet] // Get Method to show all the assignments of a course
         public async Task<ActionResult> Assignments(String cId, string msg)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -324,7 +324,7 @@ namespace MobileL2P.Controllers
 
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -367,11 +367,13 @@ namespace MobileL2P.Controllers
                 return RedirectToAction(nameof(HomeController.Error), "Home", new { @error = ex.Message });
             }
         }
+
+        [HttpGet] // Get Method to show the Announcements of a course.
         public async Task<ActionResult> Announcement(String cId, String msg)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -397,11 +399,13 @@ namespace MobileL2P.Controllers
                 return RedirectToAction(nameof(HomeController.Error), "Home", new { @error = ex.Message });
             }
         }
+
+        [HttpGet] // Get Method to show the emails of a course.
         public async Task<ActionResult> Email(String cId, String msg)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -469,6 +473,7 @@ namespace MobileL2P.Controllers
             }
         }
 
+        // Function used to download files from the L2P Client as a zip file
         public async Task<ActionResult> DownloadsZip(string caid, string aid)
         {
             try
@@ -558,7 +563,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -599,7 +604,7 @@ namespace MobileL2P.Controllers
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -627,15 +632,14 @@ namespace MobileL2P.Controllers
 
         }
 
-        // Post Method to add a new folder in the intended view (Learning Material,...)
-        // POST: /L2P/AddFolder
+        // Post Method to add a users in the intended view
+        // POST: /MyCourses/AddUsers
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddUsers(string cId, int groupId, GroupWorkSpaceViewModel model)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -677,12 +681,14 @@ namespace MobileL2P.Controllers
             }
         }
 
+        // Get Method to add a users in the intended view
+        // GET: /MyCourses/AcceptOrRejectInvite
         [HttpGet]
         public async Task<ActionResult> AcceptOrRejectInvite(string cId, int itemId, string response)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
@@ -704,12 +710,13 @@ namespace MobileL2P.Controllers
 
         }
         
+        //Get Method to show the list of all discussions in a course.
         [HttpGet]
         public async Task<ActionResult> DiscussionForum(string cId, string ExtdDir)
         {
             try
             {
-                // This method must be used before every L2P API call
+                // This method must be used before every L2P API call to authenticate a user
                 Tools.getAndSetUserToken(Request.Cookies, HttpContext);
                 if (await Tools.isUserLoggedInAndAPIActive(HttpContext) && !String.IsNullOrEmpty(cId))
                 {
